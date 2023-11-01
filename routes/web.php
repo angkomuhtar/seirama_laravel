@@ -10,7 +10,9 @@ use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\WorkhoursController;
 use App\Http\Controllers\Admin\ClocklocationsController;
 use App\Http\Controllers\Admin\AjaxController;
+use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,15 +35,26 @@ Route::controller(LoginController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
 });
 
+//user
+Route::get('/',[UserController::class, 'index'])->name('user');
+
+
+//admin
 Route::middleware('Admin')->prefix('admin')->group(function()
 {
     Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
-
     Route::controller(EmployeeController::class)->prefix('employee')->group(function()
     {
         Route::get('/','index')->name('employee');
         Route::get('/create','create')->name('employee.create');
         Route::post('/','store')->name('employee.store');
+    });
+
+    Route::controller(KegiatanController::class)->prefix('kegiatan')->group(function()
+    {
+        Route::get('/','index')->name('kegiatan');
+        Route::get('/create','create')->name('kegiatan.create');
+        Route::post('/','store')->name('kegiatan.store');
     });
 
     Route::controller(usersController::class)->prefix('users')->group(function()

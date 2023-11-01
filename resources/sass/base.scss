@@ -1,7 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Mr+Dafoe&family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "swiper/scss";
+@import "swiper/css/effect-creative";
 
 @import "components/mix";
 @import "components/alert";
@@ -162,4 +164,11 @@
             @apply first:mr-0;
         }
     }
+}
+
+.footer-app-title {
+    @apply uppercase text-xs text-appPrimary-500 font-semibold;
+}
+.footer-app-content {
+    @apply font-Opensans text-white;
 }

@@ -20,8 +20,9 @@ class UsersSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'email' => 'Angkomuhtar@gmail.com',
+            'email' => 'Admin@seirama.com',
             'username' => 'Admin',
+            'roles' => 'superadmin',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),

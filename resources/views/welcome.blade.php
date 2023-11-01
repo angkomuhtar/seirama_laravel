@@ -1,5 +1,5 @@
-<x-appLayout>
+<x-userLayout>
     <h1 class="text-3xl font-bold underline">
-        Hello world!
+        im Home
     </h1>
-</x-appLayout>
+</x-userLayout>

@@ -13,19 +13,17 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('card_id');
-            $table->string('kk');
-            $table->integer('education');
+            $table->string('nama');
+            $table->string('ktp');
             $table->string('tmp_lahir');
             $table->date('tgl_lahir');
-            $table->enum('gender', ['M', 'F']);
-            $table->integer('religion');
-            $table->integer('marriage');
-            $table->string('id_addr');
-            $table->string('live_addr');
-            $table->char('phone', 15);
+            $table->string('alamat');
+            $table->string('telp');
+            $table->enum('jenkel', ['M', 'F']);
+            $table->integer('status_pernikahan');
+            $table->integer('agama');
             $table->integer('user_id');
+            $table->enum('isASN',['Y', 'N'])->default('N');
             $table->timestamps();
         });
     }

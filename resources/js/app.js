@@ -77,4 +77,7 @@ window.cleave = cleave;
 import validate from "jquery-validation";
 window.validate = validate;
 
+import Swiper from "swiper";
+window.Swiper = Swiper;
+
 import.meta.glob(["../images/**"]);
