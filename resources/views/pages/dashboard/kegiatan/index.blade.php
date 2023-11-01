@@ -21,58 +21,134 @@
                     <form class="space-y-4" id="sending_form">
                         <input type="hidden" name="id" id="id" value="">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <div class="input-area relative">
+                        <div class="input-area relative has-error">
                             <label for="largeInput" class="form-label">Nama Kegiatan</label>
                             <div class="relative">
-                                <input type="text" name="division" class="form-control !pl-9"
-                                    placeholder="Nama Divisi">
+                                <input type="text" name="nama" class="form-control !pl-9"
+                                    placeholder="Nama Kegiatan" error="test">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
                         </div>
                         <div class="input-area relative">
                             <label for="largeInput" class="form-label capitalize">Jenis Kerjasama</label>
                             <div class="relative">
-                                <select id="select" class="form-control !pl-9" name="division">
+                                <select id="select" class="form-control !pl-9" name="kerjasama">
                                     <option selected disabled class="dark:bg-slate-700 text-slate-300">Pilih Data
                                     </option>
+                                    @foreach ($kerjasama as $item)
+                                        <option value="{{ $item->id }}" class="dark:bg-slate-700">
+                                            {{ $item->nama }}</option>
+                                    @endforeach
                                 </select>
                                 <iconify-icon icon="heroicons:globe-alt"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
                         </div>
                         <div class="input-area relative">
-                            <label for="largeInput" class="form-label">Jenis Kerjasama</label>
+                            <label for="largeInput" class="form-label">Pelaksana</label>
                             <div class="relative">
-                                <input type="text" name="division" class="form-control !pl-9"
-                                    placeholder="Nama Divisi">
-                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                <input type="text" name="pelaksana" class="form-control !pl-9"
+                                    placeholder="Pelaksana Kegiatan">
+                                <iconify-icon icon="icon-park-outline:data-user"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
                         </div>
                         <div class="input-area relative">
-                            <label for="largeInput" class="form-label">Nama Kegiatan</label>
+                            <label for="largeInput" class="form-label">Waktu</label>
                             <div class="relative">
-                                <input type="text" name="division" class="form-control !pl-9"
-                                    placeholder="Nama Divisi">
-                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                <input class="form-control py-2 flatpickr time flatpickr-input active !pl-9"
+                                    id="time-picker" name="waktu" placeholder="Waktu Pelaksanaan" value=""
+                                    type="text" readonly="readonly">
+                                <iconify-icon icon="heroicons:globe-alt"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
                         </div>
                         <div class="input-area relative">
-                            <label for="largeInput" class="form-label">Nama Kegiatan</label>
+                            <label for="largeInput" class="form-label">tempat</label>
                             <div class="relative">
-                                <input type="text" name="division" class="form-control !pl-9"
-                                    placeholder="Nama Divisi">
-                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                <input type="text" name="tempat" class="form-control !pl-9"
+                                    placeholder="Tempat Kegiatan">
+                                <iconify-icon icon="icon-park-outline:data-user"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative">
+                            <label for="largeInput" class="form-label">Pengajar</label>
+                            <div class="relative">
+                                <input type="text" name="pengajar" class="form-control !pl-9" placeholder="Pengajar">
+                                <iconify-icon icon="icon-park-outline:data-user"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative">
+                            <label for="largeInput" class="form-label">instansi</label>
+                            <div class="relative">
+                                <input type="text" name="instansi" class="form-control !pl-9"
+                                    placeholder="Instansi">
+                                <iconify-icon icon="icon-park-outline:data-user"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative">
+                            <label for="largeInput" class="form-label">Sarana</label>
+                            <div class="relative">
+                                <input type="text" name="sarana" class="form-control !pl-9"
+                                    placeholder="Sarana Kegiatan">
+                                <iconify-icon icon="icon-park-outline:data-user"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative">
+                            <label for="largeInput" class="form-label">Peserta</label>
+                            <div class="relative">
+                                <input type="number" name="peserta" class="form-control !pl-9"
+                                    placeholder="Peserta Kegiatan">
+                                <iconify-icon icon="icon-park-outline:data-user"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
                         </div>
                         <div class="flex justify-end space-x-3">
-                            <button type="submit"
-                                class="btn btn-sm inline-flex justify-center btn-dark">Simpan</button>
                             <button type="reset" id="btn_cancel" data-bs-dismiss="offcanvas"
                                 class="btn btn-sm btn-outline-danger inline-flex justify-center btn-dark">Batal</button>
+                            <button type="submit"
+                                class="btn btn-sm inline-flex justify-center btn-dark">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -153,7 +229,14 @@
 
 
     @push('scripts')
-        {{-- <script type="module">
+        @vite(['resources/js/plugins/flatpickr.js'])
+        <script type="module">
+            $(".flatpickr.time").flatpickr({
+                dateFormat: "Y-m-d"
+            });
+
+
+
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
                 serverSide: true,
@@ -178,11 +261,11 @@
                 },
                 "columnDefs": [{
                         "searchable": false,
-                        "targets": [1, 2]
+                        "targets": [-1]
                     },
                     {
                         "orderable": false,
-                        "targets": [1, 2]
+                        "targets": [-1]
                     },
                     {
                         'className': 'table-td',
@@ -190,50 +273,79 @@
                     }
                 ],
                 columns: [{
-                        data: 'division',
-                        name: 'test'
+                        data: 'judul',
+                        name: 'judul'
                     },
                     {
-                        name: 'company',
-                        data: 'test',
+                        data: 'kerjasama.nama',
+                    },
+                    {
+                        data: 'pelaksana',
+                    },
+                    {
+                        data: 'waktu',
+                    },
+                    {
+                        data: 'tempat',
+                    },
+                    {
+                        data: 'pengajar',
+                    },
+                    {
+                        data: 'instansi',
+                    },
+                    {
+                        data: 'sarana',
+                    },
+                    {
+                        data: 'peserta',
                     },
                     {
                         data: 'id',
                         name: 'action',
                         render: (data, type, row, meta) => {
                             return `<div class="flex space-x-3 rtl:space-x-reverse">
-                        <button class="action-btn toolTip onTop cursor-pointer" data-tippy-content="Edit" id="btn-edit" data-id="${row.id}" data-tippy-theme="primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
-                          <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
-                        </button>
-                        <button class="action-btn toolTip onTop cursor-pointer" data-tippy-content="Hapus" id="btn-delete" data-id="${row.id}" data-tippy-theme="danger">
-                          <iconify-icon icon="heroicons:trash"></iconify-icon>
-                        </button>
-                      </div>`
+                <button class="action-btn toolTip onTop cursor-pointer" data-tippy-content="Edit" id="btn-edit" data-id="${row.id}" data-tippy-theme="primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+                  <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
+                </button>
+                <button class="action-btn toolTip onTop cursor-pointer" data-tippy-content="Hapus" id="btn-delete" data-id="${row.id}" data-tippy-theme="danger">
+                  <iconify-icon icon="heroicons:trash"></iconify-icon>
+                </button>
+              </div>`
                         }
                     },
                 ],
             });
 
+            //CREATE
+            $(document).on('click', '#btn-add', () => {
+                $("#sending_form")[0].reset();
+                $("#sending_form").data("type", "submit");
+            })
+
+            // STORE & UPDATE
             $(document).on('submit', '#sending_form', (e) => {
                 e.preventDefault();
                 var type = $("#sending_form").data('type');
                 var data = $('#sending_form').serializeArray();
                 var id = $("#sending_form").find("input[name='id']").val()
-                var url = type == 'submit' ? '{!! route('masters.division.store') !!}' : '{!! route('masters.division.update', ['id' => ':id']) !!}';
-
-                $.post(url.replace(':id', id), data)
-                    .done(function(msg) {
-                        if (!msg.success) {
-                            Swal.fire({
-                                title: 'Error',
-                                text: 'data belum lengkap',
-                                icon: 'error',
-                                confirmButtonText: 'Oke'
-                            })
-                        } else {
+                var url = type == 'submit' ? '{!! route('kegiatan.store') !!}' : '{!! route('masters.division.update', ['id' => ':id']) !!}';
+                $.ajax({
+                    type: "post",
+                    url: url.replace(':id', id),
+                    data: data,
+                    beforeSend: () => {
+                        $('.error-message').removeClass('inline-block').addClass('hidden').html('')
+                    },
+                    success: ({
+                        success,
+                        message
+                    }) => {
+                        if (success) {
+                            console.log(data);
                             Swal.fire({
                                 title: 'success',
-                                text: msg.message,
+                                text: message,
                                 icon: 'success',
                                 confirmButtonText: 'Oke'
                             }).then(() => {
@@ -241,36 +353,78 @@
                                 $("#btn_cancel").click();
                             })
                         }
-                    })
-                    .fail(function(xhr, status, error) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Internal Error',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        })
-                    });
-            })
-
-            $(document).on('click', '#btn-add', () => {
-                $("#sending_form").data("type", "submit");
-            })
-
-            $('#data-table').on('draw.dt', function() {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-
-            table.on('draw', function() {
-                tippy(".onTop", {
-                    content: "Tooltip On Top!",
-                    placement: "top",
+                    },
+                    error: function(request) {
+                        const {
+                            status,
+                            responseJSON
+                        } = request;
+                        // for validation
+                        if (status == 422) {
+                            $.each(responseJSON.error, (index, value) => {
+                                var err_msg = $(`[name='${index}']`).parent().parent().find(
+                                    '.error-message');
+                                $(err_msg).removeClass('hidden').addClass('inline-block').html(
+                                    value[
+                                        0]);
+                            })
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Internal Error',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            })
+                        }
+                    }
                 });
-            });
+                // $.post(url.replace(':id', id), data)
+                //     .done(function(msg) {
+                //         console.log(msg);
+                //         if (!msg.success) {
+                //             Swal.fire({
+                //                 title: 'Error',
+                //                 text: 'data belum lengkap',
+                //                 icon: 'error',
+                //                 confirmButtonText: 'Oke'
+                //             })
+                //         } else {
+                //             Swal.fire({
+                //                 title: 'success',
+                //                 text: msg.message,
+                //                 icon: 'success',
+                //                 confirmButtonText: 'Oke'
+                //             }).then(() => {
+                //                 table.draw()
+                //                 $("#btn_cancel").click();
+                //             })
+                //         }
+                //     })
+                //     .fail(function(err) {
 
+                //         // const {
+                //         //     status,
+                //         //     responseJson
+                //         // } = xhr;
+                //         console.log(err);
+                //         // if (xhr.status == 422) {
+                //         //     var errDiv = $(`[name='${index}']`).parent().find('.error-message');
+                //         //     console.log(errDiv);
+                //         // }
+                //         // Swal.fire({
+                //         //     title: 'Error!',
+                //         //     text: 'Internal Error',
+                //         //     icon: 'error',
+                //         //     confirmButtonText: 'OK'
+                //         // })
+                //     });
+            })
+
+            // EDIT
             $(document).on('click', '#btn-edit', (e) => {
                 $("#sending_form").data("type", "update");
                 var id = $(e.currentTarget).data('id');
-                var url = '{!! route('masters.division.edit', ['id' => ':id']) !!}';
+                var url = '{!! route('masters.position.edit', ['id' => ':id']) !!}';
                 url = url.replace(':id', id);
 
                 $.ajax({
@@ -278,12 +432,35 @@
                     url: url,
                     success: (msg) => {
                         // $('#default_modal').modal();
-                        $("#sending_form").find("input[name='division']").val(msg.data.division)
+                        console.log(msg);
+                        $("#sending_form").find("select[name='company']").val(msg.data.company_id);
+                        var url = '{!! route('ajax.division', ['id' => ':id']) !!}';
+                        url = url.replace(':id', msg.data.company_id);
+                        $.ajax({
+                            type: 'GET',
+                            url: url,
+                            success: (res) => {
+                                var dataOption =
+                                    '<option selected disabled class="dark:bg-slate-700 text-slate-300">Pilih Data</option>';
+                                if (res.data.length > 0) {
+                                    res.data.map((data) => {
+                                        dataOption +=
+                                            `<option value="${data.id}" class="dark:bg-slate-700">${data.division}</option>`
+                                    })
+                                }
+                                $('select[name="division"]').html(dataOption)
+                            },
+                            complete: () => {
+                                $("select[name='division']").val(msg.data.division_id);
+                            }
+                        })
+                        $("#sending_form").find("input[name='position']").val(msg.data.position);
                         $("#sending_form").find("input[name='id']").val(id)
                     }
                 })
             })
 
+            // DELETE
             $(document).on('click', '#btn-delete', (e) => {
                 var id = $(e.currentTarget).data('id');
                 Swal.fire({
@@ -296,7 +473,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        var url = '{!! route('masters.division.destroy', ['id' => ':id']) !!}';
+                        var url = '{!! route('kegiatan.destroy', ['id' => ':id']) !!}';
                         url = url.replace(':id', id);
                         $.ajax({
                             url: url,
@@ -319,6 +496,6 @@
                     }
                 })
             })
-        </script> --}}
+        </script>
     @endpush
 </x-appLayout>

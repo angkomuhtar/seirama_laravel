@@ -16,7 +16,7 @@ class Kegiatan extends Model
         "kerjasama_id",
         "pelaksana",
         "waktu",
-        "location",
+        "tempat",
         "pengajar",
         "instansi",
         "sarana",

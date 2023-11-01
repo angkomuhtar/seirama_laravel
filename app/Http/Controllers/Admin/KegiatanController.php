@@ -19,12 +19,13 @@ class KegiatanController extends Controller
      */
     public function index(Request $request)
     {
-        // if ($request->ajax()) {
-        //     $data = Kegiatan::all();
-        //     return DataTables::eloquent($data)->toJson();
-        //   }
+        if ($request->ajax()) {
+            $data = Kegiatan::with('kerjasama')->orderBy('created_at', 'desc');
+            return DataTables::eloquent($data)->toJson();
+          }
           return view('pages.dashboard.kegiatan.index', [
               'pageTitle' => 'Data Karyawan',
+              'kerjasama' => JenisKerjasama::All()
           ]);
     }
 
@@ -41,7 +42,38 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama'     => 'required',
+            'kerjasama'     => 'required',
+            'tempat'  => 'required',
+            'waktu'  => 'required',
+          ],[
+              'required' => 'tidak boleh kosong',
+              'date' => 'Harus tanggal dengan format YYYY/MM/DD'
+          ]);
+          if ($validator->fails()) {
+            return response()->json([ 'success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+          }
+
+
+          $data = Kegiatan::create([
+            'judul' => $request->nama,
+            'kerjasama_id' => $request->kerjasama,
+            'pelaksana' => $request->pelaksana,
+            'waktu' => $request->waktu,
+            'tempat' => $request->tempat,
+            'pengajar' => $request->pengajar,
+            'instansi' => $request->instansi,
+            'sarana' => $request->sarana,
+            'peserta' => $request->peserta,
+        ]);
+        if ($data) {
+            return response()->json([
+                    'success' => true,
+                    'message' => 'Data Kegiatan Berhasil Disimpan'
+                ]);
+        }
+
     }
 
     /**
@@ -73,6 +105,17 @@ class KegiatanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-    }
+        $delete = Kegiatan::destroy($id);
+        if ($delete){
+            return response()->json([
+                'success' => true,
+                'message' => 'Data divisi berhasil disimpan'
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => "error saat menghapus data"
+            ]);
+        }
+    }   
 }

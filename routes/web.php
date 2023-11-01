@@ -55,6 +55,10 @@ Route::middleware('Admin')->prefix('admin')->group(function()
         Route::get('/','index')->name('kegiatan');
         Route::get('/create','create')->name('kegiatan.create');
         Route::post('/','store')->name('kegiatan.store');
+        Route::delete('/{id}','destroy')->name('kegiatan.destroy');
+        Route::get('/{id}','edit')->name('kegiatan.edit');
+        Route::post('/{id}','update')->name('kegiatan.update');
+        
     });
 
     Route::controller(usersController::class)->prefix('users')->group(function()

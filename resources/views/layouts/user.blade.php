@@ -9,6 +9,7 @@
     <title>Seirama - BBPP Batangkaluku</title>
 
     @vite(['resources/css/app.scss', 'resources/js/custom/store.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/style.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
 
