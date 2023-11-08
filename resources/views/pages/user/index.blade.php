@@ -235,6 +235,7 @@
     </section>
 
 
+
     @push('scripts')
         @vite(['resources/js/plugins/calendar.js']);
         <script>
