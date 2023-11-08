@@ -75,7 +75,7 @@
                     @endphp
                     @foreach ($kegiatan as $item)
                         <div class="swiper-slide h-full w-full">
-                            <x-KegiatanCard num="{{ $keg_count++ * 500 }}" pelaksana="{{ $item->pelaksana }}"
+                            <x-kegiatanCard num="{{ $keg_count++ * 500 }}" pelaksana="{{ $item->pelaksana }}"
                                 pretitle="{{ $item->kerjasama->nama }}" title="{{ $item->judul }}">
                                 @if ($item->start != '')
                                     <p class="flex items-center space-x-2 text-white text-[.8rem] capitalize">
@@ -113,7 +113,7 @@
                                         <span class="text-[.6rem]">{{ $item->sarana }}</span>
                                     </p>
                                 @endif
-                            </x-KegiatanCard>
+                            </x-kegiatanCard>
                         </div>
                     @endforeach
                 </div>
@@ -144,7 +144,7 @@
                 $num = 2;
             @endphp
             @foreach ($brosur as $item)
-                <x-Brosurcard num="{{ $num++ * 200 }}" title="Informasi {{ $item->nama }}"
+                <x-brosurcard num="{{ $num++ * 200 }}" title="Informasi {{ $item->nama }}"
                     content="{{ $item->deskripsi }}" img="{{ asset('storage/images/' . $item->image) }}" />
             @endforeach
         </div>
