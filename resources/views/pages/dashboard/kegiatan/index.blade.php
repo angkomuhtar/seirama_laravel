@@ -24,7 +24,7 @@
                         <div class="input-area relative has-error">
                             <label for="largeInput" class="form-label">Nama Kegiatan</label>
                             <div class="relative">
-                                <input type="text" name="nama" class="form-control !pl-9"
+                                <input type="text" name="judul" class="form-control !pl-9"
                                     placeholder="Nama Kegiatan" error="test">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
@@ -37,7 +37,7 @@
                         <div class="input-area relative">
                             <label for="largeInput" class="form-label capitalize">Jenis Kerjasama</label>
                             <div class="relative">
-                                <select id="select" class="form-control !pl-9" name="kerjasama">
+                                <select id="select" class="form-control !pl-9" name="kerjasama_id">
                                     <option selected disabled class="dark:bg-slate-700 text-slate-300">Pilih Data
                                     </option>
                                     @foreach ($kerjasama as $item)
@@ -68,12 +68,21 @@
                         </div>
                         <div class="input-area relative">
                             <label for="largeInput" class="form-label">Waktu</label>
-                            <div class="relative">
-                                <input class="form-control py-2 flatpickr time flatpickr-input active !pl-9"
-                                    id="time-picker" name="waktu" placeholder="Waktu Pelaksanaan" value=""
-                                    type="text" readonly="readonly">
-                                <iconify-icon icon="heroicons:globe-alt"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            <div class="flex justify-between items-center space-x-3">
+                                <div class="relative">
+                                    <input class="form-control py-2 flatpickr time flatpickr-input active !pl-9"
+                                        id="time-picker" name="start" placeholder="Waktu Pelaksanaan" value=""
+                                        type="text" readonly="readonly">
+                                    <iconify-icon icon="heroicons:globe-alt"
+                                        class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                                </div>
+                                <div class="relative">
+                                    <input class="form-control py-2 flatpickr time flatpickr-input active !pl-9"
+                                        id="time-picker" name="end" placeholder="Waktu Pelaksanaan" value=""
+                                        type="text" readonly="readonly">
+                                    <iconify-icon icon="heroicons:globe-alt"
+                                        class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                                </div>
                             </div>
                             <span
                                 class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
@@ -96,7 +105,8 @@
                         <div class="input-area relative">
                             <label for="largeInput" class="form-label">Pengajar</label>
                             <div class="relative">
-                                <input type="text" name="pengajar" class="form-control !pl-9" placeholder="Pengajar">
+                                <input type="text" name="pengajar" class="form-control !pl-9"
+                                    placeholder="Pengajar">
                                 <iconify-icon icon="icon-park-outline:data-user"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
@@ -178,8 +188,7 @@
                         <span class="col-span-4 hidden"></span>
                         <div class="inline-block min-w-full align-middle">
                             <div class="overflow-hidden">
-                                <table
-                                    class="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700 data-table">
+                                <table class="min-w-full divide-y divide-slate-100 dark:divide-slate-700 data-table">
                                     <thead class="bg-slate-200 dark:bg-slate-700">
                                         <tr>
                                             <th scope="col" class="table-th">
@@ -283,7 +292,12 @@
                         data: 'pelaksana',
                     },
                     {
-                        data: 'waktu',
+                        render: (data, type, row, meta) => {
+                            return `
+                            <span class="whitespace-nowrap">${moment(row.start, 'YYYY-MM-DD').format('DD-MM-YYYY')}</span>
+                            <span class="whitespace-nowrap">${moment(row.end, 'YYYY-MM-DD').format('DD-MM-YYYY')}</span>
+                            `
+                        }
                     },
                     {
                         data: 'tempat',
@@ -329,7 +343,7 @@
                 var type = $("#sending_form").data('type');
                 var data = $('#sending_form').serializeArray();
                 var id = $("#sending_form").find("input[name='id']").val()
-                var url = type == 'submit' ? '{!! route('kegiatan.store') !!}' : '{!! route('masters.division.update', ['id' => ':id']) !!}';
+                var url = type == 'submit' ? '{!! route('kegiatan.store') !!}' : '{!! route('kegiatan.update', ['id' => ':id']) !!}';
                 $.ajax({
                     type: "post",
                     url: url.replace(':id', id),
@@ -378,84 +392,24 @@
                         }
                     }
                 });
-                // $.post(url.replace(':id', id), data)
-                //     .done(function(msg) {
-                //         console.log(msg);
-                //         if (!msg.success) {
-                //             Swal.fire({
-                //                 title: 'Error',
-                //                 text: 'data belum lengkap',
-                //                 icon: 'error',
-                //                 confirmButtonText: 'Oke'
-                //             })
-                //         } else {
-                //             Swal.fire({
-                //                 title: 'success',
-                //                 text: msg.message,
-                //                 icon: 'success',
-                //                 confirmButtonText: 'Oke'
-                //             }).then(() => {
-                //                 table.draw()
-                //                 $("#btn_cancel").click();
-                //             })
-                //         }
-                //     })
-                //     .fail(function(err) {
 
-                //         // const {
-                //         //     status,
-                //         //     responseJson
-                //         // } = xhr;
-                //         console.log(err);
-                //         // if (xhr.status == 422) {
-                //         //     var errDiv = $(`[name='${index}']`).parent().find('.error-message');
-                //         //     console.log(errDiv);
-                //         // }
-                //         // Swal.fire({
-                //         //     title: 'Error!',
-                //         //     text: 'Internal Error',
-                //         //     icon: 'error',
-                //         //     confirmButtonText: 'OK'
-                //         // })
-                //     });
             })
 
             // EDIT
             $(document).on('click', '#btn-edit', (e) => {
                 $("#sending_form").data("type", "update");
                 var id = $(e.currentTarget).data('id');
-                var url = '{!! route('masters.position.edit', ['id' => ':id']) !!}';
+                var url = '{!! route('kegiatan.edit', ['id' => ':id']) !!}';
                 url = url.replace(':id', id);
+                // alert(id);
 
                 $.ajax({
                     type: 'GET',
                     url: url,
                     success: (msg) => {
-                        // $('#default_modal').modal();
-                        console.log(msg);
-                        $("#sending_form").find("select[name='company']").val(msg.data.company_id);
-                        var url = '{!! route('ajax.division', ['id' => ':id']) !!}';
-                        url = url.replace(':id', msg.data.company_id);
-                        $.ajax({
-                            type: 'GET',
-                            url: url,
-                            success: (res) => {
-                                var dataOption =
-                                    '<option selected disabled class="dark:bg-slate-700 text-slate-300">Pilih Data</option>';
-                                if (res.data.length > 0) {
-                                    res.data.map((data) => {
-                                        dataOption +=
-                                            `<option value="${data.id}" class="dark:bg-slate-700">${data.division}</option>`
-                                    })
-                                }
-                                $('select[name="division"]').html(dataOption)
-                            },
-                            complete: () => {
-                                $("select[name='division']").val(msg.data.division_id);
-                            }
+                        $.each(msg.data, (index, value) => {
+                            $(`[name='${index}']`).val(value);
                         })
-                        $("#sending_form").find("input[name='position']").val(msg.data.position);
-                        $("#sending_form").find("input[name='id']").val(id)
                     }
                 })
             })

@@ -30,6 +30,10 @@
 @import "layout/menu";
 @import "layout/sidebar";
 
+.lg-inner-column > .right-column::-webkit-scrollbar {
+    display: none;
+}
+
 .margin-0 {
     margin-left: 0px !important;
     margin-right: 0 !important;

@@ -14,7 +14,8 @@ class KegiatanCard extends Component
     public function __construct(
         public string $pretitle, 
         public string $title, 
-        public string $pelaksana = ""
+        public string $pelaksana = "",
+        public string $num = "",
     )
     {
         

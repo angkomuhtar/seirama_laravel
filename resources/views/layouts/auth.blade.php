@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr" class="light nav-floating">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Employee Apps - PT Mitra Abadi Mahakam</title>
+    <link rel="icon" href={{ asset('images/logo.png') }}>
+    <title>Seirama - BBPP Batangkaluku</title>
     @vite(['resources/css/app.scss', 'resources/js/custom/store.js'])
 </head>
+
 <body>
     <div class="loginwrapper">
         <div class="lg-inner-column">
-            <div class="left-column relative z-[1]">
-                <div class="max-w-[520px] pt-20 ltr:pl-20 rtl:pr-20">
-                    <div class="mb-6">
-                        <x-application-logo />
+            <div class='right-column h-screen relative overflow-y-auto'>
+                <div class='inner-content min-h-screen flex flex-col bg-white dark:bg-slate-800'>
+                    <div class='auth-box flex flex-col justify-center space-y-5'>
+                        <div class='mobile-logo mb-6 self-start'>
+                            <a href='/'>
+                                <img src="{{ asset('images/logo_hitam.svg') }}" alt='' class='mx-auto' />
+                            </a>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <div class=' 2xl:mb-10 mb-4'>
+                                <h3 class='text-slate-500 dark:text-slate-400 text-xs fontop uppercase'>
+                                    Selamat datang
+                                </h3>
+                                <h3 class='font-medium text-lg font-Opensans text-appPrimary-500'>
+                                    SEIRAMA BBPP Batangkaluku
+                                </h3>
+                            </div>
+                            {{ $slot }}
+                            <div
+                                class='md:max-w-[345px] mt-6 mx-auto font-normal text-slate-500 dark:text-slate-400mt-12 uppercase text-sm'>
+                                Belum Punya akun?
+                                <a href='/register' class='text-slate-900 dark:text-white font-medium hover:underline'>
+                                    Daftar
+                                </a>
+                            </div>
+                        </div>
+                        <div class='auth-footer text-center'>
+                            Copyright 2023, BBPP Batangkaluku All Rights Reserved.
+                        </div>
                     </div>
-                    <h4>
-                        Unlock your project
-                        <span class="text-slate-800 dark:text-slate-400 font-bold">
-                            Performance
-                        </span>
-                    </h4>
-                </div>
-                <div class="absolute left-0 2xl:bottom-[-160px] bottom-[-130px] h-full w-full z-[-1]">
-                    <img class="h-full w-full object-containll" src={{ asset('images/auth.svg') }} alt="image">
                 </div>
             </div>
-            <div class="right-column  relative">
-                <div class="inner-content h-full flex flex-col bg-white dark:bg-slate-800">
-                    {{ $slot }}
-                    <div class="auth-footer text-center">
-                        {{ __('Copyright') }}
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        , <a href="#">{{ __('PT MITRA ABADI MAHAKAM') }}</a>
-                        {{ __('All Rights Reserved.') }}
+            <div class='left-column h-screen bg-cover bg-no-repeat bg-center overflow-hidden'
+                style="background-image: url('{{ asset('images/loginBack.png') }}')">
+                <div class='flex flex-col h-full justify-center overflow-hidden'>
+                    <div class='flex-1 flex flex-col justify-center items-center overflow-hidden'>
+                        <a href='/' class='flex justify-center'>
+                            <img src='{{ asset('images/logo.png') }}' alt='' class='mb-4 w-3/4' />
+                        </a>
+                        <h3 class='max-w-[525px] mx-auto py-10 text-center text-appPrimary-500 font-bold'>
+                            KEMENTERIAN PERTANIAN
+                        </h3>
+
+                        <h3 class='max-w-[525px] mx-auto pb-20 text-center font-semibold text-appPrimary-500 text-3xl'>
+                            Balai Besar Pelatihan Pertanian
+                            <span class='font-bold'>BATANGKALUKU</span>
+                        </h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     @vite(['resources/js/app.js'])
+    @stack('scripts')
 
 </body>
+
 </html>

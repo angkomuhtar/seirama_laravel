@@ -14,14 +14,21 @@ class isAdmin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$role): Response
     {
-        if(Auth::guard('web')->check()){
+        $user_roles = Auth::guard('web')->user()->roles ?? '';
+        // return response()->json($user_roles, 200);
+        if (in_array($user_roles, $role)) {
             return $next($request);
+        }
+        
+        if(Auth::guard('web')->check()){
+            return abort(403);
         }
         return redirect()->route('login')
             ->withErrors([
             'email' => 'Silahkan login untuk mengakses halaman',
         ])->onlyInput('email');
+
     }
 }

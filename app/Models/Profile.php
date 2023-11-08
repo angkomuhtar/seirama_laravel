@@ -12,20 +12,18 @@ class Profile extends Model
     protected $table = 'profiles';
 
     protected $fillable = [
-        'name', 
-        'card_id', 
-        'kk', 
-        'education', 
+        'nama', 
+        'ktp', 
         'tmp_lahir', 
         'tgl_lahir',
-        'gender',
-        'religion',
-        'marriage',
-        'id_addr',
-        'live_addr',
-        'phone',
-        'user_id'
-    ];
+        'alamat',
+        'telp',
+        'jenkel',
+        'status_pernikahan',
+        'agama',
+        'user_id',
+        'isASN'
+        ];
 
     public function religions () {
         return $this->belongsTo(Options::class, 'religion', 'id');

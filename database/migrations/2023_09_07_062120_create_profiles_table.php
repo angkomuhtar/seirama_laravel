@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('ktp');
-            $table->string('tmp_lahir');
-            $table->date('tgl_lahir');
-            $table->string('alamat');
+            $table->string('tmp_lahir')->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->string('alamat')->nullable();
             $table->string('telp');
             $table->enum('jenkel', ['M', 'F']);
-            $table->integer('status_pernikahan');
-            $table->integer('agama');
+            $table->integer('status_pernikahan')->nullable();
+            $table->integer('agama')->nullable();
             $table->integer('user_id');
             $table->enum('isASN',['Y', 'N'])->default('N');
             $table->timestamps();

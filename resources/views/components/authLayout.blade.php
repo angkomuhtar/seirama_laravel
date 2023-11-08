@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr" class="light nav-floating">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Employee Apps - PT Mitra Abadi Mahakam</title>
+    <title>Seirama - BBPP Batangkaluku</title>
     @vite(['resources/css/app.scss', 'resources/js/custom/store.js'])
 </head>
+
 <body>
     <div class="loginwrapper">
         <div class="lg-inner-column">
@@ -34,7 +36,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        , <a href="#">{{ __('PT MITRA ABADI MAHAKAM') }}</a>
+                        , <a href="#">{{ __('SEIRAMA - BBPP BATANGKALUKU') }}</a>
                         {{ __('All Rights Reserved.') }}
                     </div>
                 </div>
@@ -44,4 +46,5 @@
     @vite(['resources/js/app.js'])
 
 </body>
+
 </html>

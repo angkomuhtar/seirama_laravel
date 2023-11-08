@@ -49,29 +49,3 @@
         </li>
     @endforeach
 </ul>
-
-
-@push('scripts')
-    {{-- <script src="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/calendar.min.js"></script> --}}
-    {{-- @vite(['resources/js/plugins/zabuto_calendar.min.js']) --}}
-    @vite(['resources/js/plugins/calendar.js'])
-    <script type="module">
-        function selectDate(date) {
-            $('#dashcode-mini-calendar').updateCalendarOptions({
-                date: date
-            });
-            var dateNew = new Date(date)
-            console.log(moment(dateNew).format('YYYY-MM-DD'));
-        }
-
-        var defaultConfig = {
-            weekDayLength: 1,
-            date: moment().format('MM/DD/YYYY'),
-            onClickDate: selectDate,
-            showYearDropdown: true,
-            startOnMonday: false,
-        };
-
-        var calendar = $('#dashcode-mini-calendar').calendar(defaultConfig);
-    </script>
-@endpush

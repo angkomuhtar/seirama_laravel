@@ -1,4 +1,4 @@
-<div class='cursor-pointer relative aspect-[6/7] group'>
+<div class='cursor-pointer relative aspect-[6/7] group' data-aos="fade-left" data-aos-delay="{{ $num }}">
     <img src='{{ asset('images/news.png') }}' alt='' class='object-fill absolute h-full w-full rounded-md -z-10' />
     <div class='bg-font-900/60 rounded-md h-full flex flex-col justify-center px-8'>
         <p class='capitalize font-normal text-xs text-font-50'>

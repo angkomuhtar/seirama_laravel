@@ -15,16 +15,24 @@ class Kegiatan extends Model
         "judul",
         "kerjasama_id",
         "pelaksana",
-        "waktu",
+        "start",
+        "end",
         "tempat",
         "pengajar",
         "instansi",
         "sarana",
         "peserta",
+        "jenis_peserta",
     ];
 
     public function kerjasama()
     {
         return $this->hasOne(JenisKerjasama::class, 'id', 'kerjasama_id');
+    }
+
+   
+    public function peserta()
+    {
+        return $this->hasMany(Peserta::class, 'kegiatan_id', 'id');
     }
 }

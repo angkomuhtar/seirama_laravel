@@ -11,8 +11,10 @@ use App\Http\Controllers\Admin\WorkhoursController;
 use App\Http\Controllers\Admin\ClocklocationsController;
 use App\Http\Controllers\Admin\AjaxController;
 use App\Http\Controllers\Admin\KegiatanController;
+use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,16 +33,23 @@ Route::middleware('Admin')->get('/', function () {
 
 Route::controller(LoginController::class)->group(function() {
     Route::get('/login', 'login')->name('login');
+    Route::get('/register', 'register')->name('register');
+    Route::post('/register', 'store')->name('register.store');
     Route::post('/login', 'authenticate')->name('authenticate');
     Route::post('/logout', 'logout')->name('logout');
 });
 
 //user
-Route::get('/',[UserController::class, 'index'])->name('user');
+Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::get('/pengumuman',[HomeController::class, 'pengumuman'])->name('pengumuman');
+Route::get('/pengumuman/{id}',[HomeController::class, 'detail_pengumuman'])->name('pengumuman.details');
+Route::get('/kalender_kegiatan/{date}',[HomeController::class, 'kalender_kegiatan'])->name('kalender_kegiatan');
+
+
 
 
 //admin
-Route::middleware('Admin')->prefix('admin')->group(function()
+Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function()
 {
     Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
     Route::controller(EmployeeController::class)->prefix('employee')->group(function()
@@ -58,6 +67,16 @@ Route::middleware('Admin')->prefix('admin')->group(function()
         Route::delete('/{id}','destroy')->name('kegiatan.destroy');
         Route::get('/{id}','edit')->name('kegiatan.edit');
         Route::post('/{id}','update')->name('kegiatan.update');
+    });
+
+    Route::controller(KerjasamaController::class)->prefix('kerjasama')->group(function()
+    {
+        Route::get('/','index')->name('kerjasama');
+        Route::get('/create','create')->name('kerjasama.create');
+        Route::post('/','store')->name('kerjasama.store');
+        Route::delete('/{id}','destroy')->name('kerjasama.destroy');
+        Route::get('/{id}','edit')->name('kerjasama.edit');
+        Route::post('/{id}','update')->name('kerjasama.update');
         
     });
 
@@ -126,5 +145,15 @@ Route::middleware('Admin')->prefix('admin')->group(function()
         Route::post('/userValidate','userValidate')->name('ajax.uservalidate');
         Route::post('/profilevalidate','profilevalidate')->name('ajax.profilevalidate');
     });
-}
-);
+});
+
+Route::middleware('Admin:users,superadmin')->group(function () {
+    Route::controller(AccountController::class)->group(function()
+    {
+        Route::get('/akun','index')->name('account');
+        Route::get('/kegiatan','kegiatan')->name('kegiatan');
+        Route::get('/kegiatan/{id}','kegiatan_details')->name('kegiatan.details');
+        Route::post('/kegiatan/{id}','join_kegiatan')->name('kegiatan.join');
+        Route::get('/profile','index')->name('profile');
+    });
+});

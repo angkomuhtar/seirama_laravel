@@ -39,8 +39,17 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('kerjasama') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'kerjasama') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>Kerjasama</span>
+                    </span>
+                </a>
+            </li>
             {{-- <li class="sidebar-menu-title">{{ __('S') }}</li> --}}
-            <li class="{{ \Request::route()->getName() == 'absensi*' ? 'active' : '' }}">
+            {{-- <li class="{{ \Request::route()->getName() == 'absensi*' ? 'active' : '' }}">
                 <a href="#" class="navItem">
                     <span class="flex items-center">
                         <iconify-icon class=" nav-icon" icon="heroicons:finger-print-20-solid"></iconify-icon>
@@ -87,7 +96,7 @@
                             class="navItem {{ stripos(\Request::route()->getName(), 'masters.position') !== false ? 'active' : '' }}">Jabatan</a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
         <div class="bg-slate-700 mb-10 mt-36 p-4 relative text-center rounded-2xl text-white"
             id="sidebar_bottom_wizard">

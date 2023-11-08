@@ -43,10 +43,11 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama'     => 'required',
-            'kerjasama'     => 'required',
+            'judul'     => 'required',
+            'kerjasama_id'     => 'required',
             'tempat'  => 'required',
-            'waktu'  => 'required',
+            'start'  => 'required',
+            'end'  => 'required',
           ],[
               'required' => 'tidak boleh kosong',
               'date' => 'Harus tanggal dengan format YYYY/MM/DD'
@@ -57,10 +58,11 @@ class KegiatanController extends Controller
 
 
           $data = Kegiatan::create([
-            'judul' => $request->nama,
-            'kerjasama_id' => $request->kerjasama,
+            'judul' => $request->judul,
+            'kerjasama_id' => $request->kerjasama_id,
             'pelaksana' => $request->pelaksana,
-            'waktu' => $request->waktu,
+            'start' => $request->start,
+            'end' => $request->end,
             'tempat' => $request->tempat,
             'pengajar' => $request->pengajar,
             'instansi' => $request->instansi,
@@ -81,7 +83,12 @@ class KegiatanController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = Kegiatan::find($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Divisi Berhasil Disimpan',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -89,7 +96,12 @@ class KegiatanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Kegiatan::find($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Divisi Berhasil Disimpan',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -97,7 +109,37 @@ class KegiatanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'judul'     => 'required',
+            'kerjasama_id'     => 'required',
+            'tempat'  => 'required',
+            'waktu'  => 'required',
+          ],[
+              'required' => 'tidak boleh kosong',
+              'date' => 'Harus tanggal dengan format YYYY/MM/DD'
+          ]);
+          if ($validator->fails()) {
+            return response()->json([ 'success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+          }
+
+
+          $data = Kegiatan::find($id)->update([
+            'judul' => $request->judul,
+            'kerjasama_id' => $request->kerjasama_id,
+            'pelaksana' => $request->pelaksana,
+            'waktu' => $request->waktu,
+            'tempat' => $request->tempat,
+            'pengajar' => $request->pengajar,
+            'instansi' => $request->instansi,
+            'sarana' => $request->sarana,
+            'peserta' => $request->peserta,
+        ]);
+        if ($data) {
+            return response()->json([
+                    'success' => true,
+                    'message' => 'Data Kegiatan Berhasil Diupdate'
+                ]);
+        }
     }
 
     /**

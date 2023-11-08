@@ -8,9 +8,11 @@
     <link rel="icon" href={{ asset('images/logo.png') }}>
     <title>Seirama - BBPP Batangkaluku</title>
 
-    @vite(['resources/css/app.scss', 'resources/js/custom/store.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    @vite(['resources/css/app.scss', 'resources/js/custom/store.js'])
 </head>
 
 <body class="font-Opensans dashcode-app" id="body_class">

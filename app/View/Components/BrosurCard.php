@@ -14,7 +14,8 @@ class BrosurCard extends Component
     public function __construct(
         public string $img, 
         public string $title, 
-        public string $content
+        public string $content,
+        public string $num
     )
     {
         //
