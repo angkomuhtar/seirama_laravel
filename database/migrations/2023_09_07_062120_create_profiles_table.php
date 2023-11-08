@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('status_pernikahan')->nullable();
             $table->integer('agama')->nullable();
             $table->integer('user_id');
-            $table->enum('isASN',['Y', 'N'])->default('N');
+            $table->enum('isASN', ['Y', 'N'])->default('N');
             $table->timestamps();
         });
     }

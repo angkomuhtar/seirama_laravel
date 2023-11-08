@@ -17,6 +17,6 @@ class LeaveBalance extends Model
         'exp_date',
         'year',
         'available',
-        'using'
+        'using',
     ];
 }

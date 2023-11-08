@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class isAdmin
 {
@@ -21,14 +21,15 @@ class isAdmin
         if (in_array($user_roles, $role)) {
             return $next($request);
         }
-        
-        if(Auth::guard('web')->check()){
+
+        if (Auth::guard('web')->check()) {
             return abort(403);
         }
+
         return redirect()->route('login')
             ->withErrors([
-            'email' => 'Silahkan login untuk mengakses halaman',
-        ])->onlyInput('email');
+                'email' => 'Silahkan login untuk mengakses halaman',
+            ])->onlyInput('email');
 
     }
 }

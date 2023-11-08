@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\ResponseHelper;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -19,51 +19,54 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('api', ['except' => ['login','register']]);
+        $this->middleware('api', ['except' => ['login', 'register']]);
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
-            'email'     => 'required|string',
-            'password'  => 'required|min:6'
+            'email' => 'required|string',
+            'password' => 'required|min:6',
         ]);
         if ($validator->fails()) {
             return ResponseHelper::jsonError($validator->errors(), 422);
         }
         $field = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        $credentials =[
-            $field =>$request->email,
-            'password' =>$request->password
+        $credentials = [
+            $field => $request->email,
+            'password' => $request->password,
         ];
 
         $token = Auth::guard('api')->attempt($credentials);
-        if (!$token) {
+        if (! $token) {
             return ResponseHelper::jsonError('password not match', 401);
-        }else{
-            $user = Auth::guard('api')->user()->load(['employee','profile', 'employee.division', 'employee.position']);
+        } else {
+            $user = Auth::guard('api')->user()->load(['employee', 'profile', 'employee.division', 'employee.position']);
             if ($user->phone_id == null || $user->phone_id == $request->phone_id) {
-                $db = User::find($user->id);               
+                $db = User::find($user->id);
                 $db->phone_id = $request->phone_id;
                 $db->save();
+
                 return response()->json([
-                        'status' => 'success',
-                        'user' => $user,
-                        'authorisation' => [
-                            'token' => $token,
-                            'type' => 'bearer',
-                        ]
-                    ])->withCookie(cookie('jwt', $token, 60));
-            }else{
+                    'status' => 'success',
+                    'user' => $user,
+                    'authorisation' => [
+                        'token' => $token,
+                        'type' => 'bearer',
+                    ],
+                ])->withCookie(cookie('jwt', $token, 60));
+            } else {
                 Auth::guard('api')->logout();
+
                 return ResponseHelper::jsonError('Phone connect to other device', 401);
             }
         }
 
-
     }
 
-    public function register(Request $request){
-        
+    public function register(Request $request)
+    {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255|unique:users',
@@ -80,6 +83,7 @@ class AuthController extends Controller
         ]);
 
         $token = Auth::guard('api')->login($user);
+
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
@@ -87,12 +91,14 @@ class AuthController extends Controller
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
-            ]
+            ],
         ]);
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::guard('api')->logout();
+
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',
@@ -101,23 +107,25 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        $user = Auth::guard('api')->user()->load(['employee','profile', 'employee.division', 'employee.position']);
+        $user = Auth::guard('api')->user()->load(['employee', 'profile', 'employee.division', 'employee.position']);
+
         return response()->json([
             'status' => 'success',
             'user' => $user,
             'authorisation' => [
                 'token' => Auth::refresh(),
                 'type' => 'bearer',
-            ]
+            ],
         ]);
     }
 
     public function me()
     {
-        $user = Auth::guard('api')->user()->load(['leaves','employee','profile','profile.religions','profile.marriages','profile.educations', 'employee.division', 'employee.position']);
+        $user = Auth::guard('api')->user()->load(['leaves', 'employee', 'profile', 'profile.religions', 'profile.marriages', 'profile.educations', 'employee.division', 'employee.position']);
+
         return response()->json([
             'status' => 'success',
-            'user' => new UserResource($user)
+            'user' => new UserResource($user),
         ]);
     }
 
@@ -126,9 +134,9 @@ class AuthController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'password'     => 'required',
-                'new_password'  => 'required|min:6'
-            ],[
+                'password' => 'required',
+                'new_password' => 'required|min:6',
+            ], [
                 'password.required' => 'password tidak boleh kosong',
                 'new_password.required' => 'password baru tidak boleh kosong',
                 'new_password.min' => 'password baru minimal :min karakter',
@@ -144,12 +152,13 @@ class AuthController extends Controller
                 $update = $user->update(['password' => bcrypt($request->new_password)]);
                 if ($update) {
                     return ResponseHelper::jsonSuccess('Berhasil Absen Pulang');
-                }else{
+                } else {
                     return ResponseHelper::jsonError('error on update', 400);
                 }
-            };
-            return ResponseHelper::jsonError(['password'=>['passsword not match']], 422);
-            
+            }
+
+            return ResponseHelper::jsonError(['password' => ['passsword not match']], 422);
+
         } catch (\Exception $err) {
             return ResponseHelper::jsonError($err->getMessage(), 500);
 
@@ -161,11 +170,11 @@ class AuthController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'file' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Example validation rules (file is required, max 10MB)
-            ],[
+            ], [
                 'file.required' => 'file required',
                 'file.image' => 'hanya mendukung file image',
                 'file.max' => 'ukuran file maksimum 5 MB',
-                'file.mimes' => 'hanya mendukung file jpeg, png, jpg'
+                'file.mimes' => 'hanya mendukung file jpeg, png, jpg',
             ]);
             if ($validator->fails()) {
                 return ResponseHelper::jsonError($validator->errors(), 422);
@@ -184,19 +193,19 @@ class AuthController extends Controller
                 }
                 $file = $request->file('file');
                 $fileName = Auth::user()->username.'-avatar'.now()->format('His').'.'.$file->getClientOriginalExtension();
-                $fileFullPath = 'images/avatar/'.$fileName; 
+                $fileFullPath = 'images/avatar/'.$fileName;
                 Storage::disk('public')->put($fileFullPath, file_get_contents($file));
 
                 $user = User::find(Auth::user()->id)->update(['avatar' => $fileName]);
+
                 return ResponseHelper::jsonSuccess('update berhasil');
 
             } else {
                 return ResponseHelper::jsonError('error on update', 400);
-            }            
+            }
         } catch (\Exception $err) {
             return ResponseHelper::jsonError($err->getMessage(), 500);
 
         }
     }
-
 }

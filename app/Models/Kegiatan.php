@@ -12,17 +12,17 @@ class Kegiatan extends Model
     protected $table = 'kegiatan';
 
     protected $fillable = [
-        "judul",
-        "kerjasama_id",
-        "pelaksana",
-        "start",
-        "end",
-        "tempat",
-        "pengajar",
-        "instansi",
-        "sarana",
-        "peserta",
-        "jenis_peserta",
+        'judul',
+        'kerjasama_id',
+        'pelaksana',
+        'start',
+        'end',
+        'tempat',
+        'pengajar',
+        'instansi',
+        'sarana',
+        'peserta',
+        'jenis_peserta',
     ];
 
     public function kerjasama()
@@ -30,7 +30,6 @@ class Kegiatan extends Model
         return $this->hasOne(JenisKerjasama::class, 'id', 'kerjasama_id');
     }
 
-   
     public function peserta()
     {
         return $this->hasMany(Peserta::class, 'kegiatan_id', 'id');

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+
     protected $table = 'employees';
 
     protected $fillable = [
@@ -17,7 +18,7 @@ class Employee extends Model
         'position_id',
         'status',
         'shift_id',
-        'nip'
+        'nip',
     ];
 
     public function user()
@@ -25,15 +26,18 @@ class Employee extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function position() {
+    public function position()
+    {
         return $this->belongsTo(Position::class);
     }
 
-    public function division() {
+    public function division()
+    {
         return $this->belongsTo(Division::class);
     }
 
-    public function shift() {
+    public function shift()
+    {
         return $this->belongsTo(Shift::class);
     }
 }

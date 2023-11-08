@@ -5,37 +5,37 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Division;
 use App\Models\Position;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\ResponseHelper;
+use Yajra\DataTables\Facades\DataTables;
 
 class PositionsController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Position::with('division','company');
+            $data = Position::with('division', 'company');
+
             return DataTables::eloquent($data)->toJson();
         }
         $division = Division::all();
+
         return view('pages.dashboard.master.position', [
             'division' => $division,
         ]);
     }
-    
+
     public function store(Request $request)
-    {   
+    {
         $validator = Validator::make($request->all(), [
-            'company'     => 'required',
-            'division'     => 'required',
-            'position'     => 'required'
+            'company' => 'required',
+            'division' => 'required',
+            'position' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => $validator->errors()
+                'message' => $validator->errors(),
             ]);
         }
         $data = Position::create([
@@ -45,24 +45,24 @@ class PositionsController extends Controller
         ]);
 
         return response()->json([
-                'success' => true,
-                'message' => 'Data Divisi Berhasil Disimpan'
-            ]);
+            'success' => true,
+            'message' => 'Data Divisi Berhasil Disimpan',
+        ]);
 
     }
 
-    public function destroy($id) 
+    public function destroy($id)
     {
         $delete = Position::destroy($id);
-        if ($delete){
+        if ($delete) {
             return response()->json([
                 'success' => true,
-                'message' => 'Data divisi berhasil disimpan'
+                'message' => 'Data divisi berhasil disimpan',
             ]);
-        }else{
+        } else {
             return response()->json([
                 'success' => false,
-                'message' => "error saat menghapus data"
+                'message' => 'error saat menghapus data',
             ]);
         }
     }
@@ -70,34 +70,35 @@ class PositionsController extends Controller
     public function edit($id)
     {
         $data = Position::find($id);
+
         return response()->json([
             'success' => true,
             'message' => 'Data Divisi Berhasil Disimpan',
-            'data' => $data
+            'data' => $data,
         ]);
     }
-    
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'company'     => 'required',
-            'division'     => 'required',
-            'position'     => 'required'
+            'company' => 'required',
+            'division' => 'required',
+            'position' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => $validator->errors()
+                'message' => $validator->errors(),
             ]);
         }
         $update = Position::find($id);
         $update->division_id = $request->division;
         $update->position = $request->position;
-        if($update->save()){
+        if ($update->save()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Data Divisi Berhasil Update',
-                'data' => $update
+                'data' => $update,
             ]);
         }
     }

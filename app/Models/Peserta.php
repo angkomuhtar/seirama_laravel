@@ -12,8 +12,8 @@ class Peserta extends Model
     protected $table = 'peserta';
 
     protected $fillable = [
-        "user_id",
-        "kegiatan_id"
+        'user_id',
+        'kegiatan_id',
     ];
 
     public function kegiatan()

@@ -16,7 +16,7 @@ class WorkHours extends Model
         'shift_id',
         'start',
         'end',
-        'name'
+        'name',
     ];
 
     public function shift(): BelongsTo

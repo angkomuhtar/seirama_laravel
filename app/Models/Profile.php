@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'profiles';
 
     protected $fillable = [
-        'nama', 
-        'ktp', 
-        'tmp_lahir', 
+        'nama',
+        'ktp',
+        'tmp_lahir',
         'tgl_lahir',
         'alamat',
         'telp',
@@ -22,16 +22,21 @@ class Profile extends Model
         'status_pernikahan',
         'agama',
         'user_id',
-        'isASN'
-        ];
+        'isASN',
+    ];
 
-    public function religions () {
+    public function religions()
+    {
         return $this->belongsTo(Options::class, 'religion', 'id');
     }
-    public function marriages () {
+
+    public function marriages()
+    {
         return $this->belongsTo(Options::class, 'marriage', 'id');
     }
-    public function educations () {
+
+    public function educations()
+    {
         return $this->belongsTo(Options::class, 'education', 'id');
     }
 

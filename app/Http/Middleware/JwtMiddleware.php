@@ -2,11 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\ResponseHelper;
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use App\Helpers\ResponseHelper;
-use JWTAuth;
 use Illuminate\Support\Facades\Auth;
 
 class JwtMiddleware
@@ -22,6 +20,7 @@ class JwtMiddleware
         if (Auth::guard('api')->check()) {
             return $next($request);
         }
+
         return ResponseHelper::jsonError('Unauthorized', 401);
     }
 }

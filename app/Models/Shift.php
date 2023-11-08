@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shift extends Model
 {
     use HasFactory;
+
     protected $table = 'shifts';
 
     protected $fillable = [
@@ -23,5 +24,4 @@ class Shift extends Model
     {
         return $this->hasMany(Employee::class);
     }
-    
 }

@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\WorkHours;
-use App\Models\Shift;
 use App\Models\Division;
+use App\Models\Shift;
+use App\Models\WorkHours;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\ResponseHelper;
+use Yajra\DataTables\Facades\DataTables;
 
 class WorkhoursController extends Controller
 {
@@ -18,11 +17,13 @@ class WorkhoursController extends Controller
         $shift = Shift::All();
         if ($request->ajax()) {
             $data = WorkHours::with('shift')->select('work_hours.*');
+
             return DataTables::eloquent($data)->toJson();
         }
+
         return view('pages.dashboard.absensi.workhours', [
             'pageTitle' => 'Users',
-            'shift'=>$shift
+            'shift' => $shift,
         ]);
     }
 
@@ -32,18 +33,18 @@ class WorkhoursController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
 
         $validator = Validator::make($request->all(), [
-            'shift'     => 'required',
-            'start'     => 'required',
-            'end'     => 'required',
-            'name'     => 'required'
+            'shift' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'name' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => $validator->errors()
+                'message' => $validator->errors(),
             ]);
         }
         $data = WorkHours::create([
@@ -54,24 +55,24 @@ class WorkhoursController extends Controller
         ]);
 
         return response()->json([
-                'success' => true,
-                'message' => 'Data Divisi Berhasil Disimpan'
-            ]);
+            'success' => true,
+            'message' => 'Data Divisi Berhasil Disimpan',
+        ]);
 
     }
 
-    public function destroy($id) 
+    public function destroy($id)
     {
         $delete = WorkHours::destroy($id);
-        if ($delete){
+        if ($delete) {
             return response()->json([
                 'success' => true,
-                'message' => 'Data divisi berhasil disimpan'
+                'message' => 'Data divisi berhasil disimpan',
             ]);
-        }else{
+        } else {
             return response()->json([
                 'success' => false,
-                'message' => "error saat menghapus data"
+                'message' => 'error saat menghapus data',
             ]);
         }
     }
@@ -79,10 +80,11 @@ class WorkhoursController extends Controller
     public function edit($id)
     {
         $data = Division::find($id);
+
         return response()->json([
             'success' => true,
             'message' => 'Data Divisi Berhasil Disimpan',
-            'data' => $data
+            'data' => $data,
         ]);
     }
 
@@ -90,11 +92,11 @@ class WorkhoursController extends Controller
     {
         $update = Division::find($id);
         $update->division = $request->division;
-        if($update->save()){
+        if ($update->save()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Data Divisi Berhasil Update',
-                'data' => $update
+                'data' => $update,
             ]);
         }
     }

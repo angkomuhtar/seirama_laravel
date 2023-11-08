@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Division extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'divisions';
 
     protected $fillable = [
@@ -18,14 +18,13 @@ class Division extends Model
         'division',
     ];
 
-    public function company() : BelongsTo {
+    public function company(): BelongsTo
+    {
         return $this->belongsTo(Company::class);
     }
 
-    public function position() : HasMany {
+    public function position(): HasMany
+    {
         return $this->hasMany(Position::class);
     }
-
-    
-
 }

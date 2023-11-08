@@ -12,12 +12,11 @@ class brosurCard extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $img, 
-        public string $title, 
+        public string $img,
+        public string $title,
         public string $content,
         public string $num
-    )
-    {
+    ) {
         //
     }
 

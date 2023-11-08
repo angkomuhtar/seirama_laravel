@@ -10,7 +10,7 @@ class ResponseHelper
             'success' => true,
             'message' => $message,
             'data' => $data,
-            'statusCode'=>$status
+            'statusCode' => $status,
         ];
 
         return response()->json($response, $status);
@@ -21,7 +21,7 @@ class ResponseHelper
         $response = [
             'success' => false,
             'message' => $message,
-            'status' => $status
+            'status' => $status,
         ];
 
         return response()->json($response, $status);

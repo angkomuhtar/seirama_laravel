@@ -16,6 +16,7 @@ class UserResource extends JsonResource
     {
         $data = parent::toArray($request);
         $data['avatar_url'] = $this->avatar_url;
+
         return $data;
     }
 }

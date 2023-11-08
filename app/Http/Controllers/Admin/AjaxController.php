@@ -5,11 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Division;
 use App\Models\Position;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\ResponseHelper;
 
 class AjaxController extends Controller
 {
@@ -17,9 +14,10 @@ class AjaxController extends Controller
     {
         if ($request->ajax()) {
             $data = Division::where('company_id', $id)->get();
+
             return response()->json([
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ]);
         }
     }
@@ -28,9 +26,10 @@ class AjaxController extends Controller
     {
         if ($request->ajax()) {
             $data = Position::where('division_id', $id)->get();
+
             return response()->json([
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ]);
         }
     }
@@ -39,25 +38,26 @@ class AjaxController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'username'     => 'required|string|unique:users',
-                'email'     => 'required|email:rfc|string|unique:users',
-                'password'  => 'required|min:6|confirmed',
-                'password_confirmation'  => 'min:6|required',
+                'username' => 'required|string|unique:users',
+                'email' => 'required|email:rfc|string|unique:users',
+                'password' => 'required|min:6|confirmed',
+                'password_confirmation' => 'min:6|required',
             ], [
                 'required' => 'tidak boleh kosong',
                 'min' => 'minimal :min karakter',
-                'confirmed' => 'password harus sama dengan confirm password'
+                'confirmed' => 'password harus sama dengan confirm password',
             ]);
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
-                    'data' => $validator->errors()
+                    'data' => $validator->errors(),
                 ]);
             }
             $data = Division::where('company_id', 1)->get();
+
             return response()->json([
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ]);
         }
     }
@@ -66,36 +66,36 @@ class AjaxController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'name'=> 'required',
-                "phone"=> 'required',
-                "gender"=> 'required',
-                "card_id"=> 'required|min:14|numeric',
-                "kk"=> 'required',
-                "tmp_lahir"=> 'required',
-                "tgl_lahir"=> 'required|date',
-                "education"=> 'required',
-                "religion"=> 'required',
-                "marriage"=> 'required',
-                "id_addr"=> 'required',
-                "live_addr"=> 'required',
+                'name' => 'required',
+                'phone' => 'required',
+                'gender' => 'required',
+                'card_id' => 'required|min:14|numeric',
+                'kk' => 'required',
+                'tmp_lahir' => 'required',
+                'tgl_lahir' => 'required|date',
+                'education' => 'required',
+                'religion' => 'required',
+                'marriage' => 'required',
+                'id_addr' => 'required',
+                'live_addr' => 'required',
 
             ], [
                 'required' => 'tidak boleh kosong',
                 'min' => 'minimal :min karakter',
                 'numeric' => 'hanya boleh angka',
-                'tgl_lahir.date' => 'Harus tanggal dengan format YYYY/MM/DD'
+                'tgl_lahir.date' => 'Harus tanggal dengan format YYYY/MM/DD',
             ]);
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
-                    'data' => $validator->errors()
+                    'data' => $validator->errors(),
                 ]);
             }
+
             return response()->json([
                 'success' => true,
-                'data' => 'success'
+                'data' => 'success',
             ]);
         }
     }
-
 }

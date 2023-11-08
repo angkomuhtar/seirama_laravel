@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->id();
-            $table->string("judul");
-            $table->integer("kerjasama_id");
-            $table->string("pelaksana")->nullable();
-            $table->date("start");
-            $table->date("end");
-            $table->string("tempat")->nullable();
-            $table->string("pengajar")->nullable();
-            $table->string("instansi")->nullable();
-            $table->string("sarana")->nullable();
-            $table->integer("peserta")->nullable();
-            $table->set("jenis_peserta", ['aparatur','non-aparatur'])->nullable();
+            $table->string('judul');
+            $table->integer('kerjasama_id');
+            $table->string('pelaksana')->nullable();
+            $table->date('start');
+            $table->date('end');
+            $table->string('tempat')->nullable();
+            $table->string('pengajar')->nullable();
+            $table->string('instansi')->nullable();
+            $table->string('sarana')->nullable();
+            $table->integer('peserta')->nullable();
+            $table->set('jenis_peserta', ['aparatur', 'non-aparatur'])->nullable();
             $table->timestamps();
         });
     }

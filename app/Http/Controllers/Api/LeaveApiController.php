@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Leave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use App\Helpers\ResponseHelper;
-
-use App\Models\Leave;
 
 class LeaveApiController extends Controller
 {
@@ -19,6 +17,7 @@ class LeaveApiController extends Controller
     {
         try {
             $data = Leave::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+
             return ResponseHelper::jsonSuccess('success get data', $data);
         } catch (\Exception $err) {
             return ResponseHelper::jsonError($err->getMessage(), 500);

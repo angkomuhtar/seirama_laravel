@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('asn_data', function (Blueprint $table) {
             $table->id();
-            $table->string('nip'); 
+            $table->string('nip');
             $table->string('npwp');
             $table->integer('jabatan');
             $table->integer('golongan');

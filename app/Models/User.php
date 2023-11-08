@@ -25,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at',
         'roles',
         'phone_id',
-        'avatar'
+        'avatar',
     ];
 
     /**
@@ -47,21 +47,22 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
     /**
-    * Get the identifier that will be stored in the subject claim of the JWT.
-    *
-    * @return mixed
-    */
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
-    
+
     /**
-    * Return a key value array, containing any custom claims to be added to the JWT.
-    *
-    * @return array
-    */
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
     public function getJWTCustomClaims()
     {
         return [];
@@ -69,9 +70,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function getAvatarUrlAttribute()
     {
-        if($this->avatar !== null){
+        if ($this->avatar !== null) {
             return asset('storage/images/avatar/'.$this->avatar);
-        }else{
+        } else {
             return null;
         }
     }
@@ -88,9 +89,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function leaves()
     {
-        return $this->hasMany(LeaveBalance::class)->where('start_date', '<=', now())->where('exp_date','>=', now());
+        return $this->hasMany(LeaveBalance::class)->where('start_date', '<=', now())->where('exp_date', '>=', now());
     }
-
-
 }
-

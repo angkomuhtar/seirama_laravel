@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Leave extends Model
 {
     use HasFactory;
+
     protected $table = 'leaves';
 
     protected $fillable = [
@@ -19,9 +20,8 @@ class Leave extends Model
         'attachment',
         'approver_note',
         'note',
-        'status'
+        'status',
     ];
-
 
     public function user(): HasOne
     {

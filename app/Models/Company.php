@@ -9,13 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Company extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'companies';
 
-    public function division() : HasMany {
+    public function division(): HasMany
+    {
         return $this->hasMany(Division::class);
     }
-    public function position() : HasMany {
+
+    public function position(): HasMany
+    {
         return $this->belongsTo(Position::class);
     }
 }

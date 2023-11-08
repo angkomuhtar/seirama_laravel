@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('jenis_kerjasama', function (Blueprint $table) {
             $table->id();
-            $table->string("nama");
-            $table->string("deskripsi");
-            $table->string("image");
+            $table->string('nama');
+            $table->string('deskripsi');
+            $table->string('image');
             $table->timestamps();
         });
     }

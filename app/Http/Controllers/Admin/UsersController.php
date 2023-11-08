@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-
 
 class UsersController extends Controller
 {
     public function index(Request $request)
     {
-        $data =  User::all();
+        $data = User::all();
 
         if ($request->ajax()) {
             return DataTables::of(User::query())->toJson();
@@ -26,8 +25,8 @@ class UsersController extends Controller
 
     public function create()
     {
-          return view('pages.dashboard.users.create', [
-            'pageTitle' => 'Tambah User'
+        return view('pages.dashboard.users.create', [
+            'pageTitle' => 'Tambah User',
         ]);
     }
 }
