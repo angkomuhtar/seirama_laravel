@@ -1,4 +1,4 @@
-<x-authLayout>
+<x-AuthLayout>
 
     <form class="wizard-form mt-10" action="#">
         <div class="wizard-form-step active" data-step="1">
@@ -191,4 +191,4 @@
             })
         </script>
     @endpush
-</x-authLayout>
+</x-AuthLayout>

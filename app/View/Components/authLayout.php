@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class authlayout extends Component
+class AuthLayout extends Component
 {
     /**
      * Create a new component instance.
