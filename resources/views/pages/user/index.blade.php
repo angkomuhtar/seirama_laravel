@@ -75,7 +75,7 @@
                     @endphp
                     @foreach ($kegiatan as $item)
                         <div class="swiper-slide h-full w-full">
-                            <x-kegiatanCard num="{{ $keg_count++ * 500 }}" pelaksana="{{ $item->pelaksana }}"
+                            <x-KegiatanCards num="{{ $keg_count++ * 500 }}" pelaksana="{{ $item->pelaksana }}"
                                 pretitle="{{ $item->kerjasama->nama }}" title="{{ $item->judul }}">
                                 @if ($item->start != '')
                                     <p class="flex items-center space-x-2 text-white text-[.8rem] capitalize">
@@ -113,7 +113,7 @@
                                         <span class="text-[.6rem]">{{ $item->sarana }}</span>
                                     </p>
                                 @endif
-                            </x-kegiatanCard>
+                            </x-KegiatanCards>
                         </div>
                     @endforeach
                 </div>
@@ -222,12 +222,12 @@
             </p>
         </div>
         <div class='grid grid-cols-3 py-10'>
-            <x-imageCard img="{{ asset('images/cover1.png') }}" />
-            <x-imageCard img="{{ asset('images/cover3.png') }}" />
-            <x-imageCard img="{{ asset('images/cover2.png') }}" />
-            <x-imageCard img="{{ asset('images/cover3.png') }}" />
-            <x-imageCard img="{{ asset('images/cover2.png') }}" />
-            <x-imageCard img="{{ asset('images/cover1.png') }}" />
+            <x-ImageCards img="{{ asset('images/cover1.png') }}" />
+            <x-ImageCards img="{{ asset('images/cover3.png') }}" />
+            <x-ImageCards img="{{ asset('images/cover2.png') }}" />
+            <x-ImageCards img="{{ asset('images/cover3.png') }}" />
+            <x-ImageCards img="{{ asset('images/cover2.png') }}" />
+            <x-ImageCards img="{{ asset('images/cover1.png') }}" />
         </div>
     </section>
 
