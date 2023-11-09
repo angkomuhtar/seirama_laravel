@@ -11,8 +11,12 @@ class KegiatanCards extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
+    public function __construct(
+        public string $pretitle,
+        public string $title,
+        public string $pelaksana = '',
+        public string $num = '',
+    ) {
         //
     }
 

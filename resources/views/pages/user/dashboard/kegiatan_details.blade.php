@@ -1,4 +1,4 @@
-<x-userLayout>
+<x-LayoutUser>
     <div class="h-20"></div>
     <section class='container py-14 grid lg:grid-cols-5 grid-cols-4 gap-7'>
         <x-user.user-sidebar />
@@ -115,4 +115,4 @@
             })
         </script>
     @endpush
-</x-userLayout>
+</x-LayoutUser>

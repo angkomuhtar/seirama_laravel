@@ -1,4 +1,4 @@
-<x-userLayout>
+<x-LayoutUser>
     <div class="h-20"></div>
 
 
@@ -119,4 +119,4 @@
             });
         </script>
     @endpush
-</x-userLayout>
+</x-LayoutUser>

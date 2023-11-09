@@ -1,4 +1,4 @@
-<x-userLayout>
+<x-LayoutUser>
     <div class="h-32"></div>
     <section class='container'>
         <div class="bg-no-repeat bg-center bg-cover rounded-2xl"
@@ -53,4 +53,4 @@
 
     @push('scripts')
     @endpush
-</x-userLayout>
+</x-LayoutUser>

@@ -1,4 +1,4 @@
-<x-userLayout>
+<x-LayoutUser>
     <section class='relative animate__animated animate__zoomIn'>
         <div id="headerSlide" class="swiper h-screen w-full">
             <div class="swiper-wrapper">
@@ -348,4 +348,4 @@
             var calendar = $('#dashcode-mini-calendar').calendar(defaultConfig);
         </script>
     @endpush
-</x-userLayout>
+</x-LayoutUser>
