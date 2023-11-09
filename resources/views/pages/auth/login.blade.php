@@ -1,3 +1,3 @@
-<x-AuthLayout>
+<x-LayoutAuth>
     <x-login-form></x-login-form>
-</x-AuthLayout>
+</x-LayoutAuth>
