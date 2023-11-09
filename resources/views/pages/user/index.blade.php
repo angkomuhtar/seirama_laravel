@@ -142,7 +142,7 @@
                 $num = 2;
             @endphp
             @foreach ($brosur as $item)
-                <x-BrosurCard num="{{ $num++ * 200 }}" title="Informasi {{ $item->nama }}"
+                <x-HomneBrosure num="{{ $num++ * 200 }}" title="Informasi {{ $item->nama }}"
                     content="{{ $item->deskripsi }}" img="{{ asset('images/' . $item->image) }}" />
             @endforeach
         </div>
