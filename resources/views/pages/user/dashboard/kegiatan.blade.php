@@ -58,7 +58,7 @@
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('account') !!}',
+                ajax: '{!! route('kegiatan') !!}',
                 // dom: "<'grid grid-cols-12 gap-5 px-6 mt-6'<'col-span-4'l><'col-span-8 flex justify-end'f><'#pagination.flex items-center'>><'min-w-full't><'flex justify-end items-center'p>",
                 paging: true,
                 ordering: false,

@@ -29,15 +29,17 @@
                         </button>
                     </a>
                 @else
-                    <a href='login'>
+                    <a href='{{ route('login') }}'>
                         <button
                             class='font-semibold text-neutral-50 border-2 bg-appPrimary-500 border-appPrimary-500 px-10 py-2 rounded-md'>
                             Masuk
                         </button>
                     </a>
-                    <button class='font-semibold text-neutral-50 border-2 border-appPrimary-500 px-8 py-2 rounded-md'>
-                        Daftar
-                    </button>
+                    <a href='{{ route('register') }}'>
+                        <button class='font-semibold text-neutral-50 border-2 border-appPrimary-500 px-8 py-2 rounded-md'>
+                            Daftar
+                        </button>
+                    </a>
                 @endauth
             </div>
         </nav>

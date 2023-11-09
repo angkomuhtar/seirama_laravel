@@ -41,10 +41,10 @@
 
                             @auth('web')
                             @else
-                                <button type='button'
+                                <a href='{{ route('register') }}' type='button'
                                     class='font-semibold bg-appPrimary-500 text-font-50 rounded py-[10px] px-4'>
                                     Daftar
-                                </button>
+                                </a>
                             @endauth
                         </div>
                     </div>
@@ -117,10 +117,9 @@
                         </div>
                     @endforeach
                 </div>
-                {{-- <div class="swiper-pagination"></div> --}}
             </div>
         @else
-            <div class="flex justify-center items-center py-5">
+            <div class="flex justify-center items-center py-5 min-h-[250px]" data-aos="fade-right">
                 <h6 class="text-base text-font-400 ">Belum ada Kegiatan Sedang Berlangsung</h6>
             </div>
         @endif
@@ -139,13 +138,12 @@
                 </div>
                 <h3 class="font-Opensans font-semibold text-xl">Berikut informasi e-brosur yang dapat di akases</h3>
             </div>
-            {{-- <x-Brosurcard /> --}}
             @php
                 $num = 2;
             @endphp
             @foreach ($brosur as $item)
                 <x-brosurcard num="{{ $num++ * 200 }}" title="Informasi {{ $item->nama }}"
-                    content="{{ $item->deskripsi }}" img="{{ asset('storage/images/' . $item->image) }}" />
+                    content="{{ $item->deskripsi }}" img="{{ asset('images/' . $item->image) }}" />
             @endforeach
         </div>
     </section>
@@ -162,7 +160,6 @@
         <div class="grid grid-cols-6 gap-5">
 
             <div class='col-span-4 grid grid-cols-3 gap-6 place-self-start'>
-                {{-- <x-Brosurcard /> --}}
                 @foreach ($brosur as $item)
                     <div class='relative w-full aspect-[3/4] group cursor-pointer flex justify-center overflow-hidden'>
                         <img src='{{ asset('images/cover1.png') }}' alt='' fill
@@ -197,10 +194,10 @@
             <div class="lg:col-span-2 col-span-12 space-y-5">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Notes</h4>
+                        <h4 class="card-title">Kalender Kegiatan</h4>
                     </div>
-                    <div class="card-body p-6">
-                        <div class="mb-12">
+                    <div class="card-body p-2">
+                        <div class="">
                             <div id="dashcode-mini-calendar"></div>
                         </div>
                         <ul class="divide-y divide-slate-100 dark:divide-slate-700" id="calender_data">
@@ -266,28 +263,26 @@
                 slidesPerView: 3.5,
                 spaceBetween: 50,
             });
-        </script>
-        <script type="module">
             AOS.init({
                 easing: 'ease-in-out-sine'
             });
+        </script>
+        <script type="module">
             const getKegiatan = (date) => {
                 var url = '{!! route('kalender_kegiatan', ['date' => ':id']) !!}';
                 $.ajax({
                     type: "get",
                     url: url.replace(':id', date),
-                    beforeSend: () => {
-                        $('.error-message').removeClass('inline-block').addClass('hidden').html('')
-                    },
                     success: ({
                         data,
                         statusCode
                     }) => {
                         if (statusCode == 200) {
                             if (data.length > 0) {
-                                var path = "{!! asset('storage/images/') !!}"
+                                var path = "{!! asset('images/') !!}"
                                 $('#calender_data').html('');
-                                $.each(data, function(index, value) {
+                                $.each(data, (index, value) => {
+                                    console.log(index, value);
                                     $('#calender_data').append(`
                             <li class="block py-[10px]">
                                 <div class="flex space-x-2 rtl:space-x-reverse">
@@ -326,29 +321,8 @@
                             }
                         }
                     },
-                    error: function(request) {
-                        const {
-                            status,
-                            responseJSON
-                        } = request;
-                        console.log(request);
-                        // for validation
-                        if (status == 422) {
-                            $.each(responseJSON.error, (index, value) => {
-                                var err_msg = $(`[name='${index}']`).parent().parent().find(
-                                    '.error-message');
-                                $(err_msg).removeClass('hidden').addClass('inline-block').html(
-                                    value[
-                                        0]);
-                            })
-                        } else {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Internal Error',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            })
-                        }
+                    error: (error) => {
+                        console.log(error);
                     }
                 });
             }

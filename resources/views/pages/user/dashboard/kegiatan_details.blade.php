@@ -89,10 +89,28 @@
     @push('scripts')
         <script type="module">
             $("#join").on('click', function() {
+                $("#loader").removeClass('hidden');
                 $.post('{!! route('kegiatan.join', ['id' => $kegiatan->id]) !!}', {
                     "_token": "{!! csrf_token() !!}"
                 }, (response) => {
-                    console.log(response);
+                    $("#loader").addClass('hidden');
+                    if (!response.success) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Internal Error',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'success',
+                            text: 'Berhasil',
+                            icon: 'success',
+                            confirmButtonText: 'Oke'
+                        }).then(() => {
+                            window.location.reload()
+                        })
+                    }
                 })
             })
         </script>

@@ -15,15 +15,26 @@
     @vite(['resources/css/app.scss', 'resources/js/custom/store.js'])
 </head>
 
-<body class="font-Opensans dashcode-app" id="body_class">
+
+
+<body class="font-Opensans" id="body_class">
     <div id="">
         <x-user.navbar />
-        <main>
+        <main class="relative">
+            <div id="loader"
+                class="hidden absolute top-0 bottom-0 left-0 right-0 bg-black-500/30 z-[999] flex justify-center items-center overflow-hidden">
+                <div class="bg-white rounded-lg">
+                    <dotlottie-player src="https://lottie.host/00029ac3-3f38-4777-8d58-d0f9a7ef2355/06ivfntkk5.json"
+                        background="transparent" speed="1" style="width: 150px; height: 150px;" loop
+                        autoplay></dotlottie-player>
+                </div>
+            </div>
             {{ $slot }}
         </main>
         <x-user.footer />
     </div>
     @vite(['resources/js/app.js'])
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     @stack('scripts')
 </body>
 

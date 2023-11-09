@@ -1,7 +1,6 @@
 <x-userLayout>
+
     <div class="h-20"></div>
-
-
     <section class='container py-14 grid lg:grid-cols-5 grid-cols-4 gap-7'>
         <x-user.user-sidebar />
         <div class="col-span-4 grid gap-8 place-self-start w-full">
@@ -16,20 +15,22 @@
                             class="object-cover absolute h-full w-full rounded-md bg-white" alt="">
                     </div>
                     <div class="col-span-4">
-                        <h3 class="text-xl font-Opensans font-bold mb-5">Nelson Mandela</h3>
+                        <h3 class="text-xl font-Opensans font-bold mb-5">{{ $user->profile->nama }}</h3>
                         <div class="grid grid-cols-3">
                             <div class="py-2">
                                 <h6 class="font-Inter font-light text-[10px] capitalize">type</h6>
-                                <p class="font-Opensans font-semibold text-sm capitalize ">Non Aparatur</p>
+                                <p class="font-Opensans font-semibold text-sm capitalize ">
+                                    {{ $user->profile->isASN == 'Y' ? 'APARATUR' : 'Non-APARATUR' }}
+                                </p>
                             </div>
                             <div class="py-2">
                                 <h6 class="font-Inter font-light text-[10px] capitalize">jabatan</h6>
-                                <p class="font-Opensans font-semibold text-sm capitalize ">Ketua</p>
+                                <p class="font-Opensans font-semibold text-sm capitalize ">{{ '--' }}</p>
                             </div>
 
                             <div class="py-2">
                                 <h6 class="font-Inter font-light text-[10px] capitalize">instansi</h6>
-                                <p class="font-Opensans font-semibold text-sm capitalize ">KLP Sipurennu</p>
+                                <p class="font-Opensans font-semibold text-sm capitalize ">{{ '--' }}</p>
                             </div>
                             <div class="py-2 col-span-3">
                                 <h6 class="font-Inter font-light text-[10px] capitalize">Alamat</h6>
@@ -42,7 +43,7 @@
                             <div class="border border-dashed border-font-900 p-4">
                                 <span class="flex justify-center items-center font-Opensans font-bold text-xl">
                                     <iconify-icon icon="mingcute:document-2-line"
-                                        class="text-appPrimary-500 text-xl mr-2"></iconify-icon>5
+                                        class="text-appPrimary-500 text-xl mr-2"></iconify-icon>{{ $kegiatan }}
                                 </span>
                                 <p class="font-Opensans font-light text-base">Pelatihan</p>
                             </div>
@@ -58,31 +59,41 @@
                 <div class="px-3 py-2 rounded-md w-full bg-appPrimary-200/50 shadow-sm">
                     <h3 class="text-lg font-Opensans font-semibold text-font-900">Kegiatan Saya</h3>
                 </div>
-                <div class="border border-font-300 py-4 px-5 rounded-md grid gap-5">
-                    <div class="flex justify-between items-center">
-                        <img src="{{ asset('images/logo_hitam.svg') }}" alt="BBPP Batangkaluku"
-                            class="aspect-[4/1] object-contain">
-                        <button
-                            class="py-1 px-3 bg-appPrimary-500 text-white font-Opensans font-medium rounded-md text-xs">Non-Aparatur</button>
+                @if ($kegiatan_terakhir)
+                    <div class="border border-font-300 py-4 px-5 rounded-md grid gap-5">
+                        <div class="flex justify-between items-center">
+                            <img src="{{ asset('images/logo_hitam.svg') }}" alt="BBPP Batangkaluku"
+                                class="aspect-[4/1] object-contain">
+                            <button
+                                class="py-1 px-3 bg-appPrimary-500 text-white font-Opensans font-medium rounded-md text-xs">Non-Aparatur</button>
+                        </div>
+                        <div class="content grid gap-3">
+                            <h3 class="font-Opensans font-bold text-font-900 text-xl">
+                                {{ $kegiatan_terakhir->kegiatan->judul }}
+                            </h3>
+                            <p class="font-Opensans font-normal text-sm text-font-500">
+                                {{ $kegiatan_terakhir->kegiatan->pelaksana }}</p>
+                            <p class="font-Opensans font-normal text-sm text-font-500">
+                                {{ date('d M Y', strtotime($kegiatan_terakhir->kegiatan->start)) . ' - ' . date('d M Y', strtotime($kegiatan_terakhir->kegiatan->end)) }}
+                            </p>
+                        </div>
+                        <div class="footer flex space-x-3 mt-4">
+                            <button type="button"
+                                class="rounded-md font-Opensans px-3 font-semibold py-2 bg-appPrimary-500 text-white flex justify-center items-center place-self-end">
+                                <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak ID
+                                Card</button>
+                            <button type="button"
+                                class="rounded-md font-Opensans px-3 font-semibold py-2 bg-appPrimary-500 text-white flex justify-center items-center place-self-end">
+                                <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak
+                                Sertifikat</button>
+                        </div>
                     </div>
-                    <div class="content grid gap-3">
-                        <h3 class="font-Opensans font-bold text-font-900 text-xl">Pelatihan Kecakapan Industri Pertanian
-                        </h3>
-                        <p class="font-Opensans font-normal text-sm text-font-500">BBPP Lamasi Kabupaten Luwu</p>
-                        <p class="font-Opensans font-normal text-sm text-font-500">23 Juni 2023 - 28 Juni 2023</p>
-                    </div>
-                    <div class="footer flex space-x-3 mt-4">
-                        <button type="button"
-                            class="rounded-md font-Opensans px-3 font-semibold py-2 bg-appPrimary-500 text-white flex justify-center items-center place-self-end">
-                            <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak ID
-                            Card</button>
-                        <button type="button"
-                            class="rounded-md font-Opensans px-3 font-semibold py-2 bg-appPrimary-500 text-white flex justify-center items-center place-self-end">
-                            <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak
-                            Sertifikat</button>
-                    </div>
-                </div>
+                @else
+                @endif
+
             </section>
+
+
             <section class="kegiatan_berjalan grid gap-5">
                 <div class="px-3 py-2 rounded-md w-full bg-appPrimary-200/50 shadow-sm">
                     <h3 class="text-lg font-Opensans font-semibold text-font-900">Kegiatan Berlangsung</h3>

@@ -13,22 +13,28 @@ class AccountController extends Controller
 {
     public function index(Request $request)
     {
-        // return Auth::guard('web')->user();
+        $profile = Auth::guard('web')->user();
+        $join = Peserta::where('user_id', $profile->id)->count();
+        $kegiatan_terakhir = Peserta::where('user_id', $profile->id)->orderBy('created_at', 'desc')->first();
+ 
         if ($request->ajax()) {
             $data = Kegiatan::with('kerjasama')->orderBy('created_at', 'desc');
 
             return DataTables::eloquent($data)->toJson();
         }
 
-        return view('pages.user.dashboard.index');
+        return view('pages.user.dashboard.index',['user' => $profile, 'kegiatan'=>$join, 'kegiatan_terakhir'=>$kegiatan_terakhir]);
     }
 
     public function kegiatan(Request $request)
     {
         // return Auth::guard('web')->user();
         if ($request->ajax()) {
-            $data = Kegiatan::with('kerjasama')->orderBy('created_at', 'desc');
+            $data = Kegiatan::with('kerjasama')->whereHas('peserta', function($q){
+                return $q->where('user_id', '=', Auth::guard('web')->user()->id);
+            })->orderBy('created_at', 'desc');
 
+            // dd($data);
             return DataTables::eloquent($data)->toJson();
         }
 
@@ -49,11 +55,17 @@ class AccountController extends Controller
     public function join_kegiatan($id)
     {
         $user_id = Auth::guard('web')->user()->id;
-
-        Peserta::create([
+        $join = Peserta::create([
             'user_id' => $user_id,
             'kegiatan_id' => $id,
         ]);
+
+        if ($join) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil',
+            ]);
+        }
 
     }
 }
