@@ -18,7 +18,6 @@
         <div class="flex flex-col justify-between min-h-screen">
             <div>
                 <x-dashboard-header />
-
                 <div class="content-wrapper transition-all duration-150 ltr:ml-0 xl:ltr:ml-[248px] rtl:mr-0 xl:rtl:mr-[248px]"
                     id="content_wrapper">
                     <div class="page-content">

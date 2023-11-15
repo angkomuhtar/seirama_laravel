@@ -234,7 +234,7 @@
 
 
     @push('scripts')
-        @vite(['resources/js/plugins/calendar.js']);
+        @vite(['resources/js/plugins/calendar.js'])
         <script>
             var swiper = new Swiper("#headerSlide", {
                 centeredSlides: true,
@@ -343,7 +343,7 @@
                 onClickDate: selectDate,
                 showYearDropdown: true,
                 startOnMonday: false,
-            };
+            }
 
             var calendar = $('#dashcode-mini-calendar').calendar(defaultConfig);
         </script>
