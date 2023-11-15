@@ -73,7 +73,7 @@
         <div class="space-y-5">
             <div class="card">
                 <header class="card-header noborder">
-                    <h4 class="card-title">Kegiatan</h4>
+                    <h4 class="card-title">Jenis Kerjasama</h4>
                     <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"
                         class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add">
                         <span class="flex items-center">
@@ -136,7 +136,7 @@
 
 
             // console.log('{!! asset('') !!}');
-            var path = '{!! asset('storage/images/') !!}';
+            var path = '{!! asset('images/') !!}';
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
                 serverSide: true,
@@ -215,7 +215,7 @@
                 var type = $("#sending_form").data('type');
                 var data = $('#sending_form').serializeArray();
                 var id = $("#sending_form").find("input[name='id']").val()
-                var url = type == 'submit' ? '{!! route('kegiatan.store') !!}' : '{!! route('kegiatan.update', ['id' => ':id']) !!}';
+                var url = type == 'submit' ? '{!! route('kerjasama.store') !!}' : '{!! route('kerjasama.update', ['id' => ':id']) !!}';
                 $.ajax({
                     type: "post",
                     url: url.replace(':id', id),
@@ -271,7 +271,7 @@
             $(document).on('click', '#btn-edit', (e) => {
                 $("#sending_form").data("type", "update");
                 var id = $(e.currentTarget).data('id');
-                var url = '{!! route('kegiatan.edit', ['id' => ':id']) !!}';
+                var url = '{!! route('kerjasama.edit', ['id' => ':id']) !!}';
                 url = url.replace(':id', id);
                 // alert(id);
 
@@ -299,7 +299,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        var url = '{!! route('kegiatan.destroy', ['id' => ':id']) !!}';
+                        var url = '{!! route('kerjasama.destroy', ['id' => ':id']) !!}';
                         url = url.replace(':id', id);
                         $.ajax({
                             url: url,

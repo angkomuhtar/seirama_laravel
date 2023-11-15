@@ -55,12 +55,12 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
     });
 
     Route::controller(KegiatanController::class)->prefix('kegiatan')->group(function () {
-        Route::get('/', 'index')->name('kegiatan');
-        Route::get('/create', 'create')->name('kegiatan.create');
-        Route::post('/', 'store')->name('kegiatan.store');
-        Route::delete('/{id}', 'destroy')->name('kegiatan.destroy');
-        Route::get('/{id}', 'edit')->name('kegiatan.edit');
-        Route::post('/{id}', 'update')->name('kegiatan.update');
+        Route::get('/', 'index')->name('admin.kegiatan');
+        Route::get('/create', 'create')->name('admin.kegiatan.create');
+        Route::post('/', 'store')->name('admin.kegiatan.store');
+        Route::delete('/{id}', 'destroy')->name('admin.kegiatan.destroy');
+        Route::get('/{id}', 'edit')->name('admin.kegiatan.edit');
+        Route::post('/{id}', 'update')->name('admin.kegiatan.update');
     });
 
     Route::controller(KerjasamaController::class)->prefix('kerjasama')->group(function () {

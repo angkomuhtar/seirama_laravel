@@ -11,6 +11,7 @@ export default defineConfig({
                 "resources/css/app.scss",
                 "resources/js/app.js",
                 "resources/js/plugins/flatpickr.js",
+                "resources/js/plugins/dropzone.min.js",
                 "resources/js/plugins/calendar.js",
                 "resources/js/plugins/aos.js",
                 "resources/js/custom/store.js",

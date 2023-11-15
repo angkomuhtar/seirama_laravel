@@ -31,8 +31,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('kegiatan') }}"
-                    class="navItem {{ stripos(\Request::route()->getName(), 'kegiatan') !== false ? 'active' : '' }}">
+                <a href="{{ route('admin.kegiatan') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.kegiatan') !== false ? 'active' : '' }}">
                     <span class="flex items-center">
                         <iconify-icon class="nav-icon" icon="game-icons:mining-helmet"></iconify-icon>
                         <span>Kegiatan</span>
@@ -41,7 +41,7 @@
             </li>
             <li>
                 <a href="{{ route('kerjasama') }}"
-                    class="navItem {{ stripos(\Request::route()->getName(), 'kerjasama') !== false ? 'active' : '' }}">
+                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.kerjasama') !== false ? 'active' : '' }}">
                     <span class="flex items-center">
                         <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
                         <span>Kerjasama</span>
