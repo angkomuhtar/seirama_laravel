@@ -82,9 +82,14 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Profile::class);
     }
 
-    public function employee()
+    public function asn_data()
     {
-        return $this->hasOne(Employee::class);
+        return $this->hasOne(AsnData::class);
+    }
+
+    public function user_data()
+    {
+        return $this->hasOne(UserData::class);
     }
 
     public function leaves()

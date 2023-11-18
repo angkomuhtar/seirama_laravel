@@ -43,6 +43,7 @@ Route::controller(LoginController::class)->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/pengumuman', [HomeController::class, 'pengumuman'])->name('pengumuman');
 Route::get('/pengumuman/{id}', [HomeController::class, 'detail_pengumuman'])->name('pengumuman.details');
+Route::get('/berita/{id}', [HomeController::class, 'detail_berita'])->name('berita');
 Route::get('/kalender_kegiatan/{date}', [HomeController::class, 'kalender_kegiatan'])->name('kalender_kegiatan');
 
 //admin
@@ -137,6 +138,7 @@ Route::middleware('Admin:users,superadmin')->group(function () {
         Route::get('/kegiatan', 'kegiatan')->name('kegiatan');
         Route::get('/kegiatan/{id}', 'kegiatan_details')->name('kegiatan.details');
         Route::post('/kegiatan/{id}', 'join_kegiatan')->name('kegiatan.join');
-        Route::get('/profile', 'index')->name('profile');
+        Route::get('/profile', 'profile')->name('profile');
+        Route::post('/biodata', 'update_biodata')->name('biodata.update');
     });
 });

@@ -47,10 +47,10 @@
                                 </span>
                                 <p class="font-Opensans font-light text-base">Pelatihan</p>
                             </div>
-                            <button type="button"
+                            <a href="{{ route('profile') }}" type="button"
                                 class="btn bg-appPrimary-500 text-white flex justify-center items-center place-self-end">
                                 <iconify-icon icon="mingcute:user-2-line" class="text-xl mr-2"></iconify-icon>Edit
-                                Profil</button>
+                                Profil</a>
                         </div>
                     </div>
                 </div>

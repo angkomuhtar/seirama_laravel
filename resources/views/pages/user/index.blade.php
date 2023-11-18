@@ -75,8 +75,9 @@
                     @endphp
                     @foreach ($kegiatan as $item)
                         <div class="swiper-slide h-full w-full">
-                            <x-KegiatanCards num="{{ $keg_count++ * 500 }}" pelaksana="{{ $item->pelaksana }}"
-                                pretitle="{{ $item->kerjasama->nama }}" title="{{ $item->judul }}">
+                            <x-KegiatanCards id="{{ $item->id }}" num="{{ $keg_count++ * 500 }}"
+                                pelaksana="{{ $item->pelaksana }}" pretitle="{{ $item->kerjasama->nama }}"
+                                title="{{ $item->judul }}">
                                 @if ($item->start != '')
                                     <p class="flex items-center space-x-2 text-white text-[.8rem] capitalize">
                                         <iconify-icon icon="mdi:calendar-outline"></iconify-icon>
@@ -181,7 +182,7 @@
 
                             </p>
                             <div class='w-full'>
-                                <a href='http://' target='_blank' rel='noopener noreferrer'
+                                <a href='{{ route('berita', ['id' => 1]) }}' rel='noopener noreferrer'
                                     class='text-appPrimary-500 font-semibold text-sm text-center hover:text-font-600'>
                                     read more
                                 </a>

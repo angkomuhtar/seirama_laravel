@@ -6,18 +6,13 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class KegiatanCards extends Component
+class FormBiodata extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        public string $pretitle,
-        public string $title,
-        public string $pelaksana = '',
-        public string $num = '',
-        public string $id = '',
-    ) {
+    public function __construct()
+    {
         //
     }
 
@@ -26,6 +21,6 @@ class KegiatanCards extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.user.kegiatan-cards');
+        return view('components.user.form-biodata');
     }
 }

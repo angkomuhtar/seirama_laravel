@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use App\Models\Peserta;
+use App\Models\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -67,5 +68,63 @@ class AccountController extends Controller
             ]);
         }
 
+    }
+
+    public function profile(Request $request)
+    {
+        $profile = Auth::guard('web')->user();
+        $agama = Options::where('type', 'agama')->get();
+        $nikah = Options::where('type', 'sts_nikah')->get();
+        $golongan = Options::where('type', 'golongan')->get();
+        $jabatan = Options::where('type', 'golongan_jabatan')->get();
+        $eselon = Options::where('type', 'unit_eselon')->get();
+        $pendidikan = Options::where('type', 'pendidikan')->get();
+
+        return view('pages.user.dashboard.profile', [
+            'profile' => $profile->profile, 
+            'user' => $profile, 
+            'agama'=>$agama , 
+            'nikah'=> $nikah,
+            'golongan'=> $golongan,
+            'jabatan'=> $jabatan,
+            'eselon'=> $eselon,
+            'pendidikan'=> $pendidikan,
+
+        ]);
+    }
+
+    public function update_biodata (Request $request){
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'ktp' => 'required',
+            'tmp_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'alamat' => 'required',
+            'telp' => 'required',
+            'jenkel' => 'required',
+            'status_pernikahan' => 'required',
+            'agama' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+        }
+
+        $data = Kegiatan::create([
+            'judul' => $request->judul,
+            'kerjasama_id' => $request->kerjasama_id,
+            'pelaksana' => $request->pelaksana,
+            'waktu' => $request->waktu,
+            'tempat' => $request->tempat,
+            'pengajar' => $request->pengajar,
+            'instansi' => $request->instansi,
+            'sarana' => $request->sarana,
+            'peserta' => $request->peserta,
+        ]);
+        if ($data) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Kegiatan Berhasil Disimpan',
+            ]);
+        }
     }
 }
