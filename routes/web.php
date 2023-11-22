@@ -103,6 +103,8 @@ Route::middleware('Admin:users,superadmin')->group(function () {
         Route::post('/profile', 'update_profile')->name('profile.update');
         Route::post('/asn_data', 'update_asn_data')->name('asn_data.update');
         Route::post('/user_data', 'update_user_data')->name('user_data.update');
+        Route::get('/sertifikat', 'sertifikat')->name('sertifikat');
+
     });
 
     Route::controller(AjaxController::class)->prefix('ajax')->group(function () {

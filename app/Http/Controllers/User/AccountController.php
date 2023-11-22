@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AccountController extends Controller
 {
@@ -247,5 +248,13 @@ class AccountController extends Controller
 
         
         
+    }
+
+    public function sertifikat (Request $request)
+    {
+        // return view('pages.user.dashboard.sertifikat');
+        $user = Auth::guard('web')->user()->profile->nama;
+        $pdf = Pdf::loadView('pages.user.dashboard.sertifikat', ['name' => $user ])->setPaper('letter', 'landscape');
+        return $pdf->stream('invoice.pdf');
     }
 }
