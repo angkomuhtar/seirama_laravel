@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Division;
 use App\Models\Position;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
+use App\Models\Desa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -97,5 +100,31 @@ class AjaxController extends Controller
                 'data' => 'success',
             ]);
         }
+    }
+
+
+    public function getKabupaten(Request $req)
+    {
+        $kabupaten = Kabupaten::where('propinsi_kode', $req->id)->where('value', 'LIKE', '%'.$req->search.'%')->get();
+        return  response()->json([
+            'data'=> $kabupaten
+        ]);
+
+    }
+    public function getKecamatan(Request $req)
+    {
+        $kabupaten = Kecamatan::where('kabupaten_kode', $req->id)->where('value', 'LIKE', '%'.$req->search.'%')->get();
+        return  response()->json([
+            'data'=> $kabupaten
+        ]);
+
+    }
+    public function getDesa(Request $req)
+    {
+        $kabupaten = Desa::where('kecamatan_kode', $req->id)->where('value', 'LIKE', '%'.$req->search.'%')->get();
+        return  response()->json([
+            'data'=> $kabupaten
+        ]);
+
     }
 }

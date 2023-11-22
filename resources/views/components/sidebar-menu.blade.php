@@ -41,10 +41,37 @@
             </li>
             <li>
                 <a href="{{ route('kerjasama') }}"
-                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.kerjasama') !== false ? 'active' : '' }}">
+                    class="navItem {{ stripos(\Request::route()->getName(), 'kerjasama') !== false ? 'active' : '' }}">
                     <span class="flex items-center">
                         <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
-                        <span>Kerjasama</span>
+                        <span>Jenis Kerjasama</span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.berita') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.berita') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>Berita</span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('kerjasama') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'kewrjasama') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>Berita</span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('kerjasama') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'kerwjasama') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>Gallery</span>
                     </span>
                 </a>
             </li>

@@ -8,6 +8,7 @@
     <link rel="icon" href={{ asset('images/logo.png') }}>
     <title>Seirama - BBPP Batangkaluku</title>
     @vite(['resources/css/app.scss', 'resources/js/custom/store.js'])
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -31,13 +32,7 @@
                                 </h3>
                             </div>
                             {{ $slot }}
-                            <div
-                                class='md:max-w-[345px] mt-6 mx-auto font-normal text-slate-500 dark:text-slate-400mt-12 uppercase text-sm'>
-                                Belum Punya akun?
-                                <a href='/register' class='text-slate-900 dark:text-white font-medium hover:underline'>
-                                    Daftar
-                                </a>
-                            </div>
+
                         </div>
                         <div class='auth-footer text-center'>
                             Copyright 2023, BBPP Batangkaluku All Rights Reserved.
@@ -66,6 +61,7 @@
         </div>
     </div>
     @vite(['resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @stack('scripts')
 
 </body>

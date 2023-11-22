@@ -9,6 +9,8 @@
     <title>Seirama - BBPP Batangkaluku</title>
 
     @vite(['resources/css/app.scss', 'resources/js/custom/store.js'])
+    @vite(['resources/js/plugins/ckeditor5/ckeditor.js'])
+
 </head>
 
 <body class="font-inter dashcode-app" id="body_class">

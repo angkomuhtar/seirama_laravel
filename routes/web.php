@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\Admin\PositionsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\WorkhoursController;
+use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\User\AccountController;
@@ -74,62 +75,22 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
 
     });
 
+    Route::controller(BeritaController::class)->prefix('berita')->group(function () {
+        Route::get('/', 'index')->name('admin.berita');
+        Route::get('/create', 'create')->name('admin.berita.create');
+        Route::post('/', 'store')->name('admin.berita.store');
+        Route::delete('/{id}', 'destroy')->name('admin.berita.destroy');
+        Route::get('/{id}', 'edit')->name('admin.berita.edit');
+        Route::post('/{id}', 'update')->name('admin.berita.update');
+
+    });
+
     Route::controller(usersController::class)->prefix('users')->group(function () {
         Route::get('/', 'index')->name('masters.users');
         Route::get('/create', 'create')->name('masters.users.create');
     });
 
-    Route::controller(DivisionsController::class)->prefix('division')->group(function () {
-        Route::get('/', 'index')->name('masters.division');
-        Route::get('/create', 'create')->name('masters.division.create');
-        Route::post('/', 'store')->name('masters.division.store');
-        Route::delete('/{id}', 'destroy')->name('masters.division.destroy');
-        Route::get('/{id}', 'edit')->name('masters.division.edit');
-        Route::post('/{id}', 'update')->name('masters.division.update');
-    });
-
-    Route::controller(PositionsController::class)->prefix('position')->group(function () {
-        Route::get('/', 'index')->name('masters.position');
-        Route::get('/create', 'create')->name('masters.position.create');
-        Route::post('/', 'store')->name('masters.position.store');
-        Route::delete('/{id}', 'destroy')->name('masters.position.destroy');
-        Route::get('/{id}', 'edit')->name('masters.position.edit');
-        Route::post('/{id}', 'update')->name('masters.position.update');
-    });
-
-    Route::controller(AttendanceController::class)->prefix('attendance')->group(function () {
-        Route::get('/', 'index')->name('absensi.attendance');
-        Route::get('/create', 'create')->name('absensi.attendance.create');
-        Route::post('/', 'store')->name('absensi.attendance.store');
-        Route::delete('/{id}', 'destroy')->name('absensi.attendance.destroy');
-        Route::get('/{id}', 'edit')->name('absensi.attendance.edit');
-        Route::post('/{id}', 'update')->name('absensi.attendance.update');
-    });
-
-    Route::controller(WorkhoursController::class)->prefix('workhours')->group(function () {
-        Route::get('/', 'index')->name('absensi.workhours');
-        Route::get('/create', 'create')->name('absensi.workhours.create');
-        Route::post('/', 'store')->name('absensi.workhours.store');
-        Route::delete('/{id}', 'destroy')->name('absensi.workhours.destroy');
-        Route::get('/{id}', 'edit')->name('absensi.workhours.edit');
-        Route::post('/{id}', 'update')->name('absensi.workhours.update');
-    });
-
-    Route::controller(ClocklocationsController::class)->prefix('clocklocations')->group(function () {
-        Route::get('/', 'index')->name('absensi.clocklocations');
-        Route::get('/create', 'create')->name('absensi.clocklocations.create');
-        Route::post('/', 'store')->name('absensi.clocklocations.store');
-        Route::delete('/{id}', 'destroy')->name('absensi.clocklocations.destroy');
-        Route::get('/{id}', 'edit')->name('absensi.clocklocations.edit');
-        Route::post('/{id}', 'update')->name('absensi.clocklocations.update');
-    });
-
-    Route::controller(AjaxController::class)->prefix('ajax')->group(function () {
-        Route::get('/division/{id}', 'getDivision')->name('ajax.division');
-        Route::get('/position/{id}', 'getPosition')->name('ajax.position');
-        Route::post('/userValidate', 'userValidate')->name('ajax.uservalidate');
-        Route::post('/profilevalidate', 'profilevalidate')->name('ajax.profilevalidate');
-    });
+   
 });
 
 Route::middleware('Admin:users,superadmin')->group(function () {
@@ -139,6 +100,14 @@ Route::middleware('Admin:users,superadmin')->group(function () {
         Route::get('/kegiatan/{id}', 'kegiatan_details')->name('kegiatan.details');
         Route::post('/kegiatan/{id}', 'join_kegiatan')->name('kegiatan.join');
         Route::get('/profile', 'profile')->name('profile');
-        Route::post('/biodata', 'update_biodata')->name('biodata.update');
+        Route::post('/profile', 'update_profile')->name('profile.update');
+        Route::post('/asn_data', 'update_asn_data')->name('asn_data.update');
+        Route::post('/user_data', 'update_user_data')->name('user_data.update');
+    });
+
+    Route::controller(AjaxController::class)->prefix('ajax')->group(function () {
+        Route::get('/kabupaten', 'getKabupaten')->name('ajax.kabupaten');
+        Route::get('/kecamatan', 'getKecamatan')->name('ajax.kecamatan');
+        Route::get('/desa', 'getDesa')->name('ajax.desa');
     });
 });

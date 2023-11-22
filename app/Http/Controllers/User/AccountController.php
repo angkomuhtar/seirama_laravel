@@ -6,8 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use App\Models\Peserta;
 use App\Models\Options;
+use App\Models\Propinsi;
+use App\Models\Profile;
+use App\Models\AsnData;
+use App\Models\UserData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class AccountController extends Controller
@@ -55,9 +60,18 @@ class AccountController extends Controller
 
     public function join_kegiatan($id)
     {
-        $user_id = Auth::guard('web')->user()->id;
+        $user = Auth::guard('web')->user();
+
+        if(!$user->profile->tgl_lahir || (!$user->asn_data && $user->profile->isASN == 'Y') || (!$user->user_data && $user->profile->isASN != 'Y')){
+            return response()->json([
+                'success' => false,
+                'status' => 'validate',
+                'message' => 'data belum lengkap'
+            ]);
+        }
+
         $join = Peserta::create([
-            'user_id' => $user_id,
+            'user_id' => $user->id,
             'kegiatan_id' => $id,
         ]);
 
@@ -72,28 +86,32 @@ class AccountController extends Controller
 
     public function profile(Request $request)
     {
-        $profile = Auth::guard('web')->user();
+        $user = Auth::guard('web')->user();
         $agama = Options::where('type', 'agama')->get();
         $nikah = Options::where('type', 'sts_nikah')->get();
         $golongan = Options::where('type', 'golongan')->get();
         $jabatan = Options::where('type', 'golongan_jabatan')->get();
         $eselon = Options::where('type', 'unit_eselon')->get();
         $pendidikan = Options::where('type', 'pendidikan')->get();
+        $propinsi = Propinsi::All();
 
         return view('pages.user.dashboard.profile', [
-            'profile' => $profile->profile, 
-            'user' => $profile, 
+            'profile' => $user->profile, 
+            'asn_data' => $user->asn_data, 
+            'user_data' => $user->user_data, 
+            'user' => $user, 
             'agama'=>$agama , 
             'nikah'=> $nikah,
             'golongan'=> $golongan,
             'jabatan'=> $jabatan,
             'eselon'=> $eselon,
             'pendidikan'=> $pendidikan,
+            'propinsi'=> $propinsi,
 
         ]);
     }
 
-    public function update_biodata (Request $request){
+    public function update_profile (Request $request){
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'ktp' => 'required',
@@ -104,27 +122,130 @@ class AccountController extends Controller
             'jenkel' => 'required',
             'status_pernikahan' => 'required',
             'agama' => 'required',
+        ],[
+            'required'=> 'Data Harus diisi'
         ]);
         if ($validator->fails()) {
             return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
         }
+        $user_id = Auth::guard('web')->user()->id;
+        $data = Profile::where('user_id', $user_id)->first();
 
-        $data = Kegiatan::create([
-            'judul' => $request->judul,
-            'kerjasama_id' => $request->kerjasama_id,
-            'pelaksana' => $request->pelaksana,
-            'waktu' => $request->waktu,
-            'tempat' => $request->tempat,
-            'pengajar' => $request->pengajar,
-            'instansi' => $request->instansi,
-            'sarana' => $request->sarana,
-            'peserta' => $request->peserta,
-        ]);
         if ($data) {
+            $update = Profile::where('user_id', $user_id)->update([
+                'nama' => $request->nama,
+                'ktp' => $request->ktp,
+                'tmp_lahir' => $request->tmp_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+                'alamat' => $request->alamat,
+                'telp' => $request->telp,
+                'jenkel' => $request->jenkel,
+                'status_pernikahan' => $request->status_pernikahan,
+                'agama' => $request->agama,
+            ]);
+            if ($update) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Disimpan',
+                ]);
+            }
+        }else{
             return response()->json([
-                'success' => true,
-                'message' => 'Data Kegiatan Berhasil Disimpan',
+                'success' => false,
+                'message' => 'user tidak di temukan',
             ]);
         }
+
+        
+        
+    }
+
+    public function update_asn_data (Request $request){
+        $validator = Validator::make($request->all(), [
+            'nip' => 'required',
+            'npwp' => 'required',
+            'jabatan' => 'required',
+            'golongan' => 'required',
+            'gol_jabatan' => 'required',
+            // 'nama_jabatan' => 'required',
+            'education' => 'required',
+            'unit_kerja' => 'required',
+            'unit_eselon' => 'required',
+            'unit_address' => 'required',
+            'telp' => 'required',
+            'propinsi' => 'required',
+            'kabupaten' => 'required'
+        ],[
+            'required' => 'data harus diisi'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+        }
+        $user_id = Auth::guard('web')->user()->id;
+        $data = AsnData::where('user_id', $user_id)->first();
+
+        if ($data) {
+            $update = AsnData::where('user_id', $user_id)->update($request->except(['email', '_token', 'user_id']));
+            if ($update) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Disimpan',
+                ]);
+            }
+        }else{
+            // return $data;
+            $insert = AsnData::create($request->all());
+            if ($insert) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Disimpan',
+                ]);
+            }
+        }
+
+        
+        
+    }
+
+    public function update_user_data (Request $request){
+        $validator = Validator::make($request->all(), [
+            'pendidikan' => 'required',
+            'jenis_usaha' => 'required',
+            'nama_kt' => 'required',
+            'jabatan' => 'required',
+            'propinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required'
+        ],[
+            'required' => 'data harus diisi'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+        }
+        $user_id = Auth::guard('web')->user()->id;
+        $data = UserData::where('user_id', $user_id)->first();
+
+        if ($data) {
+            $update = UserData::where('user_id', $user_id)->update($request->except(['email', '_token', 'user_id']));
+            if ($update) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Disimpan',
+                ]);
+            }
+        }else{
+            // return $data;
+            $insert = UserData::create($request->all());
+            if ($insert) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Disimpan',
+                ]);
+            }
+        }
+
+        
+        
     }
 }

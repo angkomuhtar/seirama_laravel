@@ -9,4 +9,15 @@ class UserData extends Model
 {
     use HasFactory;
     protected $table = 'user_data';
+    protected $fillable = [
+        'pendidikan',
+        'jenis_usaha',
+        'nama_kt',
+        'jabatan',
+        'propinsi',
+        'kabupaten',
+        'kecamatan',
+        'desa',
+        'user_id'
+    ];
 }

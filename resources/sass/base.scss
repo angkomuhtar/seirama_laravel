@@ -313,3 +313,11 @@
 .today-button {
     @apply text-xs py-2 px-1 uppercase font-Opensans font-bold text-appPrimary-500;
 }
+
+.select2-container .select2-selection--single {
+    @apply bg-font-100 w-full py-3 px-3 rounded-sm font-Opensans text-xs;
+}
+
+.select2-container--default .select2-results > .select2-results__options {
+    @apply bg-font-100 w-full rounded-sm font-Opensans text-xs;
+}

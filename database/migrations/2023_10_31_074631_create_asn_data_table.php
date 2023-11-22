@@ -15,18 +15,18 @@ return new class extends Migration
             $table->id();
             $table->string('nip');
             $table->string('npwp');
-            $table->integer('jabatan');
+            $table->string('jabatan');
             $table->integer('golongan');
             $table->integer('gol_jabatan');
-            $table->string('nama_jabatan');
+            $table->string('nama_jabatan')->nullable();
             $table->integer('education');
             $table->string('unit_kerja');
             $table->integer('unit_eselon');
             $table->string('unit_address');
             $table->string('telp');
-            $table->integer('propinsi');
-            $table->integer('kabupaten');
-            $table->integer('profile_id');
+            $table->char('propinsi', 17);
+            $table->char('kabupaten', 17);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

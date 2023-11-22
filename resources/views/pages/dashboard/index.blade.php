@@ -54,7 +54,7 @@
 
 
 
-    @push('scripts')
+    {{-- @push('scripts')
         <script type="module">
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
@@ -222,5 +222,5 @@
                 })
             })
         </script>
-    @endpush
+    @endpush --}}
 </x-LayoutApp>

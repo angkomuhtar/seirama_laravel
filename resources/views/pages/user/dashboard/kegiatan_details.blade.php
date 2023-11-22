@@ -94,7 +94,16 @@
                     "_token": "{!! csrf_token() !!}"
                 }, (response) => {
                     $("#loader").addClass('hidden');
-                    if (!response.success) {
+                    if (response.status == 'validate') {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'lengkapi profil terlebih dahulu',
+                            icon: 'error',
+                            confirmButtonText: 'Goto Profile'
+                        }).then(() => {
+                            window.location.replace('{!! route('profile') !!}')
+                        })
+                    } else if (!response.success) {
                         Swal.fire({
                             title: 'Error!',
                             text: 'Internal Error',

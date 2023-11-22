@@ -127,6 +127,12 @@
             </button>
         </div>
     </form>
+    <div class='md:max-w-[345px] mt-6 mx-auto font-normal text-slate-500 dark:text-slate-400mt-12 uppercase text-sm'>
+        Sudah Punya akun?
+        <a href='{{ route('login') }}' class='text-slate-900 dark:text-white font-medium hover:underline'>
+            Masuk
+        </a>
+    </div>
 
     @push('scripts')
         <script type="module">
