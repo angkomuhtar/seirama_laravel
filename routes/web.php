@@ -47,6 +47,14 @@ Route::get('/pengumuman/{id}', [HomeController::class, 'detail_pengumuman'])->na
 Route::get('/berita/{id}', [HomeController::class, 'detail_berita'])->name('berita');
 Route::get('/kalender_kegiatan/{date}', [HomeController::class, 'kalender_kegiatan'])->name('kalender_kegiatan');
 
+
+Route::controller(AjaxController::class)->prefix('ajax')->group(function () {
+    Route::get('/division/{id}', 'getDivision')->name('ajax.division');
+    Route::get('/position/{id}', 'getPosition')->name('ajax.position');
+    Route::post('/userValidate', 'userValidate')->name('ajax.uservalidate');
+    Route::post('/profilevalidate', 'profilevalidate')->name('ajax.profilevalidate');
+});
+
 //admin
 Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
