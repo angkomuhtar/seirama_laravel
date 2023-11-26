@@ -100,7 +100,7 @@
 
                     </div>
                     <div class="flex justify-end pt-5">
-                        <button type="submit" class="btn bg-appPrimary-500 text-white">
+                        <button type="submit" class="btn bg-appPrimary-500 text-white" id="button-send">
                             Kirim Pengajuan
                         </button>
                     </div>
@@ -155,6 +155,7 @@
                 var Formdata = new FormData(this);
                 var file = $('#file')[0];
                 Formdata.append('surat', $('#file')[0].files[0]);
+                $("#button-send").prop('disabled', true);
                 $.ajax({
                     processData: false,
                     contentType: false,
@@ -185,6 +186,7 @@
                             responseJSON
                         } = request;
                         // for validation
+                        $("#button-send").prop('disabled', false);
                         if (status == 422) {
                             $.each(responseJSON.error, (index, value) => {
                                 if (index == 'surat') {
