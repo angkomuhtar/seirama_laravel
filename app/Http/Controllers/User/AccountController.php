@@ -10,6 +10,8 @@ use App\Models\Propinsi;
 use App\Models\Profile;
 use App\Models\AsnData;
 use App\Models\UserData;
+use App\Models\JenisKerjasama;
+use App\Models\UserKerjasama;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -256,5 +258,55 @@ class AccountController extends Controller
         $user = Auth::guard('web')->user()->profile->nama;
         $pdf = Pdf::loadView('pages.user.dashboard.sertifikat', ['name' => $user ])->setPaper('letter', 'landscape');
         return $pdf->stream('invoice.pdf');
+    }
+
+    public function kerjasama_index(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = UserKerjasama::with('jenis_kerjasama')->where('user_id',  Auth::guard('web')->user()->id)->orderBy('created_at', 'desc');
+            // dd($data);
+            return DataTables::eloquent($data)->toJson();
+        }
+
+        return view('pages.user.dashboard.kerjasama');
+    }
+    
+    public function kerjasama_create(Request $request)
+    {
+        $kerjasama= JenisKerjasama::all();
+        return view('pages.user.dashboard.kerjasama_create',[
+            'kerjasama' => $kerjasama
+        ]);
+    }
+
+    public function kerjasama_post(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'instansi' => 'required',
+            'user_id' => 'required',
+            'kerjasama_id' => 'required',
+            'nm_kegiatan' => 'required',
+            'lokasi' => 'required',
+            'tanggal' => 'required',
+            'cp' => 'required',
+            'surat' => 'required|file|mimes:jpeg,png,pdf,docx,doc|max:2048',
+        ],[
+            'required'=> 'Data Harus diisi',
+            'mimes'=> 'Hanya Mendukung File : jpeg,png,pdf,docx,doc',
+            'file'=> 'Data Harus diisi',
+            'surat.max' => 'File Maximum 2 MB'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+        };
+
+        $tanggal =  explode(' to ', $request->tanggal);
+        $file = $request->file('surat');
+        $fileName = uniqid() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('surat_kerjasama'), $fileName);
+        $data = $request->except(['surat', '_token', 'tanggal']);
+        $insert = UserKerjasama::create(array_merge($data, ['surat'=> $fileName, 'start'=> $tanggal[0], 'end'=> $tanggal[1] ?? $tanggal[0]]));
+        return response()->json(['success' => 'true', 'message' => 'data tersimpan', 200]);
+
     }
 }

@@ -91,6 +91,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(UserData::class);
     }
+    
+    public function kerjasama()
+    {
+        return $this->hasMany(UserKerjasama::class);
+    }
 
     public function leaves()
     {

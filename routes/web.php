@@ -112,6 +112,9 @@ Route::middleware('Admin:users,superadmin')->group(function () {
         Route::post('/asn_data', 'update_asn_data')->name('asn_data.update');
         Route::post('/user_data', 'update_user_data')->name('user_data.update');
         Route::get('/sertifikat', 'sertifikat')->name('sertifikat');
+        Route::get('/kerjasama', 'kerjasama_index')->name('user_kerjasama');
+        Route::get('/kerjasama/new', 'kerjasama_create')->name('user_kerjasama.create');
+        Route::post('/kerjasama', 'kerjasama_post')->name('user_kerjasama.post');
 
     });
 
