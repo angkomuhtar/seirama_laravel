@@ -80,7 +80,12 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
         Route::delete('/{id}', 'destroy')->name('kerjasama.destroy');
         Route::get('/{id}', 'edit')->name('kerjasama.edit');
         Route::post('/{id}', 'update')->name('kerjasama.update');
+    });
 
+    Route::controller(KerjasamaController::class)->prefix('pengajuan')->group(function () {
+        Route::get('/', 'pengajuan')->name('pengajuan');
+        Route::post('/accept/{id}', 'pengajuan_accept')->name('pengajuan.accept');
+        Route::post('/reject/{id}', 'pengajuan_reject')->name('pengajuan.reject');
     });
 
     Route::controller(BeritaController::class)->prefix('berita')->group(function () {
@@ -90,7 +95,6 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
         Route::delete('/{id}', 'destroy')->name('admin.berita.destroy');
         Route::get('/{id}', 'edit')->name('admin.berita.edit');
         Route::post('/{id}', 'update')->name('admin.berita.update');
-
     });
 
     Route::controller(usersController::class)->prefix('users')->group(function () {

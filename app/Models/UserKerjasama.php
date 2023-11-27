@@ -27,4 +27,9 @@ class UserKerjasama extends Model
     {
         return $this->belongsTo(JenisKerjasama::class, 'kerjasama_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

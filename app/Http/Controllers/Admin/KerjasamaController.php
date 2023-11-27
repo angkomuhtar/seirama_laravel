@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\JenisKerjasama;
+use App\Models\UserKerjasama;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,17 +29,6 @@ class KerjasamaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -74,9 +64,6 @@ class KerjasamaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $data = Kegiatan::find($id);
@@ -88,9 +75,6 @@ class KerjasamaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $data = Kegiatan::find($id);
@@ -102,9 +86,6 @@ class KerjasamaController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
@@ -139,9 +120,6 @@ class KerjasamaController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $delete = Kegiatan::destroy($id);
@@ -154,6 +132,61 @@ class KerjasamaController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'error saat menghapus data',
+            ]);
+        }
+    }
+
+    public function pengajuan(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = UserKerjasama::with('user', 'user.profile', 'jenis_kerjasama')->orderBy('created_at', 'desc');
+            return DataTables::eloquent($data)->toJson();
+        }
+        return view('pages.dashboard.kerjasama.pengajuan', [
+            'pageTitle' => 'Data Karyawan',
+            'kerjasama' => JenisKerjasama::All(),
+        ]);
+    }
+
+    public function pengajuan_accept(Request $request, $id)
+    {
+        $data = UserKerjasama::find($id);
+        $kegiatan = Kegiatan::create([
+            'judul' => $data->nm_kegiatan,
+            'kerjasama_id' => $data->kerjasama_id,
+            'pelaksana' => '-',
+            'start' => $data->start,
+            'end' => $data->end,
+            'tempat' => $data->lokasi,
+            'pengajar' => $data->pengajar,
+            'instansi' => $data->instansi,
+        ]);
+        if ($data->update(['status'=> 'accept', 'id_kegiatan' => $kegiatan->id])) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data divisi berhasil disimpan',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'error saat megupdate data',
+            ]);
+        }
+    }
+
+    public function pengajuan_reject(Request $request, $id)
+    {
+        $data = UserKerjasama::find($id)->update(['status'=> 'reject']);
+        
+        if ($data) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data divisi berhasil disimpan',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'error saat megupdate data',
             ]);
         }
     }

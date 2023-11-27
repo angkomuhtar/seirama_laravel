@@ -58,8 +58,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('kerjasama') }}"
-                    class="navItem {{ stripos(\Request::route()->getName(), 'kewrjasama') !== false ? 'active' : '' }}">
+                <a href="{{ route('pengajuan') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'pengajuan') !== false ? 'active' : '' }}">
                     <span class="flex items-center">
                         <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
                         <span>Pengajuan Kerjasama</span>
