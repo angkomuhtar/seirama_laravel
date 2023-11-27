@@ -134,6 +134,18 @@
                         }
                     },
                     {
+                        render: (data, type, row, meta) => {
+                            return `
+                            <a href="${path+'/'+row.surat}" target="_blank" class="text-blue-500 text-xs font-Opensans">
+                                lihat dokumen
+                            </a>
+                            `
+                        }
+                    },
+                    {
+                        data: 'user.profile.nama',
+                    },
+                    {
                         data: 'status',
                         render: (data) => {
                             if (data == 'wait') {
@@ -147,18 +159,6 @@
                                             <iconify-icon class="ltr:mr-1 rtl:ml-1" icon="mdi:file-check"></iconify-icon>ditolak</span>`
                             }
                         }
-                    },
-                    {
-                        render: (data, type, row, meta) => {
-                            return `
-                            <a href="${path+'/'+row.surat}" target="_blank" class="text-blue-500 text-xs font-Opensans">
-                                lihat dokumen
-                            </a>
-                            `
-                        }
-                    },
-                    {
-                        data: 'user.profile.nama',
                     },
                     {
                         data: 'id',
