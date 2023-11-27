@@ -65,8 +65,8 @@
     </div>
 
     @push('scripts')
-        @vite(['resources/js/plugins/dropzone.min.js'])
-        @vite(['resources/js/plugins/flatpickr.js'])
+        @vite(['resources/js/plugins/dropzone.min.js', 'resources/js/plugins/flatpickr.js'])
+        @vite([])
 
         @if (session('success'))
             <script type="module">

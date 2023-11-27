@@ -57,11 +57,6 @@
         @vite(['resources/js/plugins/flatpickr.js'])
 
         <script type="module">
-            ClassicEditor
-                .create(document.querySelector('#editor'))
-                .catch(error => {
-                    console.error(error);
-                });
             Dropzone.autoDiscover = false;
             $("#myUploader").dropzone({
                 url: "/",

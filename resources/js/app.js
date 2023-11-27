@@ -80,4 +80,7 @@ window.validate = validate;
 import Swiper from "swiper";
 window.Swiper = Swiper;
 
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+window.ClassicEditor = ClassicEditor;
+
 import.meta.glob(["../images/**"]);
