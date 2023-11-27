@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JenisKerjasama;
 use App\Models\Kegiatan;
+use App\Models\Berita;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -17,8 +18,7 @@ class BeritaController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Kegiatan::with('kerjasama')->orderBy('created_at', 'desc');
-
+            $data = Berita::orderBy('created_at', 'desc');
             return DataTables::eloquent($data)->toJson();
         }
 
@@ -33,7 +33,10 @@ class BeritaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.dashboard.berita.create', [
+            'pageTitle' => 'Data Karyawan',
+            'kerjasama' => JenisKerjasama::All(),
+        ]);
     }
 
     /**
@@ -43,36 +46,37 @@ class BeritaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'judul' => 'required',
-            'kerjasama_id' => 'required',
-            'tempat' => 'required',
-            'start' => 'required',
-            'end' => 'required',
+            'content' => 'required',
+            'image' => 'required|file|mimes:jpeg,png,pdf|max:2048',
         ], [
             'required' => 'tidak boleh kosong',
-            'date' => 'Harus tanggal dengan format YYYY/MM/DD',
+            'mimes' => 'hanya boleh gambar',
         ]);
+
         if ($validator->fails()) {
-            return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+            return back()
+            ->withErrors($validator)
+            ->withInput();
         }
 
-        $data = Kegiatan::create([
-            'judul' => $request->judul,
-            'kerjasama_id' => $request->kerjasama_id,
-            'pelaksana' => $request->pelaksana,
-            'start' => $request->start,
-            'end' => $request->end,
-            'tempat' => $request->tempat,
-            'pengajar' => $request->pengajar,
-            'instansi' => $request->instansi,
-            'sarana' => $request->sarana,
-            'peserta' => $request->peserta,
-        ]);
-        if ($data) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Kegiatan Berhasil Disimpan',
-            ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/berita'), $fileName);
+            $data = $request->except(['image', '_token']);
+            $insert = Berita::create(array_merge($data, ['image'=> $fileName]));
+            
+            if ($insert) {
+                # code...
+                $request->session()->flash('success', 'Berita berhasil disimpan');
+                return back()
+                ->withInput();
+            }
+        }else{
+            return back()
+            ->withInput();
         }
+        
 
     }
 
@@ -95,11 +99,9 @@ class BeritaController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Kegiatan::find($id);
+        $data = Berita::find($id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Divisi Berhasil Disimpan',
+        return view('pages.dashboard.berita.edit', [
             'data' => $data,
         ]);
     }
@@ -109,36 +111,56 @@ class BeritaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validator = Validator::make($request->all(), [
-            'judul' => 'required',
-            'kerjasama_id' => 'required',
-            'tempat' => 'required',
-            'waktu' => 'required',
-        ], [
-            'required' => 'tidak boleh kosong',
-            'date' => 'Harus tanggal dengan format YYYY/MM/DD',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
-        }
-
-        $data = Kegiatan::find($id)->update([
-            'judul' => $request->judul,
-            'kerjasama_id' => $request->kerjasama_id,
-            'pelaksana' => $request->pelaksana,
-            'waktu' => $request->waktu,
-            'tempat' => $request->tempat,
-            'pengajar' => $request->pengajar,
-            'instansi' => $request->instansi,
-            'sarana' => $request->sarana,
-            'peserta' => $request->peserta,
-        ]);
-        if ($data) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Kegiatan Berhasil Diupdate',
+        if ($request->hasFile('image')) {
+            $validator = Validator::make($request->all(), [
+                'judul' => 'required',
+                'content' => 'required',
+                'image' => 'required|file|mimes:jpeg,png,pdf|max:2048',
+            ], [
+                'required' => 'tidak boleh kosong',
+                'mimes' => 'hanya boleh gambar',
             ]);
+    
+            if ($validator->fails()) {
+                return back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+            $file = $request->file('image');
+            $fileName = uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/berita'), $fileName);
+            $data = $request->except(['image', '_token']);
+            $insert = Berita::find($id)->update(array_merge($data, ['image'=> $fileName]));
+            
+            if ($insert) {
+                # code...
+                $request->session()->flash('success', 'Berita berhasil disimpan');
+                return back()
+                ->withInput();
+            }
+        }else{
+            $validator = Validator::make($request->all(), [
+                'judul' => 'required',
+                'content' => 'required',
+            ], [
+                'required' => 'tidak boleh kosong',
+            ]);
+    
+            if ($validator->fails()) {
+                return back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+            $data = $request->except(['image', '_token']);
+            $insert = Berita::find($id)->update($data);
+            if ($insert) {
+                $request->session()->flash('success', 'Berita berhasil disimpan');
+                return back()
+                ->withInput();
+            }
         }
+        
+
     }
 
     /**
@@ -146,7 +168,7 @@ class BeritaController extends Controller
      */
     public function destroy(string $id)
     {
-        $delete = Kegiatan::destroy($id);
+        $delete = Berita::destroy($id);
         if ($delete) {
             return response()->json([
                 'success' => true,

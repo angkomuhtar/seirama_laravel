@@ -62,7 +62,7 @@
                     class="navItem {{ stripos(\Request::route()->getName(), 'kewrjasama') !== false ? 'active' : '' }}">
                     <span class="flex items-center">
                         <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
-                        <span>Berita</span>
+                        <span>Pengajuan Kerjasama</span>
                     </span>
                 </a>
             </li>

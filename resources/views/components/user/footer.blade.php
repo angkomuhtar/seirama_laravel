@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div>
-                    <h3 class='footer-app-title'>Alamat Kantor</h3>
+                    <h3 class='footer-app-title'>Link Terkait</h3>
                     <a href='#'>
                         <p class='footer-app-content mt-3'>Kementerian Pertanian</p>
                         <p class='footer-app-content mt-3'>CYBEX Pertanian</p>
@@ -26,15 +26,22 @@
                 </div>
                 <div>
                     <h3 class='footer-app-title'>Alamat Kantor</h3>
-                    <a href='#'>
-                        <p class='footer-app-content mt-3'>Kementerian Pertanian</p>
-                        <p class='footer-app-content mt-3'>CYBEX Pertanian</p>
-                        <p class='footer-app-content mt-3'>BPPSDMP</p>
-                        <p class='footer-app-content mt-3'>WBS</p>
-                        <p class='footer-app-content mt-3'>BBPP Lembang</p>
-                        <p class='footer-app-content mt-3'>BBPP Batu</p>
-                        <p class='footer-app-content mt-3'>STTP Gowa</p>
-                    </a>
+                    <p class='footer-app-content mt-3'>
+                        <input type="radio" name="rate" id="">
+                        <span class="ml-2 capitalize font-Opensans">Sangat Baik</span>
+                    </p>
+                    <p class='footer-app-content mt-3'>
+                        <input type="radio" name="rate" id="">
+                        <span class="ml-2 capitalize font-Opensans">Baik</span>
+                    </p>
+                    <p class='footer-app-content mt-3'>
+                        <input type="radio" name="rate" id="">
+                        <span class="ml-2 capitalize font-Opensans">Cukup</span>
+                    </p>
+                    <p class='footer-app-content mt-3'>
+                        <input type="radio" name="rate" id="">
+                        <span class="ml-2 capitalize font-Opensans">Kurang Baik</span>
+                    </p>
                 </div>
                 <div>
                     <h3 class='footer-app-title'>Kontak kami</h3>
