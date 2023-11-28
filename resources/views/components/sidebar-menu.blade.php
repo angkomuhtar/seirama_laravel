@@ -49,6 +49,16 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('pengajuan') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'pengajuan') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>Pengajuan Kerjasama</span>
+                    </span>
+                </a>
+            </li>
+            <li class="sidebar-menu-title">{{ __('CMS') }}</li>
+            <li>
                 <a href="{{ route('admin.berita') }}"
                     class="navItem {{ stripos(\Request::route()->getName(), 'admin.berita') !== false ? 'active' : '' }}">
                     <span class="flex items-center">
@@ -58,72 +68,14 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('pengajuan') }}"
-                    class="navItem {{ stripos(\Request::route()->getName(), 'pengajuan') !== false ? 'active' : '' }}">
-                    <span class="flex items-center">
-                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
-                        <span>Pengajuan Kerjasama</span>
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('kerjasama') }}"
-                    class="navItem {{ stripos(\Request::route()->getName(), 'kerwjasama') !== false ? 'active' : '' }}">
+                <a href="{{ route('admin.gallery') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.gallery') !== false ? 'active' : '' }}">
                     <span class="flex items-center">
                         <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
                         <span>Gallery</span>
                     </span>
                 </a>
             </li>
-            {{-- <li class="sidebar-menu-title">{{ __('S') }}</li> --}}
-            {{-- <li class="{{ \Request::route()->getName() == 'absensi*' ? 'active' : '' }}">
-                <a href="#" class="navItem">
-                    <span class="flex items-center">
-                        <iconify-icon class=" nav-icon" icon="heroicons:finger-print-20-solid"></iconify-icon>
-                        <span>Attendance</span>
-                    </span>
-                    <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href={{ route('absensi.attendance') }}
-                            class="navItem {{ stripos(\Request::route()->getName(), 'absensi.attendance') !== false ? 'active' : '' }}">Attendance</a>
-                    </li>
-                    <li>
-                        <a href={{ route('absensi.workhours') }}
-                            class="navItem {{ stripos(\Request::route()->getName(), 'absensi.workhours') !== false ? 'active' : '' }}">Work
-                            Hours</a>
-                    </li>
-                    <li>
-                        <a href={{ route('absensi.clocklocations') }}
-                            class="navItem {{ stripos(\Request::route()->getName(), 'absensi.clocklocations') !== false ? 'active' : '' }}">Clock
-                            Location</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="{{ \Request::route()->getName() == 'masters*' ? 'active' : '' }}">
-                <a href="#" class="navItem">
-                    <span class="flex items-center">
-                        <iconify-icon class=" nav-icon" icon="heroicons:cog-6-tooth"></iconify-icon>
-                        <span>Master</span>
-                    </span>
-                    <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href={{ route('masters.users') }}
-                            class="navItem {{ stripos(\Request::route()->getName(), 'masters.users') !== false ? 'active' : '' }}">Users</a>
-                    </li>
-                    <li>
-                        <a href={{ route('masters.division') }}
-                            class="navItem {{ stripos(\Request::route()->getName(), 'masters.division') !== false ? 'active' : '' }}">Departement</a>
-                    </li>
-                    <li>
-                        <a href={{ route('masters.position') }}
-                            class="navItem {{ stripos(\Request::route()->getName(), 'masters.position') !== false ? 'active' : '' }}">Jabatan</a>
-                    </li>
-                </ul>
-            </li> --}}
         </ul>
         <div class="bg-slate-700 mb-10 mt-36 p-4 relative text-center rounded-2xl text-white"
             id="sidebar_bottom_wizard">

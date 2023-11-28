@@ -223,12 +223,10 @@
             </p>
         </div>
         <div class='grid grid-cols-3 py-10'>
-            <x-ImageCards img="{{ asset('images/cover1.png') }}" />
-            <x-ImageCards img="{{ asset('images/cover3.png') }}" />
-            <x-ImageCards img="{{ asset('images/cover2.png') }}" />
-            <x-ImageCards img="{{ asset('images/cover3.png') }}" />
-            <x-ImageCards img="{{ asset('images/cover2.png') }}" />
-            <x-ImageCards img="{{ asset('images/cover1.png') }}" />
+            @foreach ($gallery as $item)
+                <x-ImageCards judul="{{ $item->judul }}" tanggal="{{ $item->tanggal }}"
+                    img="{{ asset('storage' . '/' . $item->images) }}" />
+            @endforeach
         </div>
     </section>
 

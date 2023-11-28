@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 <div>
-                    <h3 class='footer-app-title'>Alamat Kantor</h3>
+                    <h3 class='footer-app-title'>Review Website Kami</h3>
                     <p class='footer-app-content mt-3'>
                         <input type="radio" name="rate" id="">
                         <span class="ml-2 capitalize font-Opensans">Sangat Baik</span>

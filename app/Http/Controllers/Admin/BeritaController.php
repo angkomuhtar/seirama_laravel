@@ -12,9 +12,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BeritaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -28,9 +25,6 @@ class BeritaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.dashboard.berita.create', [
@@ -39,9 +33,6 @@ class BeritaController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -80,9 +71,6 @@ class BeritaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $data = Kegiatan::find($id);
@@ -94,9 +82,6 @@ class BeritaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $data = Berita::find($id);

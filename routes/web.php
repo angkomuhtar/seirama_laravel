@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\PositionsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\WorkhoursController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\User\AccountController;
@@ -95,6 +96,15 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
         Route::delete('/{id}', 'destroy')->name('admin.berita.destroy');
         Route::get('/{id}', 'edit')->name('admin.berita.edit');
         Route::post('/{id}', 'update')->name('admin.berita.update');
+    });
+
+    Route::controller(GalleryController::class)->prefix('gallery')->group(function () {
+        Route::get('/', 'index')->name('admin.gallery');
+        // Route::get('/create', 'create')->name('admin.gallery.create');
+        Route::post('/', 'store')->name('admin.gallery.store');
+        Route::delete('/{id}', 'destroy')->name('admin.gallery.destroy');
+        Route::get('/{id}', 'edit')->name('admin.gallery.edit');
+        Route::post('/{id}', 'update')->name('admin.gallery.update');
     });
 
     Route::controller(usersController::class)->prefix('users')->group(function () {

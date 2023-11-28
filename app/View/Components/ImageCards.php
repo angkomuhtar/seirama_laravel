@@ -12,7 +12,9 @@ class ImageCards extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $img
+        public string $img,
+        public string $judul,
+        public string $tanggal
     ) 
     {
         //

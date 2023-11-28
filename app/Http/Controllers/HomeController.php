@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Models\JenisKerjasama;
 use App\Models\Kegiatan;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,12 +14,14 @@ class HomeController extends Controller
     {
         $brosur = JenisKerjasama::All();
         $kegiatan = Kegiatan::where('start', '<=', now()->format('Y-m-d'))->where('end', '>=', now()->format('Y-m-d'))->get();
+        $gallery = Gallery::paginate(6);
 
         // dd($kegiatan);
         return view('pages.user.index', [
             'pageTitle' => 'Analytic Dashboard',
             'brosur' => $brosur,
             'kegiatan' => $kegiatan,
+            'gallery' =>$gallery
         ]);
     }
 
