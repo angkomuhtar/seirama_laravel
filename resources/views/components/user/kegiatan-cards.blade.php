@@ -3,10 +3,10 @@
         <img src='{{ asset('images/news.png') }}' alt=''
             class='object-fill absolute h-full w-full rounded-md -z-10' />
         <div class='bg-font-900/60 rounded-md h-full flex flex-col justify-center px-8'>
-            <p class='capitalize font-normal text-xs text-font-50'>
+            <p class='capitalize font-normal text-[10px] md:text-xs text-font-50'>
                 {{ $pretitle }}
             </p>
-            <h3 class='capitalize font-bold text-lg text-font-50'>{{ $title }}</h3>
+            <h3 class='capitalize font-bold text-xs md:text-lg text-font-50'>{{ $title }}</h3>
             @if ($pelaksana != '')
                 <p class='capitalize font-bold text-[.5rem] text-font-50'>
                     {{ $pelaksana }}

@@ -321,3 +321,78 @@
 .select2-container--default .select2-results > .select2-results__options {
     @apply bg-font-100 w-full rounded-sm font-Opensans text-xs;
 }
+
+.navbar-container {
+    @apply container mx-auto fixed top-0 right-0 left-0 z-30;
+
+    @screen md {
+        @apply bg-transparent;
+    }
+
+    .navbar-box {
+        @apply top-0 grid grid-cols-2 gap-3 bg-font-900 py-4 px-4 mt-2 rounded-md relative overflow-y-hidden items-center;
+
+        @screen md {
+            @apply flex justify-between items-center px-16 space-x-6 rounded-[20px] mt-6;
+        }
+
+        .nav-menu-box {
+            @apply flex-1 col-span-2 gap-10 overflow-y-hidden items-end transition duration-700 mt-5;
+            @screen md {
+                @apply relative items-center space-x-10 p-0 justify-end mt-0;
+            }
+
+            ul {
+                @apply flex flex-1 justify-end flex-col space-y-3;
+                @screen md {
+                    @apply flex-row  space-x-7 space-y-0;
+                }
+            }
+        }
+        #burger-menu {
+            @apply grid m-0 p-0 gap-1 md:hidden;
+
+            label {
+                display: flex;
+                flex-direction: column;
+                width: 28px;
+                cursor: pointer;
+
+                span {
+                    @apply bg-appPrimary-500 rounded-full h-1 my-0.5;
+                    transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+                }
+                span:nth-of-type(1) {
+                    width: 50%;
+                }
+
+                span:nth-of-type(2) {
+                    width: 100%;
+                }
+
+                span:nth-of-type(3) {
+                    width: 75%;
+                }
+                input[type="checkbox"] {
+                    display: none;
+                }
+
+                input[type="checkbox"]:checked ~ span:nth-of-type(1) {
+                    transform-origin: bottom;
+                    transform: rotatez(45deg) translate(3px, 0px);
+                }
+
+                input[type="checkbox"]:checked ~ span:nth-of-type(2) {
+                    transform-origin: top;
+                    transform: rotatez(-45deg);
+                }
+
+                input[type="checkbox"]:checked ~ span:nth-of-type(3) {
+                    transform-origin: bottom;
+                    width: 50%;
+                    transform: translate(12px, -4px) rotatez(45deg);
+                }
+            }
+        }
+    }
+}

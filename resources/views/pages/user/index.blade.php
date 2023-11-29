@@ -16,17 +16,20 @@
 
         <div
             class='absolute top-0 left-0 right-0 bottom-0 z-40 flex flex-col justify-center bg-gradient-to-r from-appPrimary-500/80 to-transparent'>
-            <div class='container py-24 grid grid-cols-11 px-10'>
-                <div class='col-span-8 pr-10'>
+            <div class='container py-24 grid md:grid-cols-11 px-10'>
+                <div class='md:col-span-8 pr-10'>
                     <div class='grid space-y-6'>
                         <div class='space-y-2'>
-                            <h3 class="font-bold text-5xl text-font-50 leading-tight font-Opensans">SEIRAMA</h3>
-                            <h3 class="font-bold text-5xl text-font-50 leading-tight font-Opensans">(Sistem Informasi
+                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">SEIRAMA
+                            </h3>
+                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">(Sistem
+                                Informasi
                                 Kerjasama)</h3>
-                            <h3 class="font-bold text-5xl text-font-50 leading-tight font-Opensans">BBPP Batangkaluku
+                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">BBPP
+                                Batangkaluku
                             </h3>
                         </div>
-                        <p class='text-xl text-neutral-50 leading-8 font-Opensans'>
+                        <p class='text-xs md:text-xl text-neutral-50 md:leading-8 font-Opensans'>
                             Menjadi Lembaga Pelatihan Terpercaya dan Berdaya Saling
                             untuk Menghasilkan SDM Pertanian yang Kreatif, Inovatif dan
                             Profesional.
@@ -54,16 +57,17 @@
     </section>
 
 
-    <section class='container py-14 space-y-10'>
+    <section class='container pt-24 md:pt-44 space-y-10'>
         <div class="">
-            <div class='flex justify-center space-x-8 items-center mb-3' data-aos="fade-up">
-                <div class='bg-appPrimary-500 h-0.5 w-1/4'></div>
-                <h3 class='text-5xl font-light font-MrDafoe text-appPrimary-500 capitalize'>
+            <div class='flex justify-center space-x-4 md:space-x-8 items-center mb-3' data-aos="fade-up">
+                <div class='bg-appPrimary-500 h-0.5 flex-1'></div>
+                <h3 class='text-xl md:text-5xl font-light font-MrDafoe text-appPrimary-500 capitalize'>
                     informasi Kegiatan
                 </h3>
-                <div class='bg-appPrimary-500 h-0.5 w-1/4'></div>
+                <div class='bg-appPrimary-500 h-0.5  flex-1'></div>
             </div>
-            <p data-aos="fade-down" class='font-Opensans text-lg text-font-400 font-light text-center capitalize'>
+            <p data-aos="fade-down"
+                class='font-Opensans text-xs md:text-lg text-font-400 font-light text-center capitalize'>
                 Kegiatan yang sedang Berlangsung
             </p>
         </div>
@@ -124,20 +128,21 @@
                 <h6 class="text-base text-font-400 ">Belum ada Kegiatan Sedang Berlangsung</h6>
             </div>
         @endif
-
     </section>
 
-    <section class='container py-14 space-y-6' id="ebrosur">
-        <div class='grid grid-cols-3 gap-6'>
+    <section class='container pt-24 md:pt-44 space-y-6' id="ebrosur">
+        <div class='grid md:grid-cols-3 gap-6'>
             <div data-aos="fade-right">
-                <div>
-                    <div class="flex false space-x-8 items-center mb-3">
-                        <h3 class="text-5xl font-light font-MrDafoe text-left text-appPrimary-500">Informasi E-Brosur
+                <div class="w-full">
+                    <div class="flex md:space-x-8 items-center mb-3">
+                        <h3 class="text-xl md:text-5xl font-light font-MrDafoe text-left text-appPrimary-500">Informasi
+                            E-Brosur
                         </h3>
                     </div>
-                    <p class="font-Opensans text-lg text-font-400 font-light false"></p>
+                    <p class="font-Opensans text-xs md:text-lg text-font-400 font-light"></p>
                 </div>
-                <h3 class="font-Opensans font-semibold text-xl">Berikut informasi e-brosur yang dapat di akases</h3>
+                <h3 class="font-Opensans font-semibold text-xs md:text-xl">Berikut informasi e-brosur yang dapat di
+                    akases</h3>
             </div>
             @php
                 $num = 2;
@@ -149,18 +154,18 @@
         </div>
     </section>
 
-    <section class='container py-14 space-y-6'>
+    <section class='container pt-24 md:pt-44 space-y-6'>
         <div>
-            <div class="flex false space-x-8 items-center mb-3">
-                <h3 class="text-5xl font-light font-MrDafoe text-left text-appPrimary-500">Berita Layanan
+            <div class="flex space-x-8 items-center mb-3">
+                <h3 class="text-xl md:text-5xl font-light font-MrDafoe text-left text-appPrimary-500">Berita Layanan
                 </h3>
             </div>
-            <p class="font-Opensans text-lg text-font-400 font-light false">Berikut berita terkait layanan kegiatan yang
+            <p class="font-Opensans text-xs md:text-lg text-font-400 font-light ">Berikut berita terkait layanan
+                kegiatan yang
                 dapat Anda akses </p>
         </div>
-        <div class="grid grid-cols-6 gap-5">
-
-            <div class='col-span-4 grid grid-cols-3 gap-6 place-self-start'>
+        <div class="grid md:grid-cols-6 gap-5">
+            <div class='md:col-span-4 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6 place-self-start'>
                 @foreach ($brosur as $item)
                     <div class='relative w-full aspect-[3/4] group cursor-pointer flex justify-center overflow-hidden'>
                         <img src='{{ asset('images/cover1.png') }}' alt='' fill
@@ -174,16 +179,17 @@
                         </div>
                         <div
                             class='py-2 px-4 top-[50%] absolute opacity-0 invisible group-hover:transition-all group-hover:visible group-hover:opacity-100 group-hover:duration-300 group-hover:delay-[400ms] group-hover:-translate-y-[50%]'>
-                            <h6 class='font-Opensans text-base font-bold text-font-900 leading-5 mb-3'>
+                            <h6
+                                class='font-Opensans text-[.6rem] md:text-base font-bold text-font-900 leading-none md:leading-5 mb-3'>
                                 Mentan melakukan kunjungan
                             </h6>
-                            <p class='font-light text-xs'>
+                            <p class='font-light text-[.4rem] md:text-xs'>
                                 {{ substr('Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa magnam tempora corrupti incidunt. Voluptates beatae officiis consequuntur voluptatibus eius? Quia minus sit dolore hic laudantium sunt voluptate, et voluptates eveniet.', 0, 100) }}
 
                             </p>
                             <div class='w-full'>
                                 <a href='{{ route('berita', ['id' => 1]) }}' rel='noopener noreferrer'
-                                    class='text-appPrimary-500 font-semibold text-sm text-center hover:text-font-600'>
+                                    class='text-appPrimary-500 font-semibold text-[.5rem] md:text-sm text-center hover:text-font-600'>
                                     read more
                                 </a>
                             </div>
@@ -192,7 +198,7 @@
                 @endforeach
             </div>
 
-            <div class="lg:col-span-2 col-span-12 space-y-5">
+            <div class="lg:col-span-2 space-y-5">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Kalender Kegiatan</h4>
@@ -209,20 +215,20 @@
         </div>
     </section>
 
-    <section class='py-14' id="galeri">
+    <section class='pt-24 md:pt-44' id="galeri">
         <div class="container">
-            <div class='flex justify-center space-x-8 items-center mb-3'>
-                <div class='bg-appPrimary-500 h-0.5 w-1/4'></div>
-                <h3 class='text-5xl font-light font-MrDafoe text-appPrimary-500 capitalize'>
+            <div class='flex justify-center space-x-4 md:space-x-8 items-center mb-3'>
+                <div class='bg-appPrimary-500 h-0.5 flex-1'></div>
+                <h3 class='text-xl md:text-5xl font-light font-MrDafoe text-appPrimary-500 capitalize'>
                     Gallery
                 </h3>
-                <div class='bg-appPrimary-500 h-0.5 w-1/4'></div>
+                <div class='bg-appPrimary-500 h-0.5 flex-1'></div>
             </div>
-            <p class='font-Opensans text-lg text-font-400 font-light text-center capitalize'>
+            <p class='font-Opensans text-xs md:text-lg text-font-400 font-light text-center capitalize'>
                 Foto dan Video Kegiatan BBPP Batangkaluku
             </p>
         </div>
-        <div class='grid grid-cols-3 py-10'>
+        <div class='grid grid-cols-2 md:grid-cols-3 py-10'>
             @foreach ($gallery as $item)
                 <x-ImageCards judul="{{ $item->judul }}" tanggal="{{ $item->tanggal }}"
                     img="{{ asset('storage' . '/' . $item->images) }}" />
@@ -259,8 +265,14 @@
             var swiper2 = new Swiper("#KegiataSlide", {
                 centeredSlides: false,
                 grabCursor: true,
-                slidesPerView: 3.5,
-                spaceBetween: 50,
+                slidesPerView: 1.5,
+                spaceBetween: 10,
+                breakpoints: {
+                    768: {
+                        slidesPerView: 3.5,
+                        spaceBetween: 50,
+                    }
+                }
             });
             AOS.init({
                 easing: 'ease-in-out-sine'

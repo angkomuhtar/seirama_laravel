@@ -35,6 +35,13 @@
     </div>
     @vite(['resources/js/app.js'])
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <script type="module">
+        $('#burger').change(function(e) {
+            console.log('click');
+            $('.nav-menu-box').toggleClass('hidden', 500)
+            $('.nav-menu-box').toggleClass('grid', 500)
+        })
+    </script>
     @stack('scripts')
 </body>
 

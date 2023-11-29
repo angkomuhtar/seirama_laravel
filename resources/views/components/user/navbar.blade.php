@@ -1,9 +1,16 @@
-<div class='container'>
-    <div class="relative">
-        <nav
-            class='absolute z-50 w-full top-0 bg-font-900 flex justify-between items-center rounded-[20px] py-4 px-16 mt-6 space-x-6'>
-            <x-user.app-icon />
-            <ul class='flex flex-1 justify-end space-x-7'>
+<div class='navbar-container'>
+    <nav class='navbar-box'>
+        <x-user.app-icon />
+        <div id="burger-menu" class="md:hidden flex justify-end items-center">
+            <label for="burger">
+                <input type="checkbox" id="burger" />
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+        <div class="nav-menu-box hidden md:flex">
+            <ul>
                 <li>
                     <a href='{{ route('home') }}' class='text-neutral-50 text-base font-semibold'>
                         Beranda
@@ -22,26 +29,23 @@
             </ul>
             <div class='flex justify-between space-x-5'>
                 @auth('web')
-                    <a href='{{ route('account') }}'>
-                        <button
-                            class='font-semibold text-neutral-50 border-2 bg-appPrimary-500 border-appPrimary-500 px-10 py-2 rounded-md'>
-                            Akunku
-                        </button>
+                    <a href='{{ route('account') }}'
+                        class='font-semibold text-neutral-50 border-2 bg-appPrimary-500 border-appPrimary-500 text-center px-8 py-2 rounded-md'>
+                        Akunku
                     </a>
                 @else
-                    <a href='{{ route('login') }}'>
-                        <button
-                            class='font-semibold text-neutral-50 border-2 bg-appPrimary-500 border-appPrimary-500 px-10 py-2 rounded-md'>
-                            Masuk
-                        </button>
+                    <a href='{{ route('login') }}'
+                        class='flex-1 font-semibold text-neutral-50 border-2 bg-appPrimary-500 border-appPrimary-500 text-center px-8 py-2 rounded-md'>
+                        Masuk
                     </a>
-                    <a href='{{ route('register') }}'>
-                        <button class='font-semibold text-neutral-50 border-2 border-appPrimary-500 px-8 py-2 rounded-md'>
-                            Daftar
-                        </button>
+                    <a href='{{ route('register') }}'
+                        class='flex-1 font-semibold text-neutral-50 border-2 border-appPrimary-500 text-center px-8 py-2 rounded-md'>
+                        Daftar
                     </a>
                 @endauth
             </div>
-        </nav>
+        </div>
+    </nav>
+    <div class="">
     </div>
 </div>

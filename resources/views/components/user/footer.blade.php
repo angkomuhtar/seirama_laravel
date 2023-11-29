@@ -1,7 +1,8 @@
 <footer>
-    <div class="font-Opensans relative" style="background-image: url('{{ asset('images/footer.png') }}')">
+    <div class="font-Opensans relative bg-cover bg-no-repeat"
+        style="background-image: url('{{ asset('images/footer.png') }}')">
         <div class='bg-font-900/90'>
-            <div class='container py-20 px-10 grid md:grid-cols-4 gap-x-20'>
+            <div class='container py-20 px-10 grid md:grid-cols-4 gap-x-20 gap-y-5 lg:gap-y-0'>
                 <div>
                     <x-user.app-icon />
                     <div class='mt-9'>

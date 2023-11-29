@@ -1,70 +1,61 @@
-<x-LayoutUser>
-    <div class="h-20"></div>
+<x-UserDashboard>
 
+    <section class="kegiatan_berjalan grid gap-5">
+        <div class="px-3 py-4 rounded-md w-full border-appPrimary-200 shadow-sm flex justify-between items-center">
+            <h3 class="text-lg font-Opensans font-semibold text-font-900">Kerjasama Instansi</h3>
+            <a href="{{ route('user_kerjasama.create') }}"
+                class="py-3 px-4 rounded-md 
+    bg-appPrimary-500 align-middle text-center 
+    font-Opensans font-bold text-white text-sm">
+                Ajukan Kerjasama Instansi</a>
+        </div>
 
-    <section class='container py-14 grid lg:grid-cols-5 grid-cols-4 gap-7'>
-        <x-user.user-sidebar />
-        <div class="col-span-4 grid gap-8 place-self-start w-full">
-            <section class="kegiatan_berjalan grid gap-5">
-                <div
-                    class="px-3 py-4 rounded-md w-full border-appPrimary-200 shadow-sm flex justify-between items-center">
-                    <h3 class="text-lg font-Opensans font-semibold text-font-900">Kerjasama Instansi</h3>
-                    <a href="{{ route('user_kerjasama.create') }}"
-                        class="py-3 px-4 rounded-md 
-            bg-appPrimary-500 align-middle text-center 
-            font-Opensans font-bold text-white text-sm">
-                        Ajukan Kerjasama Instansi</a>
-                </div>
+        <div class="card border border-font-300">
+            <div class="card-body px-6">
+                <div class="overflow-x-auto -mx-6 dashcode-data-table">
+                    <span class="col-span-8 hidden"></span>
+                    <span class="col-span-4 hidden"></span>
+                    <div class="inline-block min-w-full align-middle">
+                        <div class="">
+                            <table class="min-w-full divide-y divide-slate-100 dark:divide-slate-700 data-table">
+                                <thead class="bg-appPrimary-100">
+                                    <tr>
+                                        <th scope="col" class="table-th">
+                                            Nama Kegiatan
+                                        </th>
+                                        <th scope="col" class="table-th">
+                                            Nama Instansi
+                                        </th>
+                                        <th scope="col" class="table-th">
+                                            Waktu
+                                        </th>
+                                        <th scope="col" class="table-th">
+                                            Jenis Kerjasama
+                                        </th>
 
-                <div class="card border border-font-300">
-                    <div class="card-body px-6">
-                        <div class="overflow-x-auto -mx-6 dashcode-data-table">
-                            <span class="col-span-8 hidden"></span>
-                            <span class="col-span-4 hidden"></span>
-                            <div class="inline-block min-w-full align-middle">
-                                <div class="">
-                                    <table
-                                        class="min-w-full divide-y divide-slate-100 dark:divide-slate-700 data-table">
-                                        <thead class="bg-appPrimary-100">
-                                            <tr>
-                                                <th scope="col" class="table-th">
-                                                    Nama Kegiatan
-                                                </th>
-                                                <th scope="col" class="table-th">
-                                                    Nama Instansi
-                                                </th>
-                                                <th scope="col" class="table-th">
-                                                    Waktu
-                                                </th>
-                                                <th scope="col" class="table-th">
-                                                    Jenis Kerjasama
-                                                </th>
+                                        <th scope="col" class="table-th">
+                                            Kontak
+                                        </th>
 
-                                                <th scope="col" class="table-th">
-                                                    Kontak
-                                                </th>
-
-                                                <th scope="col" class="table-th">
-                                                    Lokasi Pelaksanaan
-                                                </th>
-                                                <th scope="col" class="table-th">
-                                                    Status
-                                                </th>
-                                                <th scope="col" class="table-th">
-                                                    Aksi
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody
-                                            class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                        <th scope="col" class="table-th">
+                                            Lokasi Pelaksanaan
+                                        </th>
+                                        <th scope="col" class="table-th">
+                                            Status
+                                        </th>
+                                        <th scope="col" class="table-th">
+                                            Aksi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </section>
 
@@ -159,4 +150,4 @@
             });
         </script>
     @endpush
-</x-LayoutUser>
+</x-UserDashboard>
