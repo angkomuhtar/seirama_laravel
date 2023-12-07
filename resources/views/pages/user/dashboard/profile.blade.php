@@ -1,16 +1,16 @@
 <x-UserDashboard>
     <section class="kegiatan_berjalan grid gap-5">
-
         <div class="">
-            <ul class="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"
-                role="tablist">
+            <ul class="nav nav-tabs flex overflow-x-auto list-none border-b-0 pl-0 mb-4 justify-between md:justify-start w-full"
+                id="tabs-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a href="#tabs-home-withIcon"
                         class="nav-link w-full flex items-center font-medium text-sm font-Inter leading-tight capitalize border-x-0 border-t-0 border-b border-transparent px-4 pb-2 my-2 hover:border-transparent focus:border-transparent active dark:text-slate-300"
                         id="tabs-home-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-home-withIcon"
                         role="tab" aria-controls="tabs-home-withIcon" aria-selected="true">
                         <iconify-icon class="mr-1" icon="heroicons-outline:user"></iconify-icon>
-                        Biodata</a>
+                        <span class="hidden lg:block">Biodata</span>
+                    </a>
                 </li>
                 @if ($profile->isASN == 'Y')
                     <li class="nav-item" role="presentation">
@@ -19,7 +19,8 @@
                             id="tabs-profile-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-profile-withIcon"
                             role="tab" aria-controls="tabs-profile-withIcon" aria-selected="false">
                             <iconify-icon class="mr-1" icon="maki:college"></iconify-icon>
-                            Pendidikan dan Jabatan ASN</a>
+                            <span class="hidden lg:block">Pendidikan dan Jabatan ASN</span>
+                        </a>
                     </li>
                 @else
                     <li class="nav-item" role="presentation">
@@ -28,7 +29,10 @@
                             id="tabs-tani-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-tani-withIcon"
                             role="tab" aria-controls="tabs-tani-withIcon" aria-selected="false">
                             <iconify-icon class="mr-1" icon="maki:college"></iconify-icon>
-                            Pendidikan dan Kelompok tani</a>
+                            <span class="hidden lg:block">
+                                Pendidikan dan Kelompok tani
+                            </span>
+                        </a>
                     </li>
                 @endif
 
@@ -38,7 +42,10 @@
                         id="tabs-messages-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-messages-withIcon"
                         role="tab" aria-controls="tabs-messages-withIcon" aria-selected="false">
                         <iconify-icon class="mr-1" icon="healthicons:i-training-class"></iconify-icon>
-                        Kegiatan</a>
+                        <span class="hidden lg:block">
+                            Kegiatan
+                        </span>
+                    </a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a href="#tabs-settings-withIcon"
@@ -46,9 +53,13 @@
                         id="tabs-settings-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-settings-withIcon"
                         role="tab" aria-controls="tabs-settings-withIcon" aria-selected="false">
                         <iconify-icon class="mr-1" icon="mdi:account-cog-outline"></iconify-icon>
-                        Akun</a>
+                        <span class="hidden lg:block">
+                            Akun
+                        </span>
+                    </a>
                 </li>
             </ul>
+
             <div class="tab-content" id="tabs-tabContent">
                 <div class="tab-pane fade show active" id="tabs-home-withIcon" role="tabpanel"
                     aria-labelledby="tabs-home-withIcon-tab">

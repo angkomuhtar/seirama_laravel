@@ -17,9 +17,14 @@ class KegiatanController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Kegiatan::with('kerjasama')->orderBy('created_at', 'desc');
-
-            return DataTables::eloquent($data)->toJson();
+            $data = Kegiatan::with('kerjasama')->orderBy('created_at', 'desc')->get();
+            // return DataTables::eloquent($data)->toJson();\
+            return DataTables::of($data)
+            ->addColumn('total_peserta', function ($row) {
+                // Access and return the value of the desired attribute
+                return $row->total_peserta;
+            })
+            ->make(true);
         }
 
         return view('pages.dashboard.kegiatan.index', [

@@ -1,63 +1,59 @@
 <x-UserDashboard>
 
-    <section class="kegiatan_berjalan grid gap-5">
-        <div class="px-3 py-4 rounded-md w-full border-appPrimary-200 shadow-sm flex justify-between items-center">
-            <h3 class="text-lg font-Opensans font-semibold text-font-900">Kerjasama Instansi</h3>
-            <a href="{{ route('user_kerjasama.create') }}"
-                class="py-3 px-4 rounded-md 
-    bg-appPrimary-500 align-middle text-center 
-    font-Opensans font-bold text-white text-sm">
-                Ajukan Kerjasama Instansi</a>
-        </div>
+    <div class="px-3 py-4 rounded-md w-full border-appPrimary-200 shadow-sm flex justify-between items-center">
+        <h3 class="text-lg font-Opensans font-semibold text-font-900">Kerjasama Instansi</h3>
+        <a href="{{ route('user_kerjasama.create') }}"
+            class="py-3 px-4 rounded-md bg-appPrimary-500 align-middle items-center lg:hidden text-center font-Opensans font-bold text-white text-sm">
+            <iconify-icon class="text-xl" icon="mdi:database-plus-outline"></iconify-icon>
+            <span class="hidden lg:block">
+                Ajukan Kerjasama Instansi
+            </span>
+        </a>
+    </div>
 
-        <div class="card border border-font-300">
-            <div class="card-body px-6">
-                <div class="overflow-x-auto -mx-6 dashcode-data-table">
-                    <span class="col-span-8 hidden"></span>
-                    <span class="col-span-4 hidden"></span>
-                    <div class="inline-block min-w-full align-middle">
-                        <div class="">
-                            <table class="min-w-full divide-y divide-slate-100 dark:divide-slate-700 data-table">
-                                <thead class="bg-appPrimary-100">
-                                    <tr>
-                                        <th scope="col" class="table-th">
-                                            Nama Kegiatan
-                                        </th>
-                                        <th scope="col" class="table-th">
-                                            Nama Instansi
-                                        </th>
-                                        <th scope="col" class="table-th">
-                                            Waktu
-                                        </th>
-                                        <th scope="col" class="table-th">
-                                            Jenis Kerjasama
-                                        </th>
+    <div class="card border border-font-300 overflow-x-auto">
+        <div class="card-body px-6">
+            <div class="-mx-6 dashcode-data-table">
+                <span class="col-span-8 hidden"></span>
+                <span class="col-span-4 hidden"></span>
+                <div class="inline-block min-w-full align-middle">
+                    <div class="">
+                        <table class="min-w-full divide-y divide-slate-100 dark:divide-slate-700 data-table">
+                            <thead class="bg-appPrimary-100">
+                                <tr>
+                                    <th scope="col" class="table-th">
+                                        Nama Kegiatan
+                                    </th>
+                                    <th scope="col" class="table-th">
+                                        Nama Instansi
+                                    </th>
+                                    <th scope="col" class="table-th">
+                                        Waktu
+                                    </th>
+                                    <th scope="col" class="table-th">
+                                        Jenis Kerjasama
+                                    </th>
 
-                                        <th scope="col" class="table-th">
-                                            Kontak
-                                        </th>
+                                    <th scope="col" class="table-th">
+                                        Kontak
+                                    </th>
 
-                                        <th scope="col" class="table-th">
-                                            Lokasi Pelaksanaan
-                                        </th>
-                                        <th scope="col" class="table-th">
-                                            Status
-                                        </th>
-                                        <th scope="col" class="table-th">
-                                            Aksi
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody
-                                    class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                </tbody>
-                            </table>
-                        </div>
+                                    <th scope="col" class="table-th">
+                                        Lokasi Pelaksanaan
+                                    </th>
+                                    <th scope="col" class="table-th">
+                                        Status
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
 
     @push('scripts')
@@ -99,54 +95,45 @@
                     }
                 ],
                 columns: [{
-                        data: 'nm_kegiatan',
-                    }, {
-                        data: 'instansi',
-                    }, {
-                        render: (data, type, row, meta) => {
-                            return `
+                    data: 'nm_kegiatan',
+                }, {
+                    data: 'instansi',
+                }, {
+                    render: (data, type, row, meta) => {
+                        return `
                     <span class="whitespace-nowrap lowercase">${moment(row.start, 'YYYY-MM-DD').format('DD')} - ${moment(row.end, 'YYYY-MM-DD').format('DD MMM YY')}</span>
                     `
-                        }
-                    }, {
-                        data: 'jenis_kerjasama.nama',
-                    }, {
-                        data: 'cp',
-                    }, {
-                        data: 'lokasi',
-                    }, {
-                        data: 'status',
-                        render: (data) => {
-                            if (data == 'wait') {
-                                return `
+                    }
+                }, {
+                    data: 'jenis_kerjasama.nama',
+                }, {
+                    data: 'cp',
+                }, {
+                    data: 'lokasi',
+                }, {
+                    data: 'status',
+                    render: (data) => {
+                        if (data == 'wait') {
+                            return `
                                 <span class="badge bg-secondary-500 text-white capitalize inline-flex items-center">
                                     <iconify-icon class="ltr:mr-1 rtl:ml-1" icon="material-symbols-light:inactive-order"></iconify-icon>menunggu
                                 </span>
                                 `
-                            } else if (data == 'accept') {
-                                return `
+                        } else if (data == 'accept') {
+                            return `
                                 <span class="badge bg-success-500 text-white capitalize inline-flex items-center">
                                     <iconify-icon class="ltr:mr-1 rtl:ml-1" icon="material-symbols-light:order-approve"></iconify-icon>diterima
                                 </span>
                                 `
-                            } else if (data == 'reject') {
-                                return `
+                        } else if (data == 'reject') {
+                            return `
                                 <span class="badge bg-danger-500 text-white capitalize inline-flex items-center">
                                     <iconify-icon class="ltr:mr-1 rtl:ml-1" icon="material-symbols-light:inactive-order""></iconify-icon> ditolak
                                 </span>
                                 `
-                            }
                         }
-                    },
-                    {
-                        render: (data, type, row, meta) => {
-                            return ''
-                            // return `
-                    // <a href="${edit.replace(':id', row.id)}" class="btn btn-primary btn-sm text-white">Cek Data</a>
-                    // `
-                        }
-                    },
-                ],
+                    }
+                }],
             });
         </script>
     @endpush

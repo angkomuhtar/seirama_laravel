@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\WorkhoursController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\User\AccountController;
@@ -47,6 +48,7 @@ Route::get('/pengumuman', [HomeController::class, 'pengumuman'])->name('pengumum
 Route::get('/pengumuman/{id}', [HomeController::class, 'detail_pengumuman'])->name('pengumuman.details');
 Route::get('/berita/{id}', [HomeController::class, 'detail_berita'])->name('berita');
 Route::get('/kalender_kegiatan/{date}', [HomeController::class, 'kalender_kegiatan'])->name('kalender_kegiatan');
+Route::get('/pengumuman/{file}/download', [HomeController::class, 'downloadPengumuman'])->name('download_pengumuman');
 
 
 Route::controller(AjaxController::class)->prefix('ajax')->group(function () {
@@ -107,9 +109,22 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
         Route::post('/{id}', 'update')->name('admin.gallery.update');
     });
 
-    Route::controller(usersController::class)->prefix('users')->group(function () {
-        Route::get('/', 'index')->name('masters.users');
-        Route::get('/create', 'create')->name('masters.users.create');
+    Route::controller(PengumumanController::class)->prefix('pengumuman')->group(function () {
+        Route::get('/', 'index')->name('admin.pengumuman');
+        // Route::get('/create', 'create')->name('admin.pengumuman.create');
+        Route::post('/', 'store')->name('admin.pengumuman.store');
+        Route::delete('/{id}', 'destroy')->name('admin.pengumuman.destroy');
+        Route::get('/{id}', 'edit')->name('admin.pengumuman.edit');
+        Route::post('/{id}', 'update')->name('admin.pengumuman.update');
+    });
+
+    Route::controller(UsersController::class)->prefix('users')->group(function () {
+        Route::get('/', 'index')->name('admin.users');
+        // Route::get('/create', 'create')->name('admin.users.create');
+        Route::post('/', 'store')->name('admin.users.store');
+        Route::post('/{id}/status', 'destroy')->name('admin.users.status');
+        Route::get('/{id}', 'edit')->name('admin.users.edit');
+        Route::post('/{id}', 'update')->name('admin.users.update');
     });
 
    

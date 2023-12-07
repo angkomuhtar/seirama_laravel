@@ -43,9 +43,15 @@
                             </div>
                             <div class="input-area">
                                 <label for="description" class="form-label">Deskripsi</label>
-                                <textarea rows="5" name="content" class="form-control" placeholder="Type Here" id="editor"> 
-                                    {{ old('content') }}
-                                </textarea>
+                                <textarea rows="5" name="desc" class="form-control" placeholder="Type Here">{{ old('desc') }}</textarea>
+                                @error('desc')
+                                    <span
+                                        class="font-Opensans text-xs text-danger-500 pt-1 error-message capitalize block">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="input-area">
+                                <label for="description" class="form-label">Konten Berita</label>
+                                <textarea rows="5" name="content" class="form-control" placeholder="Type Here" id="editor">{{ old('content') }}</textarea>
                                 <span
                                     class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
                                     is invalid

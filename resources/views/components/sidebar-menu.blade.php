@@ -57,6 +57,15 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.users') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.users') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>User</span>
+                    </span>
+                </a>
+            </li>
             <li class="sidebar-menu-title">{{ __('CMS') }}</li>
             <li>
                 <a href="{{ route('admin.berita') }}"
@@ -73,6 +82,15 @@
                     <span class="flex items-center">
                         <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
                         <span>Gallery</span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.pengumuman') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.pengumuman') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>Pengumuman</span>
                     </span>
                 </a>
             </li>

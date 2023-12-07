@@ -166,29 +166,28 @@
         </div>
         <div class="grid md:grid-cols-6 gap-5">
             <div class='md:col-span-4 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6 place-self-start'>
-                @foreach ($brosur as $item)
+                @foreach ($news as $item)
                     <div class='relative w-full aspect-[3/4] group cursor-pointer flex justify-center overflow-hidden'>
-                        <img src='{{ asset('images/cover1.png') }}' alt='' fill
+                        <img src='{{ asset('storage/' . $item->image) }}' alt='' fill
                             class='rounded-md object-cover' />
                         <div
                             class='absolute left-[50%] w-0 h-full group-hover:w-full group-hover:left-0 transition-all ease-in duration-300 bg-font-50/90'>
                         </div>
                         <div
                             class='absolute rounded-sm bg-appPrimary-500 text-font-950 px-2 py-1 text-[.6rem] font-semibold left-4 -top-10 group-hover:top-4 group-hover:transition-all group-hover:duration-300 group-hover:delay-300 '>
-                            20 Agustus 2023
+                            {{ $item->created_at }}
                         </div>
                         <div
-                            class='py-2 px-4 top-[50%] absolute opacity-0 invisible group-hover:transition-all group-hover:visible group-hover:opacity-100 group-hover:duration-300 group-hover:delay-[400ms] group-hover:-translate-y-[50%]'>
+                            class='py-2 px-4 top-[50%] absolute w-full  opacity-0 invisible group-hover:transition-all group-hover:visible group-hover:opacity-100 group-hover:duration-300 group-hover:delay-[400ms] group-hover:-translate-y-[50%]'>
                             <h6
                                 class='font-Opensans text-[.6rem] md:text-base font-bold text-font-900 leading-none md:leading-5 mb-3'>
-                                Mentan melakukan kunjungan
+                                {{ $item->judul }}
                             </h6>
                             <p class='font-light text-[.4rem] md:text-xs'>
-                                {{ substr('Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa magnam tempora corrupti incidunt. Voluptates beatae officiis consequuntur voluptatibus eius? Quia minus sit dolore hic laudantium sunt voluptate, et voluptates eveniet.', 0, 100) }}
-
+                                {!! substr($item->desc, 0, 75) !!}
                             </p>
                             <div class='w-full'>
-                                <a href='{{ route('berita', ['id' => 1]) }}' rel='noopener noreferrer'
+                                <a href='{{ route('berita', ['id' => $item->id]) }}' rel='noopener noreferrer'
                                     class='text-appPrimary-500 font-semibold text-[.5rem] md:text-sm text-center hover:text-font-600'>
                                     read more
                                 </a>
@@ -355,7 +354,6 @@
                 showYearDropdown: true,
                 startOnMonday: false,
             }
-
             var calendar = $('#dashcode-mini-calendar').calendar(defaultConfig);
         </script>
     @endpush

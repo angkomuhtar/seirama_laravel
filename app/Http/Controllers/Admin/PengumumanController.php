@@ -3,45 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Pengumuman;
+use App\Models\JenisKerjasama;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class UsersController extends Controller
+class PengumumanController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $data = User::all();
-
-    //     if ($request->ajax()) {
-    //         return DataTables::of(User::query())->toJson();
-    //     }
-
-    //     return view('pages.dashboard.master.users', [
-    //         'pageTitle' => 'Users',
-    //         'tableData' => $data,
-    //     ]);
-    // }
-
-    // public function create()
-    // {
-    //     return view('pages.dashboard.users.create', [
-    //         'pageTitle' => 'Tambah User',
-    //     ]);
-    // }
-
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::with('profile', 'asn_data', 'user_data')->where('roles', 'users')->orderBy('created_at', 'desc')->get();
-            // return DataTables::of($data)->toJson();
-            return DataTables::of($data)
-            ->addColumn('avatar_url', function ($row) {
-                return $row->avatar_url;
-            })
-            ->make(true);
+            $data = Pengumuman::orderBy('created_at', 'desc');
+            return DataTables::eloquent($data)->toJson();
         }
-        return view('pages.dashboard.users.index', []);
+        return view('pages.dashboard.pengumuman.index', []);
     }
     public function store (Request $request)
     {
@@ -137,20 +113,20 @@ class UsersController extends Controller
         }
     }
 
-    public function destroy(Request $request, string $id)
+    public function destroy(string $id)
     {
-        $delete = User::find($id)->update(['status'=> $request->status]);
+        $delete = Pengumuman::destroy($id);
         if ($delete) {
             return response()->json([
                 'success' => true,
-                'message' => 'Data disabled',
+                'message' => 'Data berhasil dihapus',
             ]);
         } else {
             return response()->json([
                 'success' => false,
                 'message' => 'error saat menghapus data',
-                'ERR' => ''
             ]);
         }
     }
+
 }

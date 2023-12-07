@@ -5,7 +5,7 @@
             class="offcanvas-header flex items-center justify-between p-4 pt-3 border-b border-b-slate-300 dark:border-b-slate-900">
             <div>
                 <h3 class="block text-xl font-Inter text-slate-900 capitalize font-medium dark:text-[#eee]">
-                    Kegiatan baru
+                    Pengumuman
                 </h3>
             </div>
             <button type="button"
@@ -20,12 +20,12 @@
                 <div class="p-6">
                     <form class="space-y-4" id="sending_form">
                         <input type="hidden" name="id" id="id" value="">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <div class="input-area relative has-error">
-                            <label for="largeInput" class="form-label">Nama Kegiatan</label>
+                        @csrf
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">judul</label>
                             <div class="relative">
-                                <input type="text" name="judul" class="form-control !pl-9"
-                                    placeholder="Nama Kegiatan" error="test">
+                                <input type="text" name="judul" class="form-control !pl-9" placeholder="Judul"
+                                    error="test">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
@@ -34,120 +34,25 @@
                                 is invalid
                                 state.</span>
                         </div>
-                        <div class="input-area relative">
-                            <label for="largeInput" class="form-label capitalize">Jenis Kerjasama</label>
-                            <div class="relative">
-                                <select id="select" class="form-control !pl-9" name="kerjasama_id">
-                                    <option selected disabled class="dark:bg-slate-700 text-slate-300">Pilih Data
-                                    </option>
-                                    @foreach ($kerjasama as $item)
-                                        <option value="{{ $item->id }}" class="dark:bg-slate-700">
-                                            {{ $item->nama }}</option>
-                                    @endforeach
-                                </select>
-                                <iconify-icon icon="heroicons:globe-alt"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                            </div>
-                            <span
-                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
-                                is invalid
-                                state.</span>
-                        </div>
-                        <div class="input-area relative">
-                            <label for="largeInput" class="form-label">Pelaksana</label>
-                            <div class="relative">
-                                <input type="text" name="pelaksana" class="form-control !pl-9"
-                                    placeholder="Pelaksana Kegiatan">
-                                <iconify-icon icon="icon-park-outline:data-user"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                            </div>
-                            <span
-                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
-                                is invalid
-                                state.</span>
-                        </div>
-                        <div class="input-area relative">
-                            <label for="largeInput" class="form-label">Waktu</label>
-                            <div class="flex justify-between items-center space-x-3">
-                                <div class="relative">
-                                    <input class="form-control py-2 flatpickr time flatpickr-input active !pl-9"
-                                        id="time-picker" name="start" placeholder="Waktu Pelaksanaan" value=""
-                                        type="text" readonly="readonly">
-                                    <iconify-icon icon="heroicons:globe-alt"
-                                        class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                </div>
-                                <div class="relative">
-                                    <input class="form-control py-2 flatpickr time flatpickr-input active !pl-9"
-                                        id="time-picker" name="end" placeholder="Waktu Pelaksanaan" value=""
-                                        type="text" readonly="readonly">
-                                    <iconify-icon icon="heroicons:globe-alt"
-                                        class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                </div>
-                            </div>
-                            <span
-                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
-                                is invalid
-                                state.</span>
-                        </div>
-                        <div class="input-area relative">
-                            <label for="largeInput" class="form-label">tempat</label>
-                            <div class="relative">
-                                <input type="text" name="tempat" class="form-control !pl-9"
-                                    placeholder="Tempat Kegiatan">
-                                <iconify-icon icon="icon-park-outline:data-user"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                            </div>
-                            <span
-                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
-                                is invalid
-                                state.</span>
-                        </div>
-                        <div class="input-area relative">
-                            <label for="largeInput" class="form-label">Pengajar</label>
-                            <div class="relative">
-                                <input type="text" name="pengajar" class="form-control !pl-9"
-                                    placeholder="Pengajar">
-                                <iconify-icon icon="icon-park-outline:data-user"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                            </div>
-                            <span
-                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
-                                is invalid
-                                state.</span>
-                        </div>
-                        <div class="input-area relative">
-                            <label for="largeInput" class="form-label">instansi</label>
-                            <div class="relative">
-                                <input type="text" name="instansi" class="form-control !pl-9"
-                                    placeholder="Instansi">
-                                <iconify-icon icon="icon-park-outline:data-user"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                            </div>
-                            <span
-                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
-                                is invalid
-                                state.</span>
-                        </div>
-                        <div class="input-area relative">
-                            <label for="largeInput" class="form-label">Sarana</label>
-                            <div class="relative">
-                                <input type="text" name="sarana" class="form-control !pl-9"
-                                    placeholder="Sarana Kegiatan">
-                                <iconify-icon icon="icon-park-outline:data-user"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                            </div>
-                            <span
-                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
-                                is invalid
-                                state.</span>
-                        </div>
-                        <div class="input-area relative">
-                            <label for="largeInput" class="form-label">Peserta</label>
-                            <div class="relative">
-                                <input type="number" name="peserta" class="form-control !pl-9"
-                                    placeholder="Peserta Kegiatan">
-                                <iconify-icon icon="icon-park-outline:data-user"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                        <div class="input-area" id="images-box">
+                            <label for="description" class="form-label">Image</label>
+                            <div class="filePreview">
+                                <label>
+                                    <input type="file" class=" w-full hidden" name="images">
+                                    <span class="w-full h-[40px] file-control flex items-center custom-class">
+                                        <span class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                            <span id="placeholder" class="text-slate-400 display-name">Choose a file or
+                                                drop it
+                                                here...</span>
+                                        </span>
+                                        <span
+                                            class="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">Browse</span>
+                                    </span>
+                                </label>
+                                {{-- <div id="preview"
+                                    class="relative w-full aspect-[4/2.5] justify-self-center border border-slate-200 mt-5 overflow-hidden rounded-md">
+                                    <img src="" alt="" class=" object-cover absolute h-full w-full">
+                                </div> --}}
                             </div>
                             <span
                                 class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
@@ -172,7 +77,7 @@
         <div class="space-y-5">
             <div class="card">
                 <header class="card-header noborder">
-                    <h4 class="card-title">Kegiatan</h4>
+                    <h4 class="card-title">Pengumuman</h4>
                     <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"
                         class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add">
                         <span class="flex items-center">
@@ -192,31 +97,10 @@
                                     <thead class="bg-slate-200 dark:bg-slate-700">
                                         <tr>
                                             <th scope="col" class="table-th">
-                                                Nama Kegiatan
+                                                Judul
                                             </th>
                                             <th scope="col" class="table-th">
-                                                Jenis Kerjasama
-                                            </th>
-                                            <th scope="col" class="table-th">
-                                                Pelaksana
-                                            </th>
-                                            <th scope="col" class="table-th">
-                                                Waktu
-                                            </th>
-                                            <th scope="col" class="table-th">
-                                                Tempat
-                                            </th>
-                                            <th scope="col" class="table-th">
-                                                Pengajar
-                                            </th>
-                                            <th scope="col" class="table-th">
-                                                Instansi
-                                            </th>
-                                            <th scope="col" class="table-th">
-                                                Sarana
-                                            </th>
-                                            <th scope="col" class="table-th">
-                                                Peserta
+                                                File
                                             </th>
                                             <th scope="col" class="table-th">
                                                 Action
@@ -238,18 +122,36 @@
 
 
     @push('scripts')
+        @vite(['resources/js/plugins/dropzone.min.js'])
         @vite(['resources/js/plugins/flatpickr.js'])
         <script type="module">
             $(".flatpickr.time").flatpickr({
                 dateFormat: "Y-m-d"
             });
 
+            $(document).on('change', 'input[name=images]', function() {
+                const file = this.files[0];
+                $('.display-name').html(file.name)
+                if (file) {
+                    var filename = ''
+                }
+                if ((["jpeg", "jpg", "png"]).includes((file?.name).split('.')[(file?.name).split('.').length - 1])) {
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        $("#preview>img")
+                            .attr("src", event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    $(".err-file").removeClass('hidden').html('file error : terlalu besar atau type tidak sesuai');
+                }
+            })
 
-
+            var path = '{!! asset('storage') !!}';
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('admin.kegiatan') !!}',
+                ajax: '{!! route('admin.pengumuman') !!}',
                 dom: "<'grid grid-cols-12 gap-5 px-6 mt-6'<'col-span-4'l><'col-span-8 flex justify-end'f><'#pagination.flex items-center'>><'min-w-full't><'flex justify-end items-center'p>",
                 paging: true,
                 ordering: true,
@@ -283,38 +185,13 @@
                 ],
                 columns: [{
                         data: 'judul',
-                        name: 'judul'
                     },
                     {
-                        data: 'kerjasama.nama',
-                    },
-                    {
-                        data: 'pelaksana',
-                    },
-                    {
+                        data: 'file',
                         render: (data, type, row, meta) => {
-                            return `
-                            <span class="whitespace-nowrap">${moment(row.start, 'YYYY-MM-DD').format('DD-MM-YYYY')}</span>
-                            <span class="whitespace-nowrap">${moment(row.end, 'YYYY-MM-DD').format('DD-MM-YYYY')}</span>
-                            `
-                        }
-                    },
-                    {
-                        data: 'tempat',
-                    },
-                    {
-                        data: 'pengajar',
-                    },
-                    {
-                        data: 'instansi',
-                    },
-                    {
-                        data: 'sarana',
-                    },
-                    {
-                        data: 'peserta',
-                        render: (data, type, row, meta) => {
-                            return row.total_peserta + '/' + (data ?? '0');
+                            return `<span class="justify-self-center flex justify-center items-center">
+                                    <a href="#" class="text-blue-500" target="_blank" > lihat File</a>
+                                </span>`
                         }
                     },
                     {
@@ -341,13 +218,17 @@
             })
 
             // STORE & UPDATE
-            $(document).on('submit', '#sending_form', (e) => {
+            $(document).on('submit', '#sending_form', function(e) {
                 e.preventDefault();
                 var type = $("#sending_form").data('type');
-                var data = $('#sending_form').serializeArray();
+                var data = new FormData(this);
+                console.log(this);
+                data.append('images', $('input[name=images]')[0].files[0]);
                 var id = $("#sending_form").find("input[name='id']").val()
-                var url = type == 'submit' ? '{!! route('admin.kegiatan.store') !!}' : '{!! route('admin.kegiatan.update', ['id' => ':id']) !!}';
+                var url = type == 'submit' ? '{!! route('admin.pengumuman.store') !!}' : '{!! route('admin.pengumuman.update', ['id' => ':id']) !!}';
                 $.ajax({
+                    contentType: false,
+                    processData: false,
                     type: "post",
                     url: url.replace(':id', id),
                     data: data,
@@ -379,7 +260,7 @@
                         // for validation
                         if (status == 422) {
                             $.each(responseJSON.error, (index, value) => {
-                                var err_msg = $(`[name='${index}']`).parent().parent().find(
+                                var err_msg = $(`#${index}-box`).find(
                                     '.error-message');
                                 $(err_msg).removeClass('hidden').addClass('inline-block').html(
                                     value[
@@ -402,15 +283,19 @@
             $(document).on('click', '#btn-edit', (e) => {
                 $("#sending_form").data("type", "update");
                 var id = $(e.currentTarget).data('id');
-                var url = '{!! route('admin.kegiatan.edit', ['id' => ':id']) !!}';
+                var url = '{!! route('admin.pengumuman.edit', ['id' => ':id']) !!}';
+                var path = '{!! asset('storage') !!}';
                 url = url.replace(':id', id);
-                // alert(id);
-
                 $.ajax({
                     type: 'GET',
                     url: url,
                     success: (msg) => {
+                        // console.log(msg.data.file);
                         $.each(msg.data, (index, value) => {
+                            console.log(value);
+                            if (index == 'file') {
+                                $('.display-name').html(msg.data.file)
+                            }
                             $(`[name='${index}']`).val(value);
                         })
                     }
@@ -430,7 +315,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        var url = '{!! route('admin.kegiatan.destroy', ['id' => ':id']) !!}';
+                        var url = '{!! route('admin.pengumuman.destroy', ['id' => ':id']) !!}';
                         url = url.replace(':id', id);
                         $.ajax({
                             url: url,

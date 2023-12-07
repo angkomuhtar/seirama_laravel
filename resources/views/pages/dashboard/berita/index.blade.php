@@ -33,6 +33,9 @@
                                                 konten
                                             </th>
                                             <th scope="col" class="table-th">
+                                                desc
+                                            </th>
+                                            <th scope="col" class="table-th">
                                                 Cover
                                             </th>
                                             <th scope="col" class="table-th">
@@ -66,7 +69,7 @@
             $(".flatpickr.time").flatpickr({
                 dateFormat: "Y-m-d"
             });
-            var path = '{!! asset('storage/berita') !!}';
+            var path = '{!! asset('storage') !!}';
             var edit = '{!! route('admin.berita.edit', ['id' => ':id']) !!}';
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
@@ -108,6 +111,9 @@
                     },
                     {
                         data: 'content',
+                    },
+                    {
+                        data: 'desc',
                     },
                     {
                         data: 'image',

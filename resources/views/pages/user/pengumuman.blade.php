@@ -13,11 +13,15 @@
 
     <section class='container py-14 space-y-10'>
         <div class='grid lg:grid-cols-2 gap-5 min-h-[300px]'>
-            @for ($i = 0; $i < 5; $i++)
-                <div class='p-4 bg-white rounded-lg drop-shadow-lg place-self-start'>
+            @if ($data->count() == 0)
+                <h3 class="text-center lg:col-span-2 font-Opensans text-lg font-semibold text-black-400">Tidak ada
+                    Pengumuman</h3>
+            @endif
+
+            @foreach ($data as $item)
+                <div class='p-4 bg-white rounded-lg drop-shadow-lg place-self-start w-full'>
                     <h3 class='text-lg text-font-950 font-semibold'>
-                        Pengumuman Penetapan Hasil Akhir Seleksi Internal Kementrian Pertanian
-                        BBPP Batangkaluku 2023
+                        {{ $item->judul }}
                     </h3>
                     <div class='flex flex-row justify-between pt-5 items-center'>
                         <div class='flex flex-row space-x-4 items-center'>
@@ -26,18 +30,18 @@
                                 <span class="text-xs inline-block mr-2">
                                     <iconify-icon icon="ooui:calendar"></iconify-icon>
                                 </span>
-                                24 Maret 2023
+                                {{ date('d M Y', strtotime($item->created_at)) }}
                             </p>
                             <p
                                 class='flex items-center justify-center font-Opensans text-xs text-font-300 font-semibold'>
                                 <span class="text-xs inline-block mr-2">
                                     <iconify-icon icon="zondicons:time"></iconify-icon>
                                 </span>
-                                24 Maret 2023
+                                {{ date('H:i', strtotime($item->created_at)) }}
                             </p>
                         </div>
                         <div>
-                            <a href="#" target="_blank"
+                            <a href="{{ route('download_pengumuman', ['file' => $item->file]) }}" target="_blank"
                                 class='btn btn-sm bg-appPrimary-500 text-white justify-center items-center font-semibold uppercase'>
                                 download
                                 <span class="text-xs inline-block ml-2">
@@ -47,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </section>
 

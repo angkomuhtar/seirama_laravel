@@ -38,6 +38,7 @@ class BeritaController extends Controller
         $validator = Validator::make($request->all(), [
             'judul' => 'required',
             'content' => 'required',
+            'desc' => 'required',
             'image' => 'required|file|mimes:jpeg,png,pdf|max:2048',
         ], [
             'required' => 'tidak boleh kosong',
@@ -55,7 +56,8 @@ class BeritaController extends Controller
             $fileName = uniqid() . '_' . $file->getClientOriginalName();
             $file->move(public_path('storage/berita'), $fileName);
             $data = $request->except(['image', '_token']);
-            $insert = Berita::create(array_merge($data, ['image'=> $fileName]));
+            // dd($data);
+            $insert = Berita::create(array_merge($data, ['image'=> 'berita/'.$fileName]));
             
             if ($insert) {
                 # code...
@@ -100,6 +102,7 @@ class BeritaController extends Controller
             $validator = Validator::make($request->all(), [
                 'judul' => 'required',
                 'content' => 'required',
+                'desc' => 'required',
                 'image' => 'required|file|mimes:jpeg,png,pdf|max:2048',
             ], [
                 'required' => 'tidak boleh kosong',
@@ -115,7 +118,7 @@ class BeritaController extends Controller
             $fileName = uniqid() . '_' . $file->getClientOriginalName();
             $file->move(public_path('storage/berita'), $fileName);
             $data = $request->except(['image', '_token']);
-            $insert = Berita::find($id)->update(array_merge($data, ['image'=> $fileName]));
+            $insert = Berita::find($id)->update(array_merge($data, ['image'=> 'berita/'.$fileName]));
             
             if ($insert) {
                 # code...
@@ -127,6 +130,7 @@ class BeritaController extends Controller
             $validator = Validator::make($request->all(), [
                 'judul' => 'required',
                 'content' => 'required',
+                'desc' => 'required',
             ], [
                 'required' => 'tidak boleh kosong',
             ]);

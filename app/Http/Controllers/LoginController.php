@@ -39,6 +39,14 @@ class LoginController extends Controller
         if (Auth::guard('web')->attempt($credentials)) {
             $user = Auth::guard('web')->getLastAttempted();
             // dd($user);
+            if ($user->status != 'Y') {
+                Auth::guard('web')->logout();
+                $request->session()->invalidate();
+                return back()->withErrors([
+                    'email' => 'Username is disabled',
+                ])->onlyInput('email', 'password');
+            }
+
             if ($user->roles == 'admin' || $user->roles == 'superadmin') {
                 $request->session()->regenerate();
 

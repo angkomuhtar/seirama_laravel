@@ -34,4 +34,10 @@ class Kegiatan extends Model
     {
         return $this->hasMany(Peserta::class, 'kegiatan_id', 'id');
     }
+
+    public function getTotalPesertaAttribute()
+    {
+        return $this->hasMany(Peserta::class, 'kegiatan_id', 'id')->where('kegiatan_id', $this->id)->count();
+    }
+    
 }

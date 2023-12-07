@@ -6,7 +6,11 @@ use App\Helpers\ResponseHelper;
 use App\Models\JenisKerjasama;
 use App\Models\Kegiatan;
 use App\Models\Gallery;
+use App\Models\Pengumuman;
+use App\Models\Berita;
 use Illuminate\Http\Request;
+use Response;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -15,13 +19,15 @@ class HomeController extends Controller
         $brosur = JenisKerjasama::All();
         $kegiatan = Kegiatan::where('start', '<=', now()->format('Y-m-d'))->where('end', '>=', now()->format('Y-m-d'))->get();
         $gallery = Gallery::paginate(6);
+        $news = Berita::paginate(6);
 
         // dd($kegiatan);
         return view('pages.user.index', [
             'pageTitle' => 'Analytic Dashboard',
             'brosur' => $brosur,
             'kegiatan' => $kegiatan,
-            'gallery' =>$gallery
+            'gallery' =>$gallery,
+            'news' => $news
         ]);
     }
 
@@ -43,14 +49,9 @@ class HomeController extends Controller
 
     public function pengumuman()
     {
-        $brosur = JenisKerjasama::All();
-        $kegiatan = Kegiatan::where('start', '<=', now()->format('Y-m-d'))->where('end', '>=', now()->format('Y-m-d'))->get();
-
-        // dd($kegiatan);
+        $data = Pengumuman::paginate(9);
         return view('pages.user.pengumuman', [
-            'pageTitle' => 'Analytic Dashboard',
-            'brosur' => $brosur,
-            'kegiatan' => $kegiatan,
+            'data' => $data,
         ]);
     }
 
@@ -69,25 +70,27 @@ class HomeController extends Controller
 
     public function detail_berita($id)
     {
-        $brosur = JenisKerjasama::All();
+        $news = Berita::find($id);
+        $related = Berita::where('id', '<>', $id)->paginate(3);
         $kegiatan = Kegiatan::where('start', '<=', now()->format('Y-m-d'))->where('end', '>=', now()->format('Y-m-d'))->get();
 
         // dd($kegiatan);
         return view('pages.user.berita', [
             'pageTitle' => 'Analytic Dashboard',
-            'brosur' => $brosur,
-            'kegiatan' => $kegiatan,
+            'news' => $news,
+            'related' => $related,
         ]);
     }
 
-    public function download($filename)
+    public function downloadPengumuman($filename)
     {
-        $path = storage_path('app/files/'.$filename); // Adjust the file path as needed
-        $headers = [
-            'Content-Type' => 'application/octet-stream',
-            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-        ];
+        $file= public_path(). "/storage/pengumuman/".$filename;
+        $headers = array('Content-Type: application/pdf');        
+        if (file_exists($file)) {
+            return Response::download($file, 'pengumuman.pdf', $headers);
+        }else{
+            abort(404);
+        }
 
-        return response()->download($path, $filename, $headers);
     }
 }
