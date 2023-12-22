@@ -67,6 +67,23 @@
                                 state.</span>
                         </div>
                         <div class="input-area relative">
+                            <label for="largeInput" class="form-label capitalize">Jenis Peserta</label>
+                            <div class="relative">
+                                <select id="select" class="form-control !pl-9" name="type_peserta">
+                                    <option selected disabled class="dark:bg-slate-700 text-slate-300">Pilih Data
+                                    </option>
+                                    <option value="ASN" class="dark:bg-slate-700">Aparatur</option>
+                                    <option value="Non-ASN" class="dark:bg-slate-700">Non Aparatur</option>
+                                </select>
+                                <iconify-icon icon="heroicons:globe-alt"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative">
                             <label for="largeInput" class="form-label">Waktu</label>
                             <div class="flex justify-between items-center space-x-3">
                                 <div class="relative">
@@ -166,6 +183,82 @@
         </div>
     </div>
 
+    <div class="offcanvas offcanvas-end fixed bottom-0 flex flex-col max-w-full bg-white dark:bg-slate-800 invisible bg-clip-padding shadow-sm outline-none transition duration-300 ease-in-out text-gray-700 top-0 ltr:right-0 rtl:left-0 border-none w-96"
+        tabindex="-1" id="export" aria-labelledby="export">
+        <div
+            class="offcanvas-header flex items-center justify-between p-4 pt-3 border-b border-b-slate-300 dark:border-b-slate-900">
+            <div>
+                <h3 class="block text-xl font-Inter text-slate-900 capitalize font-medium dark:text-[#eee]">
+                    Export Kegiatan
+                </h3>
+            </div>
+            <button type="button"
+                class="box-content text-2xl w-4 h-4 p-2 pt-0 -my-5 -mr-2 text-black dark:text-white border-none rounded-none opacity-100 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="offcanvas">
+                <iconify-icon icon="line-md:close"></iconify-icon>
+            </button>
+        </div>
+        <div class="offcanvas-body flex-grow overflow-y-auto">
+            <div class="settings-modal">
+                <div class="divider"></div>
+                <div class="p-6">
+                    <form class="space-y-4" id="export_form" method="POST"
+                        action="{{ route('admin.kegiatan.export') }}">
+                        <input type="hidden" name="id" id="id" value="">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <div class="input-area relative">
+                            <label for="largeInput" class="form-label capitalize">Export By</label>
+                            <div class="relative">
+                                <select id="select" class="form-control !pl-9" name="type" required>
+                                    <option selected value="" disabled class="dark:bg-slate-700 text-slate-300">
+                                        Pilih Data
+                                    </option>
+                                    <option value="monthly" class="dark:bg-slate-700">Bulan Ini</option>
+                                    <option value="date" class="dark:bg-slate-700">Tanggal</option>
+                                </select>
+                                <iconify-icon icon="heroicons:globe-alt"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative">
+                            <label for="largeInput" class="form-label">Waktu</label>
+                            <div class="flex justify-between items-center space-x-3">
+                                <div class="relative">
+                                    <input class="form-control py-2 flatpickr time flatpickr-input active !pl-9"
+                                        id="time-picker" name="start" placeholder="Waktu Pelaksanaan"
+                                        value="" type="text" readonly="readonly">
+                                    <iconify-icon icon="heroicons:globe-alt"
+                                        class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                                </div>
+                                <div class="relative">
+                                    <input class="form-control py-2 flatpickr time flatpickr-input active !pl-9"
+                                        id="time-picker" name="end" placeholder="Waktu Pelaksanaan"
+                                        value="" type="text" readonly="readonly">
+                                    <iconify-icon icon="heroicons:globe-alt"
+                                        class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                                </div>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="flex justify-end space-x-3">
+                            {{-- <button type="reset" id="btn_cancel" data-bs-dismiss="offcanvas"
+                                class="btn btn-sm btn-outline-danger inline-flex justify-center btn-dark">Batal</button> --}}
+                            <button type="submit"
+                                class="btn btn-sm inline-flex justify-center btn-dark">Export</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     {{-- table --}}
     <div class="space-y-8">
@@ -173,14 +266,24 @@
             <div class="card">
                 <header class="card-header noborder">
                     <h4 class="card-title">Kegiatan</h4>
-                    <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"
-                        class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add">
-                        <span class="flex items-center">
-                            <span>Tambah Data</span>
-                            <iconify-icon class="text-xl ltr:ml-2 rtl:mr-2"
-                                icon="mdi:database-plus-outline"></iconify-icon>
-                        </span>
-                    </button>
+                    <div class="flex items-center space-x-2">
+                        <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"
+                            class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add">
+                            <span class="flex items-center">
+                                <span>Tambah Data</span>
+                                <iconify-icon class="text-xl ltr:ml-2 rtl:mr-2"
+                                    icon="mdi:database-plus-outline"></iconify-icon>
+                            </span>
+                        </button>
+                        <button data-bs-toggle="offcanvas" data-bs-target="#export" aria-controls="export"
+                            class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add">
+                            <span class="flex items-center">
+                                <span>Export Data</span>
+                                <iconify-icon class="text-xl ltr:ml-2 rtl:mr-2"
+                                    icon="mdi:database-plus-outline"></iconify-icon>
+                            </span>
+                        </button>
+                    </div>
                 </header>
                 <div class="card-body px-6 pb-6">
                     <div class="overflow-x-auto -mx-6 dashcode-data-table">
@@ -219,6 +322,12 @@
                                                 Peserta
                                             </th>
                                             <th scope="col" class="table-th">
+                                                Jenis Peserta
+                                            </th>
+                                            <th scope="col" class="table-th">
+                                                Sertifikat
+                                            </th>
+                                            <th scope="col" class="table-th">
                                                 Action
                                             </th>
                                         </tr>
@@ -245,7 +354,9 @@
             });
 
 
-
+            var path_peserta = '{!! route('admin.kegiatan.peserta', ['id' => ':id']) !!}';
+            var path_cert = '{!! route('admin.kegiatan.sertifikat.edit', ['id' => ':id']) !!}';
+            var add_cert = '{!! route('admin.kegiatan.sertifikat.add', ['id' => ':id']) !!}';
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
                 serverSide: true,
@@ -312,9 +423,37 @@
                         data: 'sarana',
                     },
                     {
-                        data: 'peserta',
                         render: (data, type, row, meta) => {
-                            return row.total_peserta + '/' + (data ?? '0');
+
+                            return `<a href="${path_peserta.replace(':id', row.id)}" target="_blank" class="btn btn-sm inline-flex justify-center btn-outline-danger">
+                                            <span class="flex items-center">
+                                                <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:eye"></iconify-icon>
+                                                <span>${row.total_peserta + '/' + (data ?? '0')}</span>
+                                            </span>
+                                        </a>`
+
+                        }
+                    },
+                    {
+                        data: 'type_peserta',
+                    },
+                    {
+                        render: (data, type, row, meta) => {
+                            if (row.sertifikat == null) {
+                                return `<a href="${add_cert.replace(':id', row.id)}" class="btn btn-sm inline-flex justify-center btn-outline-danger">
+                                        <span class="flex items-center">
+                                        <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:plus"></iconify-icon>
+                                        <span>Tambah</span>
+                                        </span>
+                                        </a>`
+                            } else {
+                                return `<a href="${path_cert.replace(':id', row.id)}" class="btn btn-sm inline-flex justify-center btn-outline-danger">
+                                        <span class="flex items-center">
+                                            <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:eye"></iconify-icon>
+                                            <span>preview</span>
+                                        </span>
+                                    </a>`
+                            }
                         }
                     },
                     {
@@ -452,6 +591,19 @@
                         })
                     }
                 })
+            })
+
+            $(document).on('change', 'select[name="type"]', (e) => {
+                // alert(e.val())
+                console.log();
+
+                if (e.currentTarget.value == 'date') {
+                    $("input[name='start']").prop('required', true);
+                    $("input[name='end']").prop('required', true);
+                } else {
+                    $("input[name='start']").prop('required', false);
+                    $("input[name='end']").prop('required', false);
+                }
             })
         </script>
     @endpush

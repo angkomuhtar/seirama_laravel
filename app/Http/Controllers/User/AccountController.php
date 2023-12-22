@@ -10,6 +10,7 @@ use App\Models\Propinsi;
 use App\Models\Profile;
 use App\Models\AsnData;
 use App\Models\UserData;
+use App\Models\Sertifikat;
 use App\Models\JenisKerjasama;
 use App\Models\UserKerjasama;
 use Illuminate\Http\Request;
@@ -20,24 +21,25 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class AccountController extends Controller
 {
+
+
     public function index(Request $request)
     {
-        $profile = Auth::guard('web')->user();
-        $join = Peserta::where('user_id', $profile->id)->count();
-        $kegiatan_terakhir = Peserta::where('user_id', $profile->id)->orderBy('created_at', 'desc')->first();
+        $user = Auth::guard('web')->user();
+        $type_peserta = $user->profile->isASN == 'Y' ? 'ASN' : 'Non-ASN';
+        $join = Peserta::where('user_id', $user->id)->count();
+        $kegiatan_terakhir = Peserta::where('user_id', $user->id)->orderBy('created_at', 'desc')->first();
  
         if ($request->ajax()) {
-            $data = Kegiatan::with('kerjasama')->orderBy('created_at', 'desc');
-
+            $data = Kegiatan::with('kerjasama')->where('end', '>=', date('Y-m-d'))->where('type_peserta', $type_peserta)->orderBy('created_at', 'desc');
             return DataTables::eloquent($data)->toJson();
         }
 
-        return view('pages.user.dashboard.index',['user' => $profile, 'kegiatan'=>$join, 'kegiatan_terakhir'=>$kegiatan_terakhir]);
+        return view('pages.user.dashboard.index',['user' => $user, 'kegiatan'=>$join, 'kegiatan_terakhir'=>$kegiatan_terakhir]);
     }
 
     public function kegiatan(Request $request)
     {
-        // return Auth::guard('web')->user();
         if ($request->ajax()) {
             $data = Kegiatan::with('kerjasama')->whereHas('peserta', function($q){
                 return $q->where('user_id', '=', Auth::guard('web')->user()->id);
@@ -52,23 +54,30 @@ class AccountController extends Controller
 
     public function kegiatan_details($id)
     {
-        // return Auth::guard('web')->user();
         $user_id = Auth::guard('web')->user()->id;
         $join = Peserta::where('user_id', $user_id)->where('kegiatan_id', $id)->count();
         $data = Kegiatan::where('id', $id)->with('kerjasama', 'peserta')->orderBy('created_at', 'desc')->first();
-
-        // return $join;
         return view('pages.user.dashboard.kegiatan_details', ['kegiatan' => $data, 'is_join' => $join]);
     }
 
     public function join_kegiatan($id)
     {
         $user = Auth::guard('web')->user();
+        $type_peserta = $user->profile->isASN == 'Y' ? 'ASN' : 'Non-ASN';
 
         if(!$user->profile->tgl_lahir || (!$user->asn_data && $user->profile->isASN == 'Y') || (!$user->user_data && $user->profile->isASN != 'Y')){
             return response()->json([
                 'success' => false,
                 'status' => 'validate',
+                'message' => 'data belum lengkap'
+            ]);
+        }
+        $kegiatan = Kegiatan::where('id',$id)->where('end', '>=', date('Y-m-d')->where('type_peserta', $type_peserta))->first();
+
+        if ($kegiatan == null ) {
+            return response()->json([
+                'success' => false,
+                'status' => 'expire',
                 'message' => 'data belum lengkap'
             ]);
         }
@@ -252,11 +261,13 @@ class AccountController extends Controller
         
     }
 
-    public function sertifikat (Request $request)
+    public function sertifikat (Request $request, $id)
     {
         // return view('pages.user.dashboard.sertifikat');
+
         $user = Auth::guard('web')->user()->profile->nama;
-        $pdf = Pdf::loadView('pages.user.dashboard.sertifikat', ['name' => $user ])->setPaper('letter', 'landscape');
+        $data = Sertifikat::where('kegiatan_id', $id)->first();
+        $pdf = Pdf::loadView('pages.user.dashboard.sertifikat', ['name' => $user, 'data'=>$data ])->setPaper('letter', 'landscape');
         return $pdf->stream('invoice.pdf');
     }
 

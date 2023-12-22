@@ -21,8 +21,8 @@ class Peserta extends Model
         return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
     }
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

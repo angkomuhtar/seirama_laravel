@@ -76,10 +76,12 @@
                         class="rounded-md font-Opensans px-3 font-semibold py-2 bg-appPrimary-500 text-white flex justify-center items-center place-self-end">
                         <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak ID
                         Card</button>
-                    <a href="{{ route('sertifikat') }}"
-                        class="rounded-md font-Opensans px-3 font-semibold py-2 bg-appPrimary-500 text-white flex justify-center items-center place-self-end">
-                        <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak
-                        Sertifikat</a>
+                    @if ($kegiatan_terakhir->sertifikat)
+                        <a href="{{ route('sertifikat') }}"
+                            class="rounded-md font-Opensans px-3 font-semibold py-2 bg-appPrimary-500 text-white flex justify-center items-center place-self-end">
+                            <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak
+                            Sertifikat</a>
+                    @endif
                 </div>
             </div>
         @else

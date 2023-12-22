@@ -4,32 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $data = User::all();
-
-    //     if ($request->ajax()) {
-    //         return DataTables::of(User::query())->toJson();
-    //     }
-
-    //     return view('pages.dashboard.master.users', [
-    //         'pageTitle' => 'Users',
-    //         'tableData' => $data,
-    //     ]);
-    // }
-
-    // public function create()
-    // {
-    //     return view('pages.dashboard.users.create', [
-    //         'pageTitle' => 'Tambah User',
-    //     ]);
-    // }
-
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -40,94 +22,98 @@ class UsersController extends Controller
                 return $row->avatar_url;
             })
             ->make(true);
+            // return response()->json($data, 200);
         }
         return view('pages.dashboard.users.index', []);
     }
+
+
+    // admin
+    public function admin(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = User::with('profile', 'asn_data', 'user_data')->where('roles', 'admin')->orderBy('created_at', 'desc')->get();
+            // return DataTables::of($data)->toJson();
+            return DataTables::of($data)
+            ->addColumn('avatar_url', function ($row) {
+                return $row->avatar_url;
+            })
+            ->make(true);
+        }
+        return view('pages.dashboard.admin.index', []);
+    }
+
     public function store (Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|unique:users|email',
+            'username' => 'required|unique:users',
+            'telp' => 'required',
+            'password' => 'required|min:8',
+            'nama' => 'required',
+        ], [
+            'required' => 'tidak boleh kosong',
+            'unique' => 'tidak tersedia',
+            'email' => 'harus format email (example@email.com) '
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+        }
+
+        DB::beginTransaction();
         try {
-            $validator = Validator::make($request->all(), [
-                'judul' => 'required',
-                'images' => 'required|file|mimes:jpg,jpeg,png,pdf',
-            ], [
-                'required' => 'tidak boleh kosong',
-                'mimes' => 'Hanya mendukung file jpg,jpeg,png,pdf'
+            $users = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'email_verified_at' => now(),
+                'password' => bcrypt($request->password),
+                'roles' => 'admin',
             ]);
-            if ($validator->fails()) {
-                return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
-            }
-    
-            $file = $request->file('images');
-            $fileName = uniqid() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/pengumuman'), $fileName);
-            $data = $request->except(['surat', '_token', 'tanggal']);
-            $data = Pengumuman::create([
-                'judul' => $request->judul,
-                'file' =>$fileName,
-            ]);
-            if ($data) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Data Berhasil Disimpan',
+
+            // return $users;
+            $profile = Profile::create(
+                [
+                    'nama' => $request->nama,
+                    'telp' => $request->telp,
+                    'ktp' => '0000',
+                    'user_id' => $users->id,
                 ]);
-            }
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Berhasil Disimpan',
+            ]);
         } catch (Exception $err) {
+            DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => $err,
+                'type' => 'err',
+                'data' => $err,
             ]);
         }
     }
 
-    public function edit(string $id)
-    {
-        $data = Pengumuman::find($id);
+    // public function edit(string $id)
+    // {
+    //     $data = Pengumuman::find($id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Divisi Berhasil Disimpan',
-            'data' => $data,
-        ]);
-    }
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => 'Data Divisi Berhasil Disimpan',
+    //         'data' => $data,
+    //     ]);
+    // }
 
     public function update(Request $request, string $id)
     {
         try {
-            $validator = Validator::make($request->all(), [
-                'judul' => 'required',
-            ], [
-                'required' => 'tidak boleh kosong',
-            ]);
-            if ($validator->fails()) {
-                return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
-            }
-    
-            if ($request->hasFile('images')) {
-                $file = $request->file('images');
-                $fileName = uniqid() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('storage/pengumuman'), $fileName);
-                $data = $request->except(['surat', '_token', 'tanggal']);
-                $data = Pengumuman::find($id)->update([
-                    'judul' => $request->judul,
-                    'file' =>$fileName,
+            $data = User::find($id)->update(['password'=> bcrypt('password')]);
+            if ($data) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Kegiatan Berhasil Disimpan',
                 ]);
-                if ($data) {
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Data Kegiatan Berhasil Disimpan',
-                    ]);
-                }
-            }else{
-                $data = Pengumuman::find($id)->update([
-                    'judul' => $request->judul,
-                    'tanggal' => $request->tanggal,
-                ]);
-                if ($data) {
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Data Kegiatan Berhasil Disimpan',
-                    ]);
-                }
             }
         } catch (Exception $err) {
             return response()->json([

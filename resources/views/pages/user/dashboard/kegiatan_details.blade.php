@@ -65,11 +65,13 @@
                     <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak ID
                     Card
                 </a>
-                <a href="http://" target="_blank"
-                    class="bg-appPrimary-500 px-3 py-2 text-white font-Opensans font-semibold text-sm rounded-md flex justify-center items-center">
-                    <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak
-                    Sertifikat
-                </a>
+                @if ($kegiatan->sertifikat)
+                    <a href="{{ route('sertifikat', ['id' => $kegiatan->id]) }}" target="_blank"
+                        class="bg-appPrimary-500 px-3 py-2 text-white font-Opensans font-semibold text-sm rounded-md flex justify-center items-center">
+                        <iconify-icon icon="mingcute:print-line" class="text-xl mr-2"></iconify-icon>Cetak
+                        Sertifikat
+                    </a>
+                @endif
             @endif
 
         </div>
@@ -93,6 +95,13 @@
                             confirmButtonText: 'Goto Profile'
                         }).then(() => {
                             window.location.replace('{!! route('profile') !!}')
+                        })
+                    } else if (response.status == 'expire') {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Pelatihan Telah di Tutup',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
                         })
                     } else if (!response.success) {
                         Swal.fire({

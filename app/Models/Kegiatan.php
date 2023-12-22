@@ -22,7 +22,7 @@ class Kegiatan extends Model
         'instansi',
         'sarana',
         'peserta',
-        'jenis_peserta',
+        'type_peserta',
     ];
 
     public function kerjasama()
@@ -38,6 +38,11 @@ class Kegiatan extends Model
     public function getTotalPesertaAttribute()
     {
         return $this->hasMany(Peserta::class, 'kegiatan_id', 'id')->where('kegiatan_id', $this->id)->count();
+    }
+
+    public function sertifikat()
+    {
+        return $this->hasOne(Sertifikat::class, 'kegiatan_id', 'id');
     }
     
 }

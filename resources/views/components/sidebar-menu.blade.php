@@ -66,6 +66,15 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.admin') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.admin') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>Admin</span>
+                    </span>
+                </a>
+            </li>
             <li class="sidebar-menu-title">{{ __('CMS') }}</li>
             <li>
                 <a href="{{ route('admin.berita') }}"

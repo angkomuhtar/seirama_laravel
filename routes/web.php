@@ -74,6 +74,13 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
         Route::delete('/{id}', 'destroy')->name('admin.kegiatan.destroy');
         Route::get('/{id}', 'edit')->name('admin.kegiatan.edit');
         Route::post('/{id}', 'update')->name('admin.kegiatan.update');
+        Route::get('/{id}/peserta', 'peserta')->name('admin.kegiatan.peserta');
+        Route::get('/{id}/sertifikat', 'sertifikat')->name('admin.kegiatan.sertifikat');
+        Route::get('/{id}/sertifikat/tambah', 'sertifikatAdd')->name('admin.kegiatan.sertifikat.add');
+        Route::get('/{id}/sertifikat/edit', 'sertifikatEdit')->name('admin.kegiatan.sertifikat.edit');
+        Route::post('/{id}/sertifikat/tambah', 'sertifikatStore')->name('admin.kegiatan.sertifikat.store');
+        Route::post('/{id}/sertifikat/update', 'sertifikatUpdate')->name('admin.kegiatan.sertifikat.update');
+        Route::post('/export/excel', 'export')->name('admin.kegiatan.export');
     });
 
     Route::controller(KerjasamaController::class)->prefix('kerjasama')->group(function () {
@@ -120,11 +127,16 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
 
     Route::controller(UsersController::class)->prefix('users')->group(function () {
         Route::get('/', 'index')->name('admin.users');
-        // Route::get('/create', 'create')->name('admin.users.create');
-        Route::post('/', 'store')->name('admin.users.store');
         Route::post('/{id}/status', 'destroy')->name('admin.users.status');
-        Route::get('/{id}', 'edit')->name('admin.users.edit');
-        Route::post('/{id}', 'update')->name('admin.users.update');
+    });
+
+    Route::controller(UsersController::class)->prefix('administrator')->group(function () {
+        Route::get('/', 'admin')->name('admin.admin');
+        Route::get('/create', 'create')->name('admin.admin.create');
+        Route::post('/', 'store')->name('admin.admin.store');
+        Route::post('/{id}/status', 'destroy')->name('admin.admin.status');
+        Route::get('/{id}', 'edit')->name('admin.admin.edit');
+        Route::post('/{id}', 'update')->name('admin.admin.update');
     });
 
    
@@ -140,7 +152,7 @@ Route::middleware('Admin:users,superadmin')->group(function () {
         Route::post('/profile', 'update_profile')->name('profile.update');
         Route::post('/asn_data', 'update_asn_data')->name('asn_data.update');
         Route::post('/user_data', 'update_user_data')->name('user_data.update');
-        Route::get('/sertifikat', 'sertifikat')->name('sertifikat');
+        Route::get('/sertifikat/{id}', 'sertifikat')->name('sertifikat');
         Route::get('/kerjasama', 'kerjasama_index')->name('user_kerjasama');
         Route::get('/kerjasama/new', 'kerjasama_create')->name('user_kerjasama.create');
         Route::post('/kerjasama', 'kerjasama_post')->name('user_kerjasama.post');

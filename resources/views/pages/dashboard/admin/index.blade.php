@@ -1,5 +1,5 @@
 <x-LayoutApp>
-    {{-- <div class="offcanvas offcanvas-end fixed bottom-0 flex flex-col max-w-full bg-white dark:bg-slate-800 invisible bg-clip-padding shadow-sm outline-none transition duration-300 ease-in-out text-gray-700 top-0 ltr:right-0 rtl:left-0 border-none w-96"
+    <div class="offcanvas offcanvas-end fixed bottom-0 flex flex-col max-w-full bg-white dark:bg-slate-800 invisible bg-clip-padding shadow-sm outline-none transition duration-300 ease-in-out text-gray-700 top-0 ltr:right-0 rtl:left-0 border-none w-96"
         tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
         <div
             class="offcanvas-header flex items-center justify-between p-4 pt-3 border-b border-b-slate-300 dark:border-b-slate-900">
@@ -22,9 +22,9 @@
                         <input type="hidden" name="id" id="id" value="">
                         @csrf
                         <div class="input-area relative has-error" id="judul-box">
-                            <label for="largeInput" class="form-label">judul</label>
+                            <label for="largeInput" class="form-label">Email</label>
                             <div class="relative">
-                                <input type="text" name="judul" class="form-control !pl-9" placeholder="Judul"
+                                <input type="text" name="email" class="form-control !pl-9" placeholder="Email"
                                     error="test">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
@@ -34,21 +34,52 @@
                                 is invalid
                                 state.</span>
                         </div>
-                        <div class="input-area" id="images-box">
-                            <label for="description" class="form-label">Image</label>
-                            <div class="filePreview">
-                                <label>
-                                    <input type="file" class=" w-full hidden" name="images">
-                                    <span class="w-full h-[40px] file-control flex items-center custom-class">
-                                        <span class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                                            <span id="placeholder" class="text-slate-400 display-name">Choose a file or
-                                                drop it
-                                                here...</span>
-                                        </span>
-                                        <span
-                                            class="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">Browse</span>
-                                    </span>
-                                </label>
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">Nama</label>
+                            <div class="relative">
+                                <input type="text" name="nama" class="form-control !pl-9" placeholder="Nama Admin"
+                                    error="test">
+                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">User Name</label>
+                            <div class="relative">
+                                <input type="text" name="username" class="form-control !pl-9" placeholder="Username"
+                                    error="test">
+                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">Phone</label>
+                            <div class="relative">
+                                <input type="text" name="telp" class="form-control !pl-9" placeholder="phone"
+                                    error="test">
+                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">Password</label>
+                            <div class="relative">
+                                <input type="text" name="password" class="form-control !pl-9" placeholder="password"
+                                    error="test">
+                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
                             <span
                                 class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
@@ -65,7 +96,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
 
     {{-- table --}}
@@ -74,14 +105,14 @@
             <div class="card">
                 <header class="card-header noborder">
                     <h4 class="card-title">Users</h4>
-                    {{-- <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"
-                        class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add"> --}}
-                    {{-- <span class="flex items-center">
+                    <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"
+                        class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add">
+                        <span class="flex items-center">
                             <span>Tambah Data</span>
                             <iconify-icon class="text-xl ltr:ml-2 rtl:mr-2"
                                 icon="mdi:database-plus-outline"></iconify-icon>
-                        </span> --}}
-                    {{-- </button> --}}
+                        </span>
+                    </button>
                 </header>
                 <div class="card-body px-6 pb-6">
                     <div class="overflow-x-auto -mx-6 dashcode-data-table">
@@ -99,7 +130,11 @@
                                                 nama
                                             </th>
                                             <th scope="col" class="table-th">
-                                                instansi
+                                                Email
+                                            </th>
+
+                                            <th scope="col" class="table-th">
+                                                Phone
                                             </th>
                                             <th scope="col" class="table-th">
                                                 status
@@ -153,7 +188,7 @@
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('admin.users') !!}',
+                ajax: '{!! route('admin.admin') !!}',
                 dom: "<'grid grid-cols-12 gap-5 px-6 mt-6'<'col-span-4'l><'col-span-8 flex justify-end'f><'#pagination.flex items-center'>><'min-w-full't><'flex justify-end items-center'p>",
                 paging: true,
                 ordering: true,
@@ -190,16 +225,9 @@
                     }, {
                         data: 'profile.nama',
                     }, {
-                        render: (data, type, row) => {
-                            // return row.profile.isASN?
-                            if (row.profile.isASN == 'Y') {
-                                return row.asn_data?.unit_kerja ?? '-'
-                            } else {
-                                return row.user_data?.nama_kt ?? '-'
-                            }
-                        },
-                        orderable: false,
-                        searchable: false
+                        data: 'email',
+                    }, {
+                        data: 'profile.telp',
                     },
                     {
                         data: 'file',
@@ -223,13 +251,23 @@
                                                 <span>Deactivated</span>
                                             </span>
                                         </button>
+                                        <button class="btn btn-sm flex justify-center items-center btn-outline-primary" id="btn-reset" data-id="${row.id}">
+                                            <span class="flex justify-center items-center">
+                                                <span>reset Password</span>
+                                            </span>
+                                        </button>
                                     </div>`
                             } else {
                                 return `<div class="flex space-x-3 rtl:space-x-reverse">
-                                        <button class="btn btn-sm inline-flex justify-center btn-outline-primary" id="btn-active" data-id="${row.id}">
+                                        <button class="btn btn-sm  flex justify-center items-center btn-outline-primary" id="btn-active" data-id="${row.id}">
                                             <span class="flex items-center">
                                                 <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:lock-open"></iconify-icon>
                                                 <span>activated</span>
+                                            </span>
+                                        </button>
+                                        <button class="btn btn-sm inline-flex justify-center btn-outline-primary" id="btn-reset" data-id="${row.id}">
+                                            <span class="flex justify-center items-center">
+                                                <span>reset Password</span>
                                             </span>
                                         </button>
                                     </div>`
@@ -300,6 +338,98 @@
                         }
                     }
                 })
+            })
+
+            $(document).on('click', '#btn-reset', (e) => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    var id = $(e.currentTarget).data('id');
+                    var url = '{!! route('admin.admin.update', ['id' => ':id']) !!}';
+                    url = url.replace(':id', id);
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            success: (msg) => {
+                                if (msg.success) {
+                                    Swal.fire(
+                                        'Resetted!',
+                                        'Password direset menjadi "password"',
+                                        'success'
+                                    ).then(() => {
+                                        table.draw()
+                                    })
+                                }
+                            }
+                        })
+                    }
+                })
+            })
+
+            $(document).on('submit', '#sending_form', (e) => {
+                e.preventDefault();
+                var type = $("#sending_form").data('type');
+                var data = $('#sending_form').serializeArray();
+                var url = '{!! route('admin.admin.store') !!}';
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    data: data,
+                    beforeSend: () => {
+                        $('.error-message').removeClass('inline-block').addClass('hidden').html('')
+                    },
+                    success: ({
+                        success,
+                        message
+                    }) => {
+                        if (success) {
+                            console.log(data);
+                            Swal.fire({
+                                title: 'success',
+                                text: message,
+                                icon: 'success',
+                                confirmButtonText: 'Oke'
+                            }).then(() => {
+                                table.draw()
+                                $("#btn_cancel").click();
+                            })
+                        }
+                    },
+                    error: function(request) {
+                        const {
+                            status,
+                            responseJSON
+                        } = request;
+                        // for validation
+                        if (status == 422) {
+                            $.each(responseJSON.error, (index, value) => {
+                                var err_msg = $(`[name='${index}']`).parent().parent().find(
+                                    '.error-message');
+                                $(err_msg).removeClass('hidden').addClass('inline-block').html(
+                                    value[
+                                        0]);
+                            })
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Internal Error',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            })
+                        }
+                    }
+                });
+
             })
         </script>
     @endpush
