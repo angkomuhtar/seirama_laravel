@@ -334,7 +334,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        var url = '{!! route('kerjasama.destroy', ['id' => ':id']) !!}';
+                        var url = '{!! route('admin.gallery.destroy', ['id' => ':id']) !!}';
                         url = url.replace(':id', id);
                         $.ajax({
                             url: url,
