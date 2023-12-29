@@ -2,15 +2,12 @@
     <section class='relative animate__animated animate__zoomIn'>
         <div id="headerSlide" class="swiper h-screen w-full">
             <div class="swiper-wrapper">
-                <div class="swiper-slide h-full w-full">
-                    <img class="object-cover h-full w-full" src='{{ asset('images/cover1.png') }}' alt='' />
-                </div>
-                <div class="swiper-slide h-full w-full">
-                    <img class="object-cover h-full w-full" src='{{ asset('images/cover2.png') }}' alt='' />
-                </div>
-                <div class="swiper-slide h-full w-full">
-                    <img class="object-cover h-full w-full" src='{{ asset('images/cover3.png') }}' alt='' />
-                </div>
+                @foreach ($slider as $item)
+                    <div class="swiper-slide h-full w-full">
+                        <img class="object-cover h-full w-full" src='{{ asset('storage/' . $item->file) }}'
+                            alt='' />
+                    </div>
+                @endforeach
             </div>
         </div>
 
@@ -20,19 +17,17 @@
                 <div class='md:col-span-8 pr-10'>
                     <div class='grid space-y-6'>
                         <div class='space-y-2'>
-                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">SEIRAMA
+                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">
+                                {{ $banner->title ?? '' }}
                             </h3>
-                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">(Sistem
-                                Informasi
-                                Kerjasama)</h3>
-                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">BBPP
-                                Batangkaluku
+                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">
+                                {{ $banner->subtitle ?? '' }}</h3>
+                            <h3 class="font-bold text-lg md:text-5xl text-font-50 leading-tight font-Opensans">
+                                {{ $banner->second_title ?? '' }}
                             </h3>
                         </div>
                         <p class='text-xs md:text-xl text-neutral-50 md:leading-8 font-Opensans'>
-                            Menjadi Lembaga Pelatihan Terpercaya dan Berdaya Saling
-                            untuk Menghasilkan SDM Pertanian yang Kreatif, Inovatif dan
-                            Profesional.
+                            {{ $banner->desc ?? '' }}
                         </p>
                         <div class='flex space-x-5 items-center'>
                             <a href='{{ route('pengumuman') }}'>

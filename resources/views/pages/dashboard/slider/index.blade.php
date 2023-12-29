@@ -5,7 +5,7 @@
             class="offcanvas-header flex items-center justify-between p-4 pt-3 border-b border-b-slate-300 dark:border-b-slate-900">
             <div>
                 <h3 class="block text-xl font-Inter text-slate-900 capitalize font-medium dark:text-[#eee]">
-                    Gallery
+                    Slider
                 </h3>
             </div>
             <button type="button"
@@ -22,23 +22,10 @@
                         <input type="hidden" name="id" id="id" value="">
                         @csrf
                         <div class="input-area relative has-error" id="judul-box">
-                            <label for="largeInput" class="form-label">judul</label>
+                            <label for="largeInput" class="form-label">urut</label>
                             <div class="relative">
-                                <input type="text" name="judul" class="form-control !pl-9" placeholder="Judul"
+                                <input type="text" name="urut" class="form-control !pl-9" placeholder="Urutan"
                                     error="test">
-                                <iconify-icon icon="heroicons-outline:building-office-2"
-                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                            </div>
-                            <span
-                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
-                                is invalid
-                                state.</span>
-                        </div>
-                        <div class="input-area relative has-error" id="tanggal-box">
-                            <label for="largeInput" class="form-label">tanggal</label>
-                            <div class="relative">
-                                <input type="text" name="tanggal" class="form-control !pl-9 flatpickr time"
-                                    placeholder="tanggal" error="test">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
@@ -90,7 +77,74 @@
         <div class="space-y-5">
             <div class="card">
                 <header class="card-header noborder">
-                    <h4 class="card-title">Gallery</h4>
+                    <h4 class="card-title">Title</h4>
+                </header>
+                <div class="card-body px-6 pb-6">
+                    <form class="grid md:grid-cols-2 gap-4" id="banner_form">
+                        <input type="hidden" name="id" id="id" value="{{ $banner->id ?? '' }}">
+                        @csrf
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">Judul</label>
+                            <div class="relative">
+                                <input type="text" value="{{ $banner->title ?? '' }}" name="title"
+                                    class="form-control !pl-9" placeholder="Judul" error="test">
+                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">Sub Judul</label>
+                            <div class="relative">
+                                <input type="text" name="subtitle" class="form-control !pl-9"
+                                    value="{{ $banner->subtitle ?? '' }}" placeholder="Sub Judul" error="test">
+                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">Sub Judul Kedua</label>
+                            <div class="relative">
+                                <input type="text" name="second_title" class="form-control !pl-9"
+                                    value="{{ $banner->second_title ?? '' }}" placeholder="Sub Judul" error="test">
+                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="input-area relative has-error" id="judul-box">
+                            <label for="largeInput" class="form-label">Deskripsi</label>
+                            <div class="relative">
+                                <input type="text" name="desc" class="form-control !pl-9" placeholder="Desc"
+                                    value="{{ $banner->desc ?? '' }}" error="test">
+                                <iconify-icon icon="heroicons-outline:building-office-2"
+                                    class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
+                            </div>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
+                        </div>
+                        <div class="sm:col-span-2 flex justify-end space-x-3">
+                            <button type="submit"
+                                class="btn btn-sm inline-flex justify-center btn-dark">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <header class="card-header noborder">
+                    <h4 class="card-title">Slider</h4>
                     <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"
                         class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add">
                         <span class="flex items-center">
@@ -110,10 +164,7 @@
                                     <thead class="bg-slate-200 dark:bg-slate-700">
                                         <tr>
                                             <th scope="col" class="table-th">
-                                                title
-                                            </th>
-                                            <th scope="col" class="table-th">
-                                                tanggal
+                                                urut
                                             </th>
                                             <th scope="col" class="table-th">
                                                 Image
@@ -167,7 +218,7 @@
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('admin.gallery') !!}',
+                ajax: '{!! route('admin.slider') !!}',
                 dom: "<'grid grid-cols-12 gap-5 px-6 mt-6'<'col-span-4'l><'col-span-8 flex justify-end'f><'#pagination.flex items-center'>><'min-w-full't><'flex justify-end items-center'p>",
                 paging: true,
                 ordering: true,
@@ -200,13 +251,10 @@
                     }
                 ],
                 columns: [{
-                        data: 'judul',
+                        data: 'urut',
                     },
                     {
-                        data: 'tanggal',
-                    },
-                    {
-                        data: 'images',
+                        data: 'file',
                         render: (data, type, row, meta) => {
                             return `<span class="flex justify-center items-center">
                                     <img class="aspect-video h-20 rounded-lg" src="${path}/${data}"/>
@@ -244,7 +292,67 @@
                 console.log(this);
                 data.append('images', $('input[name=images]')[0].files[0]);
                 var id = $("#sending_form").find("input[name='id']").val()
-                var url = type == 'submit' ? '{!! route('admin.gallery.store') !!}' : '{!! route('admin.gallery.update', ['id' => ':id']) !!}';
+                var url = type == 'submit' ? '{!! route('admin.slider.store') !!}' : '{!! route('admin.slider.update', ['id' => ':id']) !!}';
+                $.ajax({
+                    contentType: false,
+                    processData: false,
+                    type: "post",
+                    url: url.replace(':id', id),
+                    data: data,
+                    beforeSend: () => {
+                        $('.error-message').removeClass('inline-block').addClass('hidden').html('')
+                    },
+                    success: ({
+                        success,
+                        message
+                    }) => {
+                        if (success) {
+                            console.log(data);
+                            Swal.fire({
+                                title: 'success',
+                                text: message,
+                                icon: 'success',
+                                confirmButtonText: 'Oke'
+                            }).then(() => {
+                                table.draw()
+                                $("#btn_cancel").click();
+                            })
+                        }
+                    },
+                    error: function(request) {
+                        const {
+                            status,
+                            responseJSON
+                        } = request;
+                        // for validation
+                        if (status == 422) {
+                            $.each(responseJSON.error, (index, value) => {
+                                var err_msg = $(`#${index}-box`).find(
+                                    '.error-message');
+                                $(err_msg).removeClass('hidden').addClass('inline-block').html(
+                                    value[
+                                        0]);
+                            })
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Internal Error',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            })
+                        }
+                    }
+                });
+
+            })
+
+            $(document).on('submit', '#banner_form', function(e) {
+                e.preventDefault();
+                console.log('eddd');
+                var data = new FormData(this);
+                console.log(this);
+                var id = $("#banner_form").find("input[name='id']").val()
+                var url = '{!! route('admin.banner.update', ['id' => ':id']) !!}';
                 $.ajax({
                     contentType: false,
                     processData: false,
@@ -302,7 +410,7 @@
             $(document).on('click', '#btn-edit', (e) => {
                 $("#sending_form").data("type", "update");
                 var id = $(e.currentTarget).data('id');
-                var url = '{!! route('admin.gallery.edit', ['id' => ':id']) !!}';
+                var url = '{!! route('admin.slider.edit', ['id' => ':id']) !!}';
                 var path = '{!! asset('storage') !!}';
                 url = url.replace(':id', id);
                 $.ajax({
@@ -310,10 +418,10 @@
                     url: url,
                     success: (msg) => {
                         $.each(msg.data, (index, value) => {
-                            if (index == 'images') {
+                            if (index == 'file') {
                                 $("#preview>img")
-                                    .attr("src", path + '/' + msg.data.images);
-                                $('.display-name').html(msg.data.images)
+                                    .attr("src", path + '/' + msg.data.file);
+                                $('.display-name').html(msg.data.file)
                             }
                             $(`[name='${index}']`).val(value);
                         })

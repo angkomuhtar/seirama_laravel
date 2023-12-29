@@ -77,6 +77,15 @@
             </li>
             <li class="sidebar-menu-title">{{ __('CMS') }}</li>
             <li>
+                <a href="{{ route('admin.slider') }}"
+                    class="navItem {{ stripos(\Request::route()->getName(), 'admin.slider') !== false ? 'active' : '' }}">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="ic:outline-handshake"></iconify-icon>
+                        <span>Slider</span>
+                    </span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.berita') }}"
                     class="navItem {{ stripos(\Request::route()->getName(), 'admin.berita') !== false ? 'active' : '' }}">
                     <span class="flex items-center">
@@ -104,7 +113,7 @@
                 </a>
             </li>
         </ul>
-        <div class="bg-slate-700 mb-10 mt-36 p-4 relative text-center rounded-2xl text-white"
+        {{-- <div class="bg-slate-700 mb-10 mt-36 p-4 relative text-center rounded-2xl text-white"
             id="sidebar_bottom_wizard">
             <img src="{{ asset('images/worker.png') }}" alt="" class="mx-auto relative -mt-[110px] h-48">
             <div class="max-w-[160px] mx-auto mt-6">
@@ -113,6 +122,6 @@
                     Upgrade your system to business plan
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>

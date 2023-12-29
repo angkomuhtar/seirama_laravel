@@ -8,6 +8,8 @@ use App\Models\Kegiatan;
 use App\Models\Gallery;
 use App\Models\Pengumuman;
 use App\Models\Berita;
+use App\Models\Slider;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Response;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +22,8 @@ class HomeController extends Controller
         $kegiatan = Kegiatan::where('start', '<=', now()->format('Y-m-d'))->where('end', '>=', now()->format('Y-m-d'))->get();
         $gallery = Gallery::paginate(6);
         $news = Berita::paginate(6);
+        $slider = Slider::orderBy('urut', 'asc')->get();
+        $banner = Banner::orderBy('created_at')->first();
 
         // dd($kegiatan);
         return view('pages.user.index', [
@@ -27,7 +31,9 @@ class HomeController extends Controller
             'brosur' => $brosur,
             'kegiatan' => $kegiatan,
             'gallery' =>$gallery,
-            'news' => $news
+            'news' => $news,
+            'slider' => $slider,
+            'banner'=> $banner
         ]);
     }
 

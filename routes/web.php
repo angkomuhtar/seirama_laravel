@@ -106,6 +106,7 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
         Route::get('/{id}', 'edit')->name('admin.berita.edit');
         Route::post('/{id}', 'update')->name('admin.berita.update');
     });
+    
 
     Route::controller(GalleryController::class)->prefix('gallery')->group(function () {
         Route::get('/', 'index')->name('admin.gallery');
@@ -114,6 +115,16 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
         Route::delete('/{id}', 'destroy')->name('admin.gallery.destroy');
         Route::get('/{id}', 'edit')->name('admin.gallery.edit');
         Route::post('/{id}', 'update')->name('admin.gallery.update');
+    });
+
+    Route::controller(GalleryController::class)->prefix('slider')->group(function () {
+        Route::get('/', 'index_slider')->name('admin.slider');
+        // Route::get('/create', 'create')->name('admin.slider.create');
+        Route::post('/', 'store_slider')->name('admin.slider.store');
+        Route::delete('/{id}', 'destroy_slider')->name('admin.slider.destroy');
+        Route::get('/{id}', 'edit_slider')->name('admin.slider.edit');
+        Route::post('/{id}', 'update_slider')->name('admin.slider.update');
+        Route::post('/banner/{id}', 'update_banner')->name('admin.banner.update');
     });
 
     Route::controller(PengumumanController::class)->prefix('pengumuman')->group(function () {
