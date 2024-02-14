@@ -29,6 +29,8 @@ class KerjasamaController extends Controller
         ]);
     }
 
+   
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -148,6 +150,14 @@ class KerjasamaController extends Controller
         ]);
     }
 
+    public function details($id)
+    {
+        return view('pages.dashboard.kerjasama.pengajuan_details', [
+            'pageTitle' => 'Data Karyawan',
+            'data' => UserKerjasama::find($id),
+        ]);
+    }
+
     public function pengajuan_accept(Request $request, $id)
     {
         $data = UserKerjasama::find($id);
@@ -187,6 +197,49 @@ class KerjasamaController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'error saat megupdate data',
+            ]);
+        }
+    }
+
+    public function pengajuan_destroy(string $id)
+    {
+        $delete = UserKerjasama::destroy($id);
+        if ($delete) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Kerjasama Terhapus',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'error saat menghapus data',
+            ]);
+        }
+    }
+
+    public function pengajuan_update(Request $request, string $id)
+    {
+        $fileName= '';
+        if ($request->hasFile('mou')) {
+            $file = $request->file('mou');
+            $fileName ='mou_'. uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/mou'), $fileName);
+        }
+        $delete = UserKerjasama::find($id)->update([
+            'mou' => $fileName,
+            'cakupan_kerjasama' => $request->cakupan ?? '',
+            'sumber_dana' => $request->sumber_dana ?? '',
+            'no_mou' => $request->no_mou ?? '',
+        ]);
+        if ($delete) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Kerjasama Terhapus',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'error saat menghapus data',
             ]);
         }
     }

@@ -36,7 +36,6 @@
                                     Pengumuman
                                 </button>
                             </a>
-
                             @auth('web')
                             @else
                                 <a href='{{ route('register') }}' type='button'

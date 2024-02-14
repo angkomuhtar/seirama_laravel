@@ -6,14 +6,6 @@
             <div class="card">
                 <header class="card-header noborder">
                     <h4 class="card-title">Jenis Kerjasama</h4>
-                    <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"
-                        class="btn btn-sm inline-flex justify-center btn-primary" id="btn-add">
-                        <span class="flex items-center">
-                            <span>Tambah Data</span>
-                            <iconify-icon class="text-xl ltr:ml-2 rtl:mr-2"
-                                icon="mdi:database-plus-outline"></iconify-icon>
-                        </span>
-                    </button>
                 </header>
                 <div class="card-body px-6 pb-6">
                     <div class="overflow-x-auto -mx-6 dashcode-data-table">
@@ -81,6 +73,7 @@
 
             // console.log('{!! asset('') !!}');
             var path = '{!! asset('surat_kerjasama/') !!}';
+            var details = '{!! route('pengajuan.details', ['id' => ':id']) !!}';
             var table = $("#data-table, .data-table").DataTable({
                 processing: true,
                 serverSide: true,
@@ -164,25 +157,56 @@
                         data: 'id',
                         name: 'action',
                         render: (data, type, row, meta) => {
-                            if (row.status == 'wait') {
-                                return `<div class="flex space-x-3 rtl:space-x-reverse">
-                                            <button class="action-btn btn-danger toolTip onTop cursor-pointer" data-tippy-content="Edit" id="btn-edit" data-id="${row.id}" data-tippy-theme="primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
-                                            <iconify-icon icon="uil:file-times"></iconify-icon>
-                                            </button>
-                                            <button class="action-btn btn-success toolTip onTop cursor-pointer" data-tippy-content="Hapus" id="btn-delete" data-id="${row.id}" data-tippy-theme="danger">
-                                            <iconify-icon icon="tabler:file-like"></iconify-icon>
-                                            </button>
-                                        </div>`
-                            } else {
-                                return 'No Action'
-                            }
+                            return `<div>
+                                      <div class="relative">
+                                        <div class="dropdown relative">
+                                          <button class="text-xl text-center block w-full " type="button" id="tableDropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <iconify-icon icon="heroicons-outline:dots-vertical"></iconify-icon>
+                                          </button>
+                                          <ul class=" dropdown-menu min-w-[120px] absolute text-sm text-slate-700 dark:text-white hidden bg-white dark:bg-slate-700
+                                  shadow z-[2] float-left overflow-hidden list-none text-left rounded-lg mt-1 m-0 bg-clip-padding border-none">
+                                            ${
+                                                row.status == "wait" ? 
+                                                `
+                                                                                                                                                                                                                                                        <li>
+                                                                                                                                                                                                                                                            <a href="#" id="btn-tolak" data-id="${row.id}" class="flex items-center text-slate-600 dark:text-white font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
+                                                                                                                                                                                                                                                                <iconify-icon icon="uil:file-times" class="mr-2"></iconify-icon>
+                                                                                                                                                                                                                                                                Tolak
+                                                                                                                                                                                                                                                            </a>
+                                                                                                                                                                                                                                                        </li>
+                                                                                                                                                                                                                                                        <li>
+                                                                                                                                                                                                                                                            <a href="#" id="btn-terima" data-id="${row.id}" class="flex items-center text-slate-600 dark:text-white font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
+                                                                                                                                                                                                                                                                <iconify-icon icon="tabler:file-like" class="mr-2"></iconify-icon>
+                                                                                                                                                                                                                                                                Terima
+                                                                                                                                                                                                                                                            </a>
+                                                                                                                                                                                                                                                            </li>
+                                                                                                                                                                                                                                        `
+                                        : ""
+                                            }
+                                            <li>
+                                              <a href="${details.replace(':id', row.id)}" class="flex items-center text-slate-600 dark:text-white font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
+                                                <iconify-icon icon="material-symbols:pageview-outline" class="mr-2"></iconify-icon>
+                                                View/Edit
+                                                </a>
+                                            </li>
+                                            <li>
+                                              <a href="#" id="btn-delete" data-id="${row.id}" class="flex items-center text-slate-600 dark:text-white font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
+                                                <iconify-icon icon="material-symbols:delete-outline" class="mr-2"></iconify-icon>
+                                                Hapus
+                                                </a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </td>`
                         }
                     },
                 ],
             });
 
             // DELETE
-            $(document).on('click', '#btn-delete', (e) => {
+            $(document).on('click', '#btn-terima', (e) => {
                 var id = $(e.currentTarget).data('id');
                 Swal.fire({
                     title: 'terima pengajuan.?',
@@ -219,7 +243,7 @@
                 })
             })
 
-            $(document).on('click', '#btn-edit', (e) => {
+            $(document).on('click', '#btn-tolak', (e) => {
                 var id = $(e.currentTarget).data('id');
                 Swal.fire({
                     title: 'Tolak pengajuan.?',
@@ -245,6 +269,80 @@
                                     Swal.fire(
                                         'Ditolak !',
                                         'Pengajuan Ditolak.',
+                                        'success'
+                                    ).then(() => {
+                                        table.draw()
+                                    })
+                                }
+                            }
+                        })
+                    }
+                })
+            })
+
+            $(document).on('click', '#btn-edit', (e) => {
+                var id = $(e.currentTarget).data('id');
+                Swal.fire({
+                    title: 'Tolak pengajuan.?',
+                    text: "anda tidak dapat mengulang langkah ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Ya, lanjutkan'
+                }).then((result) => {
+                    // if (result.isConfirmed) {
+                    //     var url = '{!! route('pengajuan.reject', ['id' => ':id']) !!}';
+                    //     url = url.replace(':id', id);
+                    //     $.ajax({
+                    //         url: url,
+                    //         type: 'POST',
+                    //         data: {
+                    //             "_token": "{{ csrf_token() }}"
+                    //         },
+                    //         success: (msg) => {
+                    //             if (msg.success) {
+                    //                 Swal.fire(
+                    //                     'Ditolak !',
+                    //                     'Pengajuan Ditolak.',
+                    //                     'success'
+                    //                 ).then(() => {
+                    //                     table.draw()
+                    //                 })
+                    //             }
+                    //         }
+                    //     })
+                    // }
+                })
+            })
+
+            $(document).on('click', '#btn-delete', (e) => {
+                var id = $(e.currentTarget).data('id');
+                Swal.fire({
+                    title: 'hapus pengajuan.?',
+                    text: "anda tidak dapat mengulang langkah ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Ya, lanjutkan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = '{!! route('pengajuan.destroy', ['id' => ':id']) !!}';
+                        url = url.replace(':id', id);
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            success: (msg) => {
+                                if (msg.success) {
+                                    Swal.fire(
+                                        'Terhapus!',
+                                        'Pengajuan Terhapus',
                                         'success'
                                     ).then(() => {
                                         table.draw()

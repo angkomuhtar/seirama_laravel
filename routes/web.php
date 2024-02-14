@@ -69,6 +69,7 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
 
     Route::controller(KegiatanController::class)->prefix('kegiatan')->group(function () {
         Route::get('/', 'index')->name('admin.kegiatan');
+        Route::get('/akan', 'akan_datang')->name('admin.kegiatan.akan_datang');
         Route::get('/create', 'create')->name('admin.kegiatan.create');
         Route::post('/', 'store')->name('admin.kegiatan.store');
         Route::delete('/{id}', 'destroy')->name('admin.kegiatan.destroy');
@@ -94,8 +95,12 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
 
     Route::controller(KerjasamaController::class)->prefix('pengajuan')->group(function () {
         Route::get('/', 'pengajuan')->name('pengajuan');
+        Route::get('/{id}/details', 'details')->name('pengajuan.details');
         Route::post('/accept/{id}', 'pengajuan_accept')->name('pengajuan.accept');
         Route::post('/reject/{id}', 'pengajuan_reject')->name('pengajuan.reject');
+        Route::delete('/{id}', 'pengajuan_destroy')->name('pengajuan.destroy');
+        Route::post('/{id}', 'pengajuan_update')->name('pengajuan.update');
+
     });
 
     Route::controller(BeritaController::class)->prefix('berita')->group(function () {
@@ -119,7 +124,6 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
 
     Route::controller(GalleryController::class)->prefix('slider')->group(function () {
         Route::get('/', 'index_slider')->name('admin.slider');
-        // Route::get('/create', 'create')->name('admin.slider.create');
         Route::post('/', 'store_slider')->name('admin.slider.store');
         Route::delete('/{id}', 'destroy_slider')->name('admin.slider.destroy');
         Route::get('/{id}', 'edit_slider')->name('admin.slider.edit');
@@ -129,7 +133,6 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
 
     Route::controller(PengumumanController::class)->prefix('pengumuman')->group(function () {
         Route::get('/', 'index')->name('admin.pengumuman');
-        // Route::get('/create', 'create')->name('admin.pengumuman.create');
         Route::post('/', 'store')->name('admin.pengumuman.store');
         Route::delete('/{id}', 'destroy')->name('admin.pengumuman.destroy');
         Route::get('/{id}', 'edit')->name('admin.pengumuman.edit');
@@ -138,7 +141,8 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
 
     Route::controller(UsersController::class)->prefix('users')->group(function () {
         Route::get('/', 'index')->name('admin.users');
-        Route::post('/{id}/status', 'destroy')->name('admin.users.status');
+        Route::post('/{id}/status', 'status')->name('admin.users.status');
+        Route::delete('/{id}', 'destroy')->name('admin.users.destroy');
     });
 
     Route::controller(UsersController::class)->prefix('administrator')->group(function () {

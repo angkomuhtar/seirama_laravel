@@ -94,17 +94,6 @@ class UsersController extends Controller
         }
     }
 
-    // public function edit(string $id)
-    // {
-    //     $data = Pengumuman::find($id);
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'Data Divisi Berhasil Disimpan',
-    //         'data' => $data,
-    //     ]);
-    // }
-
     public function update(Request $request, string $id)
     {
         try {
@@ -123,9 +112,26 @@ class UsersController extends Controller
         }
     }
 
-    public function destroy(Request $request, string $id)
+    public function status(Request $request, string $id)
     {
         $delete = User::find($id)->update(['status'=> $request->status]);
+        if ($delete) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data disabled',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'error saat menghapus data',
+                'ERR' => ''
+            ]);
+        }
+    }
+
+    public function destroy(Request $request, string $id)
+    {
+        $delete = User::destroy($id);
         if ($delete) {
             return response()->json([
                 'success' => true,

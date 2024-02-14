@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class UserKerjasama extends Model
 {
@@ -21,6 +22,10 @@ class UserKerjasama extends Model
         'surat',
         'id_kegiatan',
         'user_id',
+        'mou',
+        'no_mou',
+        'sumber_dana',
+        'cakupan_kerjasama',
     ];
 
     public function jenis_kerjasama()
@@ -32,4 +37,6 @@ class UserKerjasama extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+
 }

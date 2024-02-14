@@ -13,6 +13,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Barryvdh\DomPDF\Facade\Pdf;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Carbon\Carbon;
 
 class KegiatanController extends Controller
 {
@@ -35,6 +36,19 @@ class KegiatanController extends Controller
             'pageTitle' => 'Data Karyawan',
             'kerjasama' => JenisKerjasama::All(),
         ]);
+    }
+
+    public function akan_datang(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Kegiatan::with('kerjasama', 'sertifikat')->where('start', '>', Carbon::now()->format('Y-m-d'))->orderBy('created_at', 'asc')->get();
+            // return DataTables::eloquent($data)->toJson();\
+            return DataTables::of($data)
+            ->addColumn('total_peserta', function ($row) {
+                return $row->total_peserta;
+            })
+            ->make(true);
+        }
     }
 
     /**

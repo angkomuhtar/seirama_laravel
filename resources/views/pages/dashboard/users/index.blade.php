@@ -217,10 +217,15 @@
                         render: (data, type, row, meta) => {
                             if (row.status == 'Y') {
                                 return `<div class="flex space-x-3 rtl:space-x-reverse">
-                                        <button class="btn btn-sm inline-flex justify-center btn-outline-danger" id="btn-delete" data-id="${row.id}">
+                                        <button class="btn btn-sm inline-flex justify-center btn-outline-danger" id="btn-deactivate" data-id="${row.id}">
                                             <span class="flex items-center">
                                                 <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:lock-closed"></iconify-icon>
                                                 <span>Deactivated</span>
+                                            </span>
+                                        </button>
+                                        <button class="btn btn-sm inline-flex justify-center btn-outline-danger" id="btn-delete" data-id="${row.id}">
+                                            <span class="flex items-center">
+                                                <iconify-icon class="text-xl" icon="material-symbols:delete-outline"></iconify-icon>
                                             </span>
                                         </button>
                                     </div>`
@@ -232,6 +237,11 @@
                                                 <span>activated</span>
                                             </span>
                                         </button>
+                                        <button class="btn btn-sm inline-flex justify-center btn-outline-danger" id="btn-delete" data-id="${row.id}">
+                                            <span class="flex items-center">
+                                                <iconify-icon class="text-xl" icon="material-symbols:delete-outline"></iconify-icon>
+                                            </span>
+                                        </button>
                                     </div>`
                             }
                         }
@@ -239,8 +249,44 @@
                 ],
             });
 
-            // DELETE
             $(document).on('click', '#btn-delete', (e) => {
+                var id = $(e.currentTarget).data('id');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = '{!! route('admin.users.destroy', ['id' => ':id']) !!}';
+                        url = url.replace(':id', id);
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: (msg) => {
+                                if (msg.success) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Users Deleted',
+                                        'success'
+                                    ).then(() => {
+                                        table.draw()
+                                    })
+                                }
+                            }
+                        })
+                    }
+                })
+            })
+
+            // deactivate
+            $(document).on('click', '#btn-deactivate', (e) => {
                 var id = $(e.currentTarget).data('id');
                 Swal.fire({
                     title: 'Are you sure?',
