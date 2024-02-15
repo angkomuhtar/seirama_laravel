@@ -12,7 +12,6 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/js/plugins/flatpickr.js",
                 "resources/js/plugins/dropzone.min.js",
-                "resources/js/plugins/select2.min.js",
                 "resources/js/plugins/calendar.js",
                 "resources/js/plugins/aos.js",
                 "resources/js/plugins/ckeditor5/ckeditor.js",

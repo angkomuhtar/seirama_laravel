@@ -628,7 +628,7 @@
 
 
     @push('scripts')
-        @vite(['resources/js/plugins/flatpickr.js', 'resources/js/plugins/select2.min.js'])
+        @vite(['resources/js/plugins/flatpickr.js'])
 
 
         <script type="module">
