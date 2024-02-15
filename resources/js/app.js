@@ -83,4 +83,7 @@ window.Swiper = Swiper;
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 window.ClassicEditor = ClassicEditor;
 
+import select2 from "select2";
+select2(jQuery);
+
 import.meta.glob(["../images/**"]);
