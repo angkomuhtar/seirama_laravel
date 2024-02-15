@@ -232,10 +232,7 @@ class KerjasamaController extends Controller
             'no_mou' => $request->no_mou ?? '',
         ]);
         if ($delete) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Kerjasama Terhapus',
-            ]);
+            return redirect()->route('pengajuan');
         } else {
             return response()->json([
                 'success' => false,

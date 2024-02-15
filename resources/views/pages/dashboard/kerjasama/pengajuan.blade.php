@@ -5,7 +5,7 @@
         <div class="space-y-5">
             <div class="card">
                 <header class="card-header noborder">
-                    <h4 class="card-title">Jenis Kerjasama</h4>
+                    <h4 class="card-title">Pengajuan Kerjasama</h4>
                 </header>
                 <div class="card-body px-6 pb-6">
                     <div class="overflow-x-auto -mx-6 dashcode-data-table">
@@ -168,19 +168,18 @@
                                             ${
                                                 row.status == "wait" ? 
                                                 `
-                                                                                                                                                                                                                                                        <li>
-                                                                                                                                                                                                                                                            <a href="#" id="btn-tolak" data-id="${row.id}" class="flex items-center text-slate-600 dark:text-white font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
-                                                                                                                                                                                                                                                                <iconify-icon icon="uil:file-times" class="mr-2"></iconify-icon>
-                                                                                                                                                                                                                                                                Tolak
-                                                                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                                                                        </li>
-                                                                                                                                                                                                                                                        <li>
-                                                                                                                                                                                                                                                            <a href="#" id="btn-terima" data-id="${row.id}" class="flex items-center text-slate-600 dark:text-white font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
-                                                                                                                                                                                                                                                                <iconify-icon icon="tabler:file-like" class="mr-2"></iconify-icon>
-                                                                                                                                                                                                                                                                Terima
-                                                                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                                                                            </li>
-                                                                                                                                                                                                                                        `
+                                                                <li>
+                                                                    <a href="#" id="btn-tolak" data-id="${row.id}" class="flex items-center text-slate-600 dark:text-white font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
+                                                                        <iconify-icon icon="uil:file-times" class="mr-2"></iconify-icon>
+                                                                        Tolak
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" id="btn-terima" data-id="${row.id}" class="flex items-center text-slate-600 dark:text-white font-Inter font-normal px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">
+                                                                        <iconify-icon icon="tabler:file-like" class="mr-2"></iconify-icon>
+                                                                        Terima
+                                                                    </a>
+                                                                </li>`
                                         : ""
                                             }
                                             <li>

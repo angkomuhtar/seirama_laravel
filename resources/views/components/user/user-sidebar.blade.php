@@ -70,13 +70,13 @@
             </li>
         </ul>
     </div>
-    @if (count(auth()->guard('web')->user()->kerjasama) == 0)
-        <div class="flex w-ful">
-            <a href="{{ route('user_kerjasama.create') }}"
-                class="py-3 px-4 rounded-md 
+    {{-- @if (count(auth()->guard('web')->user()->kerjasama) == 0) --}}
+    <div class="flex w-ful">
+        <a href="{{ route('user_kerjasama.create') }}"
+            class="py-3 px-4 rounded-md 
             bg-appPrimary-500 mt-10 flex-1 align-middle text-center 
             font-Opensans font-bold text-white text-sm">
-                Ajukan Kerjasama Instansi</a>
-        </div>
-    @endif
+            Ajukan Kerjasama Instansi</a>
+    </div>
+    {{-- @endifs --}}
 </div>
