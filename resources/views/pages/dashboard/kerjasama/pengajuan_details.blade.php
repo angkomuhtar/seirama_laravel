@@ -13,50 +13,50 @@
                     <div class="card-body px-6 pb-6 grid gap-8 grid-cols-3">
                         <div class="input-area relative has-error" id="tanggal-box">
                             <label for="largeInput" class="form-label">Instansi</label>
-                            <div class="relative">
+                            <div class="flex space-x-3">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
-                                    class="absolute top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                <span class="font-Opensans pl-6 pt-1 capitalize">
+                                    class="text-base text-slate-500 pt-1"></iconify-icon>
+                                <span class="font-Opensans capitalize">
                                     {{ $data->instansi }}
                                 </span>
                             </div>
                         </div>
                         <div class="input-area relative has-error" id="tanggal-box">
                             <label for="largeInput" class="form-label">Jenis Kerjasama</label>
-                            <div class="relative">
+                            <div class="flex space-x-3">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
-                                    class="absolute top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                <span class="font-Opensans pl-6 pt-1 capitalize">
+                                    class="text-base text-slate-500 pt-1"></iconify-icon>
+                                <span class="font-Opensans capitalize">
                                     {{ $data->jenis_kerjasama->nama }}
                                 </span>
                             </div>
                         </div>
                         <div class="input-area relative has-error" id="tanggal-box">
                             <label for="largeInput" class="form-label">Nama Kegiatan</label>
-                            <div class="relative">
+                            <div class="flex space-x-3">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
-                                    class="absolute top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                <span class="font-Opensans pl-6 pt-1 capitalize">
+                                    class="text-base text-slate-500 pt-1"></iconify-icon>
+                                <span class="font-Opensans capitalize">
                                     {{ $data->nm_kegiatan }}
                                 </span>
                             </div>
                         </div>
                         <div class="input-area relative has-error" id="tanggal-box">
                             <label for="largeInput" class="form-label">Lokasi Kegiatan</label>
-                            <div class="relative">
+                            <div class="flex space-x-3">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
-                                    class="absolute top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                <span class="font-Opensans pl-6 pt-1 capitalize">
+                                    class="text-base text-slate-500 pt-1"></iconify-icon>
+                                <span class="font-Opensans capitalize">
                                     {{ $data->lokasi }}
                                 </span>
                             </div>
                         </div>
                         <div class="input-area relative has-error" id="tanggal-box">
                             <label for="largeInput" class="form-label">Tanggal Pelaksanaan</label>
-                            <div class="relative">
+                            <div class="flex space-x-3">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
-                                    class="absolute top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                <span class="font-Opensans pl-6 pt-1 capitalize">
+                                    class="text-base text-slate-500 pt-1"></iconify-icon>
+                                <span class="font-Opensans capitalize">
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->start)->format('d M Y') }} -
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->end)->format('d M Y') }}
                                 </span>
@@ -64,25 +64,23 @@
                         </div>
                         <div class="input-area relative has-error" id="tanggal-box">
                             <label for="largeInput" class="form-label">Contact Person</label>
-                            <div class="relative">
+                            <div class="flex space-x-3">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
-                                    class="absolute top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                <span class="font-Opensans pl-6 pt-1 capitalize">
+                                    class="text-base text-slate-500 pt-1"></iconify-icon>
+                                <span class="font-Opensans capitalize">
                                     {{ $data->cp }}
                                 </span>
                             </div>
                         </div>
                         <div class="input-area relative has-error" id="tanggal-box">
                             <label for="largeInput" class="form-label">Surat Lampiran</label>
-                            <div class="relative">
+                            <div class="flex space-x-3">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
-                                    class="absolute top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                <span class="font-Opensans pl-6 pt-1 capitalize">
-                                    <a href="{{ asset('surat_kerjasama/' . $data->surat) }}" target="_blank"
-                                        class="text-blue-500 text-xs font-Opensans">
-                                        lihat dokumen
-                                    </a>
-                                </span>
+                                    class="text-base text-slate-500"></iconify-icon>
+                                <a href="{{ asset('surat_kerjasama/' . $data->surat) }}" target="_blank"
+                                    class="text-blue-500 text-xs font-Opensans">
+                                    lihat dokumen
+                                </a>
                             </div>
                         </div>
                         <div class="input-area relative has-error" id="tanggal-box">
@@ -104,15 +102,13 @@
                                     </label>
                                 </div>
                             @else
-                                <div class="relative">
+                                <div class="flex space-x-3">
                                     <iconify-icon icon="heroicons-outline:building-office-2"
-                                        class="absolute top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
-                                    <span class="font-Opensans pl-6 pt-1 capitalize">
-                                        <a href="{{ asset('storage/mou/' . $data->mou) }}" target="_blank"
-                                            class="text-blue-500 text-xs font-Opensans">
-                                            lihat dokumen
-                                        </a>
-                                    </span>
+                                        class="text-base text-slate-500"></iconify-icon>
+                                    <a href="{{ asset('storage/mou/' . $data->mou) }}" target="_blank"
+                                        class="text-blue-500 text-xs font-Opensans">
+                                        lihat dokumen
+                                    </a>
                                 </div>
                             @endif
                         </div>
@@ -120,7 +116,7 @@
                             <label for="largeInput" class="form-label">Nomor MoU</label>
                             <div class="relative">
                                 <input type="text" name="no_mou" class="form-control !pl-9" placeholder="Nomor MOU"
-                                    value="{{ $data->no_mou }}">
+                                    value="{{ $data->no_mou }}" />
                                 <iconify-icon icon="heroicons-outline:building-office-2"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
@@ -129,7 +125,7 @@
                             <label for="largeInput" class="form-label">Cakupan Kerjasama</label>
                             <div class="relative">
                                 <input type="text" name="cakupan" class="form-control !pl-9"
-                                    placeholder="Cakupan kerjasama" value="{{ $data->cakupan_kerjasama }}">
+                                    placeholder="cakupan kerjasama" value="{{ $data->cakupan_kerjasama }}">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
@@ -138,14 +134,14 @@
                             <label for="largeInput" class="form-label">Sumber Pembiayaan</label>
                             <div class="relative">
                                 <input type="text" name="sumber_dana" class="form-control !pl-9"
-                                    placeholder="Sumber Pembiayaan" value="{{ $data->sumber_dana }}">
+                                    placeholder="Sumber Dana" value="{{ $data->sumber_dana }}">
                                 <iconify-icon icon="heroicons-outline:building-office-2"
                                     class="absolute left-2 top-1/2 -translate-y-1/2 text-base text-slate-500"></iconify-icon>
                             </div>
                         </div>
                         <div class="input-area relative has-error" id="tanggal-box">
                             <label for="largeInput" class="form-label">Status Pengajuan</label>
-                            <div class="relative">
+                            <div class="flex">
                                 @if ($data->status == 'wait')
                                     <span
                                         class="badge bg-secondary-500 text-white capitalize inline-flex items-center">
@@ -160,7 +156,6 @@
                                         <iconify-icon class="ltr:mr-1 rtl:ml-1"
                                             icon="mdi:file-check"></iconify-icon>ditolak</span>
                                 @endif
-
                             </div>
                         </div>
 
