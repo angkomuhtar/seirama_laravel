@@ -37,10 +37,16 @@
                                     <th scope="col" class="table-th">
                                         Kontak
                                     </th>
-
                                     <th scope="col" class="table-th">
                                         Lokasi Pelaksanaan
                                     </th>
+                                    <th scope="col" class="table-th">
+                                        Nomor MOU
+                                    </th>
+                                    <th scope="col" class="table-th">
+                                        Lampiran MOU
+                                    </th>
+
                                     <th scope="col" class="table-th">
                                         Status
                                     </th>
@@ -110,6 +116,16 @@
                     data: 'cp',
                 }, {
                     data: 'lokasi',
+                }, {
+                    data: 'no_mou',
+                }, {
+                    data: 'mou',
+                    render: (data) => {
+                        if (data == '') {
+                            return ''
+                        }
+                        return `<a class="text-blue-500" href="storage/mou/${data}" target="_blank">lihat lampiran</a>`;
+                    }
                 }, {
                     data: 'status',
                     render: (data) => {

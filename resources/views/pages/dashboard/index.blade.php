@@ -46,12 +46,12 @@
                                             <th scope="col" class="table-th">
                                                 Jenis Peserta
                                             </th>
-                                            <th scope="col" class="table-th">
+                                            {{-- <th scope="col" class="table-th">
                                                 Sertifikat
-                                            </th>
-                                            <th scope="col" class="table-th">
+                                            </th> --}}
+                                            {{-- <th scope="col" class="table-th">
                                                 Action
-                                            </th>
+                                            </th> --}}
                                         </tr>
                                     </thead>
                                     <tbody
@@ -159,39 +159,39 @@
                     {
                         data: 'type_peserta',
                     },
-                    {
-                        render: (data, type, row, meta) => {
-                            if (row.sertifikat == null) {
-                                return `<a href="${add_cert.replace(':id', row.id)}" class="btn btn-sm inline-flex justify-center btn-outline-danger">
-                                        <span class="flex items-center">
-                                        <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:plus"></iconify-icon>
-                                        <span>Tambah</span>
-                                        </span>
-                                        </a>`
-                            } else {
-                                return `<a href="${path_cert.replace(':id', row.id)}" class="btn btn-sm inline-flex justify-center btn-outline-danger">
-                                        <span class="flex items-center">
-                                            <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:eye"></iconify-icon>
-                                            <span>preview</span>
-                                        </span>
-                                    </a>`
-                            }
-                        }
-                    },
-                    {
-                        data: 'id',
-                        name: 'action',
-                        render: (data, type, row, meta) => {
-                            return `<div class="flex space-x-3 rtl:space-x-reverse">
-                <button class="action-btn toolTip onTop cursor-pointer" data-tippy-content="Edit" id="btn-edit" data-id="${row.id}" data-tippy-theme="primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
-                  <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
-                </button>
-                <button class="action-btn toolTip onTop cursor-pointer" data-tippy-content="Hapus" id="btn-delete" data-id="${row.id}" data-tippy-theme="danger">
-                  <iconify-icon icon="heroicons:trash"></iconify-icon>
-                </button>
-              </div>`
-                        }
-                    },
+                    // {
+                    //     render: (data, type, row, meta) => {
+                    //         if (row.sertifikat == null) {
+                    //             return `<a href="${add_cert.replace(':id', row.id)}" class="btn btn-sm inline-flex justify-center btn-outline-danger">
+            //                     <span class="flex items-center">
+            //                     <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:plus"></iconify-icon>
+            //                     <span>Tambah</span>
+            //                     </span>
+            //                     </a>`
+                    //         } else {
+                    //             return `<a href="${path_cert.replace(':id', row.id)}" class="btn btn-sm inline-flex justify-center btn-outline-danger">
+            //                     <span class="flex items-center">
+            //                         <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons:eye"></iconify-icon>
+            //                         <span>preview</span>
+            //                     </span>
+            //                 </a>`
+                    //         }
+                    //     }
+                    // },
+                    //         {
+                    //             data: 'id',
+                    //             name: 'action',
+                    //             render: (data, type, row, meta) => {
+                    //                 return `<div class="flex space-x-3 rtl:space-x-reverse">
+            //     <button class="action-btn toolTip onTop cursor-pointer" data-tippy-content="Edit" id="btn-edit" data-id="${row.id}" data-tippy-theme="primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+            //       <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
+            //     </button>
+            //     <button class="action-btn toolTip onTop cursor-pointer" data-tippy-content="Hapus" id="btn-delete" data-id="${row.id}" data-tippy-theme="danger">
+            //       <iconify-icon icon="heroicons:trash"></iconify-icon>
+            //     </button>
+            //   </div>`
+                    //             }
+                    //         },
                 ],
             });
 

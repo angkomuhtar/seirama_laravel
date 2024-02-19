@@ -5,7 +5,7 @@
             class="offcanvas-header flex items-center justify-between p-4 pt-3 border-b border-b-slate-300 dark:border-b-slate-900">
             <div>
                 <h3 class="block text-xl font-Inter text-slate-900 capitalize font-medium dark:text-[#eee]">
-                    Kerjasama baru
+                    Jenis Kerjasama
                 </h3>
             </div>
             <button type="button"
@@ -36,23 +36,25 @@
                         </div>
                         <div class="input-area">
                             <label for="description" class="form-label">Deskripsi</label>
-                            <textarea id="description" rows="5" class="form-control" placeholder="Type Here"></textarea>
+                            <textarea id="description" name="deskripsi" rows="5" class="form-control" placeholder="Type Here"></textarea>
+                            <span
+                                class="font-Opensans text-xs text-danger-500 pt-1 hidden error-message capitalize">This
+                                is invalid
+                                state.</span>
                         </div>
                         <div class="input-area">
                             <label for="description" class="form-label">Image</label>
                             <div class="filePreview">
                                 <label>
-                                    <input type="file" class=" w-full hidden" name="basic">
+                                    <input type="file" class=" w-full hidden" id="file" name="image">
                                     <span class="w-full h-[40px] file-control flex items-center custom-class">
                                         <span class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                                            <span id="placeholder" class="text-slate-400">Choose a file or drop it
-                                                here...</span>
+                                            <span id="placeholder" class="text-slate-400 filename">Choose a file</span>
                                         </span>
                                         <span
                                             class="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">Browse</span>
                                     </span>
                                 </label>
-                                <div id="file-preview"></div>
                             </div>
                         </div>
                         <div class="flex justify-end space-x-3">
@@ -207,16 +209,22 @@
             $(document).on('click', '#btn-add', () => {
                 $("#sending_form")[0].reset();
                 $("#sending_form").data("type", "submit");
+                $("[name='deskripsi']").html("");
+                $(".filename").html("Choose a file");
             })
 
-            // STORE & UPDATE
-            $(document).on('submit', '#sending_form', (e) => {
+            // STORE & UPDATE$(document).on('submit', '#sending_form', function(e) {
+            $(document).on('submit', '#sending_form', function(e) {
                 e.preventDefault();
                 var type = $("#sending_form").data('type');
-                var data = $('#sending_form').serializeArray();
+                var data = new FormData(this);
+                console.log(this);
+                data.append('images', $('input[name=image]')[0].files[0]);
                 var id = $("#sending_form").find("input[name='id']").val()
                 var url = type == 'submit' ? '{!! route('kerjasama.store') !!}' : '{!! route('kerjasama.update', ['id' => ':id']) !!}';
                 $.ajax({
+                    contentType: false,
+                    processData: false,
                     type: "post",
                     url: url.replace(':id', id),
                     data: data,
@@ -273,15 +281,15 @@
                 var id = $(e.currentTarget).data('id');
                 var url = '{!! route('kerjasama.edit', ['id' => ':id']) !!}';
                 url = url.replace(':id', id);
-                // alert(id);
 
                 $.ajax({
                     type: 'GET',
                     url: url,
                     success: (msg) => {
-                        $.each(msg.data, (index, value) => {
-                            $(`[name='${index}']`).val(value);
-                        })
+                        $(`[name='nama']`).val(msg?.data?.nama);
+                        $(`[name='id']`).val(msg?.data?.id);
+                        $("[name='deskripsi']").html(msg?.data?.deskripsi);
+                        $(".filename").html(msg?.data?.image);
                     }
                 })
             })
@@ -321,6 +329,19 @@
                         })
                     }
                 })
+            })
+
+
+            $(document).on('change', '#file', function() {
+                console.log(this);
+                console.log($("#file")[0]);
+                const file = this.files[0];
+                if (file) {
+                    var filename = 'Choose a file';
+                    $('.filename').html(file.name);
+                } else {
+                    $('.filename').html(['Choose a file'])
+                }
             })
         </script>
     @endpush

@@ -23,7 +23,7 @@ class KegiatanController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Kegiatan::with('kerjasama', 'sertifikat')->orderBy('created_at', 'asc')->get();
+            $data = Kegiatan::with('kerjasama', 'sertifikat')->orderBy('start', 'desc')->get();
             // return DataTables::eloquent($data)->toJson();\
             return DataTables::of($data)
             ->addColumn('total_peserta', function ($row) {
@@ -52,14 +52,6 @@ class KegiatanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -79,6 +71,13 @@ class KegiatanController extends Controller
             return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
         }
 
+        $fileName = '';
+        if ($request->hasFile('mou')) {
+            $file = $request->file('image');
+            $fileName = uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/kerjasama'), $fileName);
+        }
+
         $data = Kegiatan::create([
             'judul' => $request->judul,
             'kerjasama_id' => $request->kerjasama_id,
@@ -90,6 +89,11 @@ class KegiatanController extends Controller
             'instansi' => $request->instansi,
             'sarana' => $request->sarana,
             'peserta' => $request->peserta,
+            'no_mou' => $request->no_mou,
+            'mou' => $fileName,
+            'cakupan_kerjasama' => $request->cakupan_kerjasama,
+            'sumber_dana' => $request->sumber_dana,
+            'sasaran_kerjasama' => $request->sasaran_kerjasama,
             'type_peserta' => $request->type_peserta,
         ]);
         if ($data) {
@@ -107,10 +111,8 @@ class KegiatanController extends Controller
     public function show(string $id)
     {
         $data = Kegiatan::find($id);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Divisi Berhasil Disimpan',
+        return view('pages.dashboard.kegiatan.details', [
+            'pageTitle' => 'Data Karyawan',
             'data' => $data,
         ]);
     }
@@ -149,7 +151,17 @@ class KegiatanController extends Controller
             return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
         }
 
-        $data = Kegiatan::find($id)->update([
+        $data = Kegiatan::find($id);
+        $fileName = '';
+        if ($request->hasFile('mou')) {
+            $file = $request->file('mou');
+            $fileName = "mou_".uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/mou'), $fileName);
+            $data->update([
+                'mou' => $fileName
+            ]);
+        }
+        $data->update([
             'judul' => $request->judul,
             'kerjasama_id' => $request->kerjasama_id,
             'pelaksana' => $request->pelaksana,
@@ -161,6 +173,11 @@ class KegiatanController extends Controller
             'sarana' => $request->sarana,
             'peserta' => $request->peserta,
             'type_peserta' => $request->type_peserta,
+            'no_mou' => $request->no_mou,
+            'sumber_dana' => $request->sumber_dana,
+            'cakupan_kerjasama' => $request->cakupan_kerjasama,
+            'sasaran_kerjasama' => $request->sasaran_kerjasama,
+
         ]);
         if ($data) {
             return response()->json([
@@ -413,12 +430,12 @@ class KegiatanController extends Controller
             // table
             $activeWorksheet->setCellValue('B'.$num, $urut++);
                 $activeWorksheet->setCellValue('C'.$num, $value->judul);
-                $activeWorksheet->setCellValue('D'.$num, '-');
+                $activeWorksheet->setCellValue('D'.$num, $value->no_mou);
                 $activeWorksheet->setCellValue('E'.$num, $value->instansi);
                 $activeWorksheet->setCellValue('F'.$num, date('d M Y', strtotime($value->start)) . ' - '.date('d M Y', strtotime($value->end)));
-                $activeWorksheet->setCellValue('G'.$num, $value->peserta.' Peserta');
-                $activeWorksheet->setCellValue('H'.$num, '-');
-                $activeWorksheet->setCellValue('I'.$num, '-');
+                $activeWorksheet->setCellValue('G'.$num, $value->sasaran_kerjasama);
+                $activeWorksheet->setCellValue('H'.$num, $value->cakupan_kerjasama);
+                $activeWorksheet->setCellValue('I'.$num, $value->sumber_dana);
                 $activeWorksheet->getStyle('B'.$start.':I'.$num)->applyFromArray([
                     'font' => [
                         'size' => 12

@@ -34,10 +34,9 @@ class KerjasamaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'judul' => 'required',
-            'kerjasama_id' => 'required',
-            'tempat' => 'required',
-            'waktu' => 'required',
+            'nama' => 'required',
+            'deskripsi' => 'required',
+            'image' =>'required'
         ], [
             'required' => 'tidak boleh kosong',
             'date' => 'Harus tanggal dengan format YYYY/MM/DD',
@@ -45,30 +44,27 @@ class KerjasamaController extends Controller
         if ($validator->fails()) {
             return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
         }
-
-        $data = Kegiatan::create([
-            'judul' => $request->judul,
-            'kerjasama_id' => $request->kerjasama_id,
-            'pelaksana' => $request->pelaksana,
-            'waktu' => $request->waktu,
-            'tempat' => $request->tempat,
-            'pengajar' => $request->pengajar,
-            'instansi' => $request->instansi,
-            'sarana' => $request->sarana,
-            'peserta' => $request->peserta,
-        ]);
-        if ($data) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Kegiatan Berhasil Disimpan',
+        $file = $request->file('image');
+            $fileName = uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/kerjasama'), $fileName);
+            $data = $request->except(['surat', '_token', 'tanggal']);
+            $data = JenisKerjasama::find($id)->update([
+                'nama' => $request->nama,
+                'deskripsi' => $request->deskripsi,
+                'image' =>'kerjasama/'.$fileName,
             ]);
-        }
+            if ($data) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Disimpan',
+                ]);
+            }
 
     }
 
     public function show(string $id)
     {
-        $data = Kegiatan::find($id);
+        $data = JenisKerjasama::find($id);
 
         return response()->json([
             'success' => true,
@@ -79,7 +75,7 @@ class KerjasamaController extends Controller
 
     public function edit(string $id)
     {
-        $data = Kegiatan::find($id);
+        $data = JenisKerjasama::find($id);
 
         return response()->json([
             'success' => true,
@@ -91,10 +87,8 @@ class KerjasamaController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'judul' => 'required',
-            'kerjasama_id' => 'required',
-            'tempat' => 'required',
-            'waktu' => 'required',
+            'nama' => 'required',
+            'deskripsi' => 'required',
         ], [
             'required' => 'tidak boleh kosong',
             'date' => 'Harus tanggal dengan format YYYY/MM/DD',
@@ -102,23 +96,33 @@ class KerjasamaController extends Controller
         if ($validator->fails()) {
             return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
         }
-
-        $data = Kegiatan::find($id)->update([
-            'judul' => $request->judul,
-            'kerjasama_id' => $request->kerjasama_id,
-            'pelaksana' => $request->pelaksana,
-            'waktu' => $request->waktu,
-            'tempat' => $request->tempat,
-            'pengajar' => $request->pengajar,
-            'instansi' => $request->instansi,
-            'sarana' => $request->sarana,
-            'peserta' => $request->peserta,
-        ]);
-        if ($data) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Kegiatan Berhasil Diupdate',
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/kerjasama'), $fileName);
+            $data = $request->except(['surat', '_token', 'tanggal']);
+            $data = JenisKerjasama::find($id)->update([
+                'nama' => $request->nama,
+                'deskripsi' => $request->deskripsi,
+                'image' =>'kerjasama/'.$fileName,
             ]);
+            if ($data) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Disimpan',
+                ]);
+            }
+        }else{
+            $data = JenisKerjasama::find($id)->update([
+                'nama' => $request->nama,
+                'deskripsi' => $request->deskripsi,
+            ]);
+            if ($data) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Berhasil Disimpan',
+                ]);
+            }
         }
     }
 
@@ -170,6 +174,10 @@ class KerjasamaController extends Controller
             'tempat' => $data->lokasi,
             'pengajar' => $data->pengajar,
             'instansi' => $data->instansi,
+            'mou' => $data->mou,
+            'no_mou' => $data->no_mou,
+            'cakupan_kerjasama' => $data->cakupan_kerjasama,
+            'sumber_dana' => $data->sumber_dana,
         ]);
         if ($data->update(['status'=> 'accept', 'id_kegiatan' => $kegiatan->id])) {
             return response()->json([
@@ -232,7 +240,7 @@ class KerjasamaController extends Controller
             'no_mou' => $request->no_mou ?? '',
         ]);
         if ($delete) {
-            return redirect()->route('pengajuan');
+            return redirect()->back();
         } else {
             return response()->json([
                 'success' => false,

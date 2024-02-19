@@ -73,7 +73,8 @@ Route::middleware('Admin:admin,superadmin')->prefix('admin')->group(function () 
         Route::get('/create', 'create')->name('admin.kegiatan.create');
         Route::post('/', 'store')->name('admin.kegiatan.store');
         Route::delete('/{id}', 'destroy')->name('admin.kegiatan.destroy');
-        Route::get('/{id}', 'edit')->name('admin.kegiatan.edit');
+        Route::get('/{id}/edit', 'edit')->name('admin.kegiatan.edit');
+        Route::get('/{id}', 'show')->name('admin.kegiatan.show');
         Route::post('/{id}', 'update')->name('admin.kegiatan.update');
         Route::get('/{id}/peserta', 'peserta')->name('admin.kegiatan.peserta');
         Route::get('/{id}/sertifikat', 'sertifikat')->name('admin.kegiatan.sertifikat');

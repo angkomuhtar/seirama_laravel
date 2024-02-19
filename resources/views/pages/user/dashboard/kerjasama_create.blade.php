@@ -66,7 +66,7 @@
                 <div class="flex flex-col">
                     <label for="name" class="font-Opensans font-light text-sm mb-2 capitalize">Tanggal
                         Pelaksanaan</label>
-                    <input type="text" name="tanggal" placeholder="Contact Person"
+                    <input type="text" name="tanggal" placeholder="Tanggal Pelaksanaan"
                         class="bg-font-100 w-full py-3 px-3 rounded-sm font-Opensans text-xs flatpickr time">
                     <div class="font-Inter text-xs text-danger-500 pt-2 error-message hidden">
                         This

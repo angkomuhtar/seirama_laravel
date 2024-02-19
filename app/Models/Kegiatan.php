@@ -23,6 +23,11 @@ class Kegiatan extends Model
         'sarana',
         'peserta',
         'type_peserta',
+        'mou',
+        'no_mou',
+        'sumber_dana',
+        'cakupan_kerjasama',
+        'sasaran_kerjasama',
     ];
 
     public function kerjasama()

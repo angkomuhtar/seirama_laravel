@@ -11,6 +11,12 @@ class JenisKerjasama extends Model
 
     protected $table = 'jenis_kerjasama';
 
+    protected $fillable = [
+        'nama',
+        'deskripsi',
+        'image'
+    ];
+
     public function kegiatan(): BelongsTo
     {
         return $this->belongsTo(Kegiatan::class, 'kerjasama_id');

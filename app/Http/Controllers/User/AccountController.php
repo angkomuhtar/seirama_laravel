@@ -72,8 +72,9 @@ class AccountController extends Controller
                 'message' => 'data belum lengkap'
             ]);
         }
-        $kegiatan = Kegiatan::where('id',$id)->where('end', '>=', date('Y-m-d')->where('type_peserta', $type_peserta))->first();
+        $kegiatan = Kegiatan::where('id', $id)->where('end', '>=', date('Y-m-d'))->where('type_peserta', $type_peserta)->first();
 
+        // return $kegiatan;
         if ($kegiatan == null ) {
             return response()->json([
                 'success' => false,
