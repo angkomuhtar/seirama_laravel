@@ -21,10 +21,10 @@
                                             Waktu
                                         </th>
                                         <th scope="col" class="table-th">
-                                            Lokasi
+                                            Pelaksana
                                         </th>
                                         <th scope="col" class="table-th">
-                                            Proses
+                                            Lokasi
                                         </th>
                                         <th scope="col" class="table-th">
                                             Aksi
