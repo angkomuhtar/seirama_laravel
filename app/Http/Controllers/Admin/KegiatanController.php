@@ -56,51 +56,60 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'judul' => 'required',
-            'kerjasama_id' => 'required',
-            'tempat' => 'required',
-            'start' => 'required',
-            'end' => 'required',
-            'type_peserta' => 'required',
-        ], [
-            'required' => 'tidak boleh kosong',
-            'date' => 'Harus tanggal dengan format YYYY/MM/DD',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
-        }
-
-        $fileName = '';
-        if ($request->hasFile('mou')) {
-            $file = $request->file('mou');
-            $fileName = uniqid() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/kerjasama'), $fileName);
-        }
-
-        $data = Kegiatan::create([
-            'judul' => $request->judul,
-            'kerjasama_id' => $request->kerjasama_id,
-            'pelaksana' => $request->pelaksana,
-            'start' => $request->start,
-            'end' => $request->end,
-            'tempat' => $request->tempat,
-            'pengajar' => $request->pengajar,
-            'instansi' => $request->instansi,
-            'sarana' => $request->sarana,
-            'peserta' => $request->peserta,
-            'no_mou' => $request->no_mou,
-            'mou' => $fileName,
-            'cakupan_kerjasama' => $request->cakupan_kerjasama,
-            'sumber_dana' => $request->sumber_dana,
-            'sasaran_kerjasama' => $request->sasaran_kerjasama,
-            'type_peserta' => $request->type_peserta,
-        ]);
-        if ($data) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Kegiatan Berhasil Disimpan',
+        try {
+            //code...
+            $validator = Validator::make($request->all(), [
+                'judul' => 'required',
+                'kerjasama_id' => 'required',
+                'tempat' => 'required',
+                'start' => 'required',
+                'end' => 'required',
+                'type_peserta' => 'required',
+            ], [
+                'required' => 'tidak boleh kosong',
+                'date' => 'Harus tanggal dengan format YYYY/MM/DD',
             ]);
+            if ($validator->fails()) {
+                return response()->json(['success' => 'false', 'error' => $validator->errors()->toArray()], 422);
+            }
+    
+            $fileName = '';
+            if ($request->hasFile('mou')) {
+                $file = $request->file('mou');
+                $fileName = uniqid() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('storage/kerjasama'), $fileName);
+            }
+    
+            $data = Kegiatan::create([
+                'judul' => $request->judul,
+                'kerjasama_id' => $request->kerjasama_id,
+                'pelaksana' => $request->pelaksana,
+                'start' => $request->start,
+                'end' => $request->end,
+                'tempat' => $request->tempat,
+                'pengajar' => $request->pengajar,
+                'instansi' => $request->instansi,
+                'sarana' => $request->sarana,
+                'peserta' => $request->peserta,
+                'no_mou' => $request->no_mou,
+                'mou' => $fileName,
+                'cakupan_kerjasama' => $request->cakupan_kerjasama,
+                'sumber_dana' => $request->sumber_dana,
+                'sasaran_kerjasama' => $request->sasaran_kerjasama,
+                'type_peserta' => $request->type_peserta,
+            ]);
+            if ($data) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Kegiatan Berhasil Disimpan',
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Terjadi kesalahan saat menyimpan data Kegiatan',
+                    'error' => $th->getMessage(),
+                ]);
         }
 
     }
