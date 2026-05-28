@@ -76,8 +76,9 @@ class KegiatanController extends Controller
             $fileName = '';
             if ($request->hasFile('mou')) {
                 $file = $request->file('mou');
-                $fileName = uniqid() . '_' . $file->getClientOriginalName();
+                $fileName = "mou_".uniqid() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('storage/kerjasama'), $fileName);
+                
             }
     
             $data = Kegiatan::create([
